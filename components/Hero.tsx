@@ -1,25 +1,18 @@
 ﻿'use client'
 
+import { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
-// ─── easing ───────────────────────────────────────────────────────────
+// ─── constants ────────────────────────────────────────────────────────
 const EASE = [0.16, 1, 0.3, 1] as const
 
-// Reusable fade-up helper
 function fadeUp(delay: number) {
   return {
-    initial: { opacity: 0, y: 28 },
+    initial: { opacity: 0, y: 22 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.85, ease: EASE, delay },
+    transition: { duration: 0.80, ease: EASE, delay },
   }
 }
-
-// ─── data ─────────────────────────────────────────────────────────────
-const STATS = [
-  { value: '20+', label: 'Projects Delivered' },
-  { value: '100%', label: 'Client Satisfaction' },
-  { value: '3+', label: 'Years Experience' },
-]
 
 const CLIENTS = [
   'EduFlow', 'LaunchMetrics', 'ConnectBridge', 'ShopSphere',
@@ -27,274 +20,267 @@ const CLIENTS = [
   'Opengate', 'Helixr', 'Synapse', 'Basecamp', 'Luminary',
   'VoxLab', 'Traxer', 'PivotHQ', 'Formcast', 'Gridsync',
 ]
-
-// triple so translateX(-33.33%) CSS loop is always seamless
 const TICKER = [...CLIENTS, ...CLIENTS, ...CLIENTS]
 
 // ─── component ────────────────────────────────────────────────────────
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const [mouse, setMouse] = useState({ x: -9999, y: -9999, active: false })
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const onMove = (e: MouseEvent) => {
+      const r = el.getBoundingClientRect()
+      setMouse({ x: e.clientX - r.left, y: e.clientY - r.top, active: true })
+    }
+    const onLeave = () => setMouse({ x: -9999, y: -9999, active: false })
+    el.addEventListener('mousemove', onMove)
+    el.addEventListener('mouseleave', onLeave)
+    return () => {
+      el.removeEventListener('mousemove', onMove)
+      el.removeEventListener('mouseleave', onLeave)
+    }
+  }, [])
+
   const scroll = (id: string) =>
     document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
     <section
+      ref={sectionRef}
       id="hero"
-      className="relative min-h-screen flex flex-col bg-[#080809] overflow-hidden"
+      className="relative flex flex-col bg-[#0A0A0B] overflow-hidden"
       aria-label="Hero section"
     >
-      {/* ══ BACKGROUND LAYERS ══ */}
-
-      {/* 1 – dot grid */}
+      {/* ── BG layer 1: extremely faint base grid — gives dark bg texture ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
         style={{
-          backgroundImage: 'radial-gradient(rgba(255,255,255,0.065) 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
         }}
       />
 
-      {/* 2 – radial vignette softens edges */}
+      {/* ── BG layer 2: vivid grid revealed ONLY under mouse via CSS mask ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.55) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+          opacity: mouse.active ? 1 : 0,
+          transition: 'opacity 0.4s ease',
+          WebkitMaskImage: `radial-gradient(circle 260px at ${mouse.x}px ${mouse.y}px, black 0%, transparent 100%)`,
+          maskImage: `radial-gradient(circle 260px at ${mouse.x}px ${mouse.y}px, black 0%, transparent 100%)`,
+        }}
+      />
+
+      {/* ── BG layer 3: red tint glow that follows cursor ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          opacity: mouse.active ? 1 : 0,
+          transition: 'opacity 0.4s ease',
+          background: `radial-gradient(circle 320px at ${mouse.x}px ${mouse.y}px,
+            rgba(220,38,38,0.10) 0%,
+            rgba(220,38,38,0.04) 55%,
+            transparent 100%)`,
+        }}
+      />
+
+      {/* ── BG layer 4: vignette — darkens grid at all edges always ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse 75% 65% at 50% 45%, transparent 30%, #080809 100%)',
+            'radial-gradient(ellipse 85% 75% at 50% 45%, transparent 20%, #0A0A0B 100%)',
         }}
       />
 
-      {/* 3 – aurora blob top-center */}
+      {/* ── BG layer 5: soft red ambient blob ── */}
       <motion.div
         className="absolute pointer-events-none rounded-full"
         aria-hidden="true"
         style={{
-          width: 900,
-          height: 580,
-          top: '-18%',
-          left: '50%',
-          translateX: '-50%',
-          filter: 'blur(120px)',
-          background:
-            'radial-gradient(ellipse, rgba(220,38,38,0.28) 0%, rgba(185,28,28,0.10) 55%, transparent 70%)',
+          width: 600, height: 420,
+          top: '-12%', left: '5%',
+          filter: 'blur(100px)',
+          background: 'radial-gradient(ellipse, rgba(220,38,38,0.14) 0%, transparent 70%)',
         }}
-        animate={{ scale: [1, 1.06, 0.97, 1], y: [0, -28, 18, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ scale: [1, 1.07, 0.98, 1], y: [0, -18, 12, 0] }}
+        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* 4 – aurora blob bottom-right */}
-      <motion.div
-        className="absolute pointer-events-none rounded-full"
-        aria-hidden="true"
-        style={{
-          width: 480,
-          height: 480,
-          bottom: '8%',
-          right: '8%',
-          filter: 'blur(90px)',
-          background:
-            'radial-gradient(ellipse, rgba(220,38,38,0.18) 0%, transparent 70%)',
-        }}
-        animate={{ scale: [1, 1.12, 0.95, 1], x: [0, -38, 18, 0] }}
-        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut', delay: 6 }}
-      />
+      {/* ── MAIN CONTENT ── */}
+      <div className="relative z-10 flex-1 flex items-center min-h-screen">
+        <div className="w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-28 pb-8">
 
-      {/* 5 – noise grain */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.038]"
-        aria-hidden="true"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-          backgroundRepeat: 'repeat',
-          backgroundSize: '200px',
-        }}
-      />
+          <div>
 
-      {/* ══ MAIN CONTENT ══ */}
-      <div className="relative z-10 flex-1 flex items-center">
-        <div className="w-full max-w-5xl mx-auto px-6 sm:px-12 pt-32 pb-10">
+            {/* ── CONTENT ── */}
+            <div className="max-w-3xl">
 
-          {/* eyebrow pill */}
-          <motion.div className="flex justify-center mb-10" {...fadeUp(0.05)}>
-            <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/[0.09] bg-white/[0.04] text-[11px] font-semibold tracking-[0.22em] uppercase text-white/50 select-none">
-              <motion.span
-                className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0"
-                animate={{ opacity: [1, 0.2, 1] }}
-                transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              Available for new projects
-            </span>
-          </motion.div>
-
-          {/* headline – each line slides up through overflow:hidden clip */}
-          <h1 className="text-center" aria-label="Building Software That Scales">
-
-            <div className="overflow-hidden">
-              <motion.div
-                className="text-[clamp(3rem,9vw,7.5rem)] font-black leading-[0.95] tracking-[-0.04em] text-white uppercase"
-                initial={{ y: '108%', opacity: 0 }}
-                animate={{ y: '0%', opacity: 1 }}
-                transition={{ duration: 1.0, ease: EASE, delay: 0.22 }}
-              >
-                Building Software
-              </motion.div>
-            </div>
-
-            <div className="overflow-hidden mb-8">
-              <motion.div
-                className="text-[clamp(3rem,9vw,7.5rem)] font-black leading-[0.95] tracking-[-0.04em] uppercase"
-                style={{
-                  background: 'linear-gradient(105deg, #ff4d4d 0%, #DC2626 32%, #f0f0f0 78%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-                initial={{ y: '108%', opacity: 0 }}
-                animate={{ y: '0%', opacity: 1 }}
-                transition={{ duration: 1.0, ease: EASE, delay: 0.40 }}
-              >
-                That Scales.
-              </motion.div>
-            </div>
-          </h1>
-
-          {/* sub-headline */}
-          <motion.p
-            className="text-center text-base sm:text-[1.05rem] leading-relaxed max-w-md mx-auto mb-12"
-            style={{ color: 'rgba(255,255,255,0.40)' }}
-            {...fadeUp(0.70)}
-          >
-            Endow Tech engineers modern web apps, SaaS platforms, and student
-            portal systems — built for performance and growth.
-          </motion.p>
-
-          {/* CTA buttons */}
-          <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-20"
-            {...fadeUp(0.86)}
-          >
-            <button
-              onClick={() => scroll('#contact')}
-              className="group relative w-full sm:w-auto px-9 py-4 text-sm font-bold text-white rounded-xl overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-[0_0_40px_rgba(220,38,38,0.38)] hover:brightness-110 active:scale-[0.97]"
-              style={{ background: '#DC2626' }}
-            >
-              <span
-                className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg]"
-                aria-hidden="true"
-              />
-              <span className="relative flex items-center justify-center gap-2">
-                Start a Project
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', repeatDelay: 0.8 }}
-                >
-                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path d="M2.5 7h9m0 0L8 3.5M11.5 7 8 10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </motion.span>
-              </span>
-            </button>
-
-            <button
-              onClick={() => scroll('#portfolio')}
-              className="w-full sm:w-auto px-9 py-4 text-sm font-bold rounded-xl border border-white/[0.10] bg-white/[0.03] hover:bg-white/[0.07] hover:border-white/[0.20] text-white/55 hover:text-white/90 active:scale-[0.97] transition-all duration-200 cursor-pointer"
-            >
-              View Our Work
-            </button>
-          </motion.div>
-
-          {/* stats row */}
-          <motion.div
-            className="flex flex-wrap items-start justify-center"
-            {...fadeUp(1.04)}
-          >
-            {STATS.map((s, i) => (
-              <div
-                key={s.label}
-                className="flex flex-col items-center px-10 sm:px-14 py-2 text-center"
-                style={{
-                  borderRight:
-                    i < STATS.length - 1
-                      ? '1px solid rgba(255,255,255,0.08)'
-                      : 'none',
-                }}
-              >
-                <span className="text-[2.6rem] font-black text-white leading-none tabular-nums">
-                  {s.value}
-                </span>
+              {/* eyebrow — bracketed label */}
+              <motion.div className="mb-7" {...fadeUp(0.05)}>
                 <span
-                  className="text-[10px] mt-1.5 font-semibold uppercase tracking-[0.20em]"
-                  style={{ color: 'rgba(255,255,255,0.28)' }}
+                  className="text-[11px] font-bold tracking-[0.25em] uppercase select-none"
+                  style={{ color: 'rgba(220,38,38,0.85)' }}
                 >
-                  {s.label}
+                  [ Web · SaaS · Student Portals ]
                 </span>
-              </div>
-            ))}
-          </motion.div>
+              </motion.div>
 
+              {/* headline — line-clip reveal */}
+              <h1 className="mb-8" aria-label="Building Software That Scales">
+                <div className="overflow-hidden">
+                  <motion.div
+                    className="text-[clamp(2.8rem,7vw,6.2rem)] font-black leading-[0.94] tracking-[-0.03em] text-white uppercase"
+                    initial={{ y: '110%' }}
+                    animate={{ y: '0%' }}
+                    transition={{ duration: 0.95, ease: EASE, delay: 0.18 }}
+                  >
+                    Building software
+                  </motion.div>
+                </div>
+                <div className="overflow-hidden">
+                  <motion.div
+                    className="text-[clamp(2.8rem,7vw,6.2rem)] font-black leading-[0.94] tracking-[-0.03em] uppercase"
+                    style={{
+                      background: 'linear-gradient(100deg, #ff5555 0%, #DC2626 35%, #ececec 72%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                    initial={{ y: '110%' }}
+                    animate={{ y: '0%' }}
+                    transition={{ duration: 0.95, ease: EASE, delay: 0.32 }}
+                  >
+                    that scales.
+                  </motion.div>
+                </div>
+              </h1>
+
+              {/* CTA */}
+              <motion.div className="mb-12" {...fadeUp(0.58)}>
+                <button
+                  onClick={() => scroll('#contact')}
+                  className="group relative inline-flex items-center gap-3 px-8 py-3.5 text-sm font-bold text-white border border-white/20 rounded-lg overflow-hidden hover:border-white/40 active:scale-[0.97] transition-all duration-200 cursor-pointer"
+                  style={{ background: 'rgba(255,255,255,0.04)' }}
+                >
+                  <span
+                    className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/[0.07] to-transparent"
+                    aria-hidden="true"
+                  />
+                  {/* phone icon */}
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                  <span className="relative">Start a Project</span>
+                  <motion.span
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1 }}
+                  >
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                      <path d="M2.5 7h9m0 0L8 3.5M11.5 7 8 10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </motion.span>
+                </button>
+              </motion.div>
+
+              {/* two-column descriptor */}
+              <motion.div
+                className="grid sm:grid-cols-2 gap-8 pt-8 border-t border-white/[0.07]"
+                {...fadeUp(0.72)}
+              >
+                {/* col 1 — audience */}
+                <div>
+                  <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: 'rgba(255,255,255,0.30)' }}>
+                    We build for
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {['Startups', 'Agencies', 'Enterprise'].map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 text-[12px] font-semibold tracking-wide rounded-full border border-white/[0.12] text-white/60 hover:border-white/25 hover:text-white/80 transition-colors duration-150 select-none cursor-default"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* col 2 — description */}
+                <div>
+                  <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: 'rgba(255,255,255,0.30)' }}>
+                    Our approach
+                  </p>
+                  <p className="text-[13px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                    Clean architecture, modern tooling, and pixel-perfect
+                    UI — delivered fast.
+                  </p>
+                </div>
+              </motion.div>
+
+            </div>
+
+          </div>
         </div>
       </div>
 
       {/* ══ CLIENT TICKER ══ */}
       <motion.div
-        className="relative z-10 w-full pb-12"
+        className="relative z-10 w-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.3, duration: 1.1 }}
+        transition={{ delay: 1.2, duration: 1.0 }}
         aria-hidden="true"
       >
-        {/* top hairline */}
+        {/* top border */}
         <div
-          className="h-px w-full mb-6"
+          className="h-px w-full"
           style={{
-            background:
-              'linear-gradient(to right, transparent, rgba(255,255,255,0.12) 20%, rgba(255,255,255,0.12) 80%, transparent)',
+            background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.10) 15%, rgba(255,255,255,0.10) 85%, transparent)',
           }}
         />
 
-        <p
-          className="text-center text-[10px] font-bold tracking-[0.28em] uppercase mb-6"
-          style={{ color: 'rgba(255,255,255,0.30)' }}
-        >
-          Trusted by teams at
-        </p>
-
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden py-4">
           {/* left fade */}
           <div
             className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: 'linear-gradient(to right, #080809 0%, transparent 100%)' }}
+            style={{ background: 'linear-gradient(to right, #0A0A0B, transparent)' }}
           />
           {/* right fade */}
           <div
             className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: 'linear-gradient(to left, #080809 0%, transparent 100%)' }}
+            style={{ background: 'linear-gradient(to left, #0A0A0B, transparent)' }}
           />
 
-          <div className="hero-ticker flex whitespace-nowrap w-max py-1">
+          <div className="hero-ticker flex whitespace-nowrap w-max">
             {TICKER.map((name, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-6 px-6 text-[13px] font-semibold tracking-[0.12em] uppercase select-none"
-                style={{ color: 'rgba(255,255,255,0.50)' }}
+                className="inline-flex items-center gap-7 px-7 text-[12px] font-semibold tracking-[0.14em] uppercase select-none"
+                style={{ color: 'rgba(255,255,255,0.45)' }}
               >
                 {name}
                 <span
-                  className="w-1 h-1 rounded-full flex-shrink-0"
-                  style={{ background: 'rgba(220,38,38,0.70)' }}
+                  className="w-[5px] h-[5px] rounded-full flex-shrink-0"
+                  style={{ background: 'rgba(220,38,38,0.65)' }}
                 />
               </span>
             ))}
           </div>
         </div>
 
-        {/* bottom hairline — clean section boundary */}
+        {/* bottom border */}
         <div
-          className="h-px w-full mt-6"
+          className="h-px w-full"
           style={{
-            background:
-              'linear-gradient(to right, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent)',
+            background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.07) 15%, rgba(255,255,255,0.07) 85%, transparent)',
           }}
         />
       </motion.div>
