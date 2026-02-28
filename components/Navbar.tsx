@@ -55,9 +55,6 @@ export default function Navbar() {
           <span className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-sm group-hover:bg-accent-hover transition-colors duration-200">
             ET
           </span>
-          <span className="font-semibold text-text-primary tracking-tight">
-            Endow Tech
-          </span>
         </a>
 
         {/* Desktop Links */}
