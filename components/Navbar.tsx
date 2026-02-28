@@ -34,7 +34,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-background/80 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
+          ? 'bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm'
           : 'bg-transparent'
       }`}
     >
@@ -115,7 +115,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="md:hidden bg-surface/95 backdrop-blur-md border-b border-white/5 overflow-hidden"
+            className="md:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 overflow-hidden"
           >
             <ul className="px-6 py-4 flex flex-col gap-4" role="list">
               {navLinks.map((link) => (
@@ -128,7 +128,7 @@ export default function Navbar() {
                   </button>
                 </li>
               ))}
-              <li className="pt-2 border-t border-white/5">
+              <li className="pt-2 border-t border-gray-100">
                 <button
                   onClick={() => handleNavClick('#contact')}
                   className="w-full px-4 py-2.5 text-sm font-medium text-white bg-accent rounded-lg hover:bg-accent-hover transition-colors duration-200 cursor-pointer"

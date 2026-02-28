@@ -42,11 +42,11 @@ export default function Hero() {
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-20 blur-3xl"
           style={{
             background:
-              'radial-gradient(ellipse, #3B82F6 0%, #818CF8 40%, transparent 70%)',
+              'radial-gradient(ellipse, #DC2626 0%, #F87171 40%, transparent 70%)',
           }}
           animate={{
             scale: [1, 1.1, 1],
-            opacity: [0.15, 0.22, 0.15],
+            opacity: [0.04, 0.07, 0.04],
           }}
           transition={{
             duration: 8,
@@ -56,10 +56,10 @@ export default function Hero() {
         />
         <motion.div
           className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-10 blur-3xl"
-          style={{ background: 'radial-gradient(ellipse, #818CF8 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(ellipse, #F87171 0%, transparent 70%)' }}
           animate={{
             scale: [1, 1.15, 1],
-            opacity: [0.08, 0.14, 0.08],
+            opacity: [0.04, 0.08, 0.04],
           }}
           transition={{
             duration: 10,
@@ -71,10 +71,10 @@ export default function Hero() {
 
         {/* Grid overlay */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.5]"
           style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)`,
             backgroundSize: '72px 72px',
           }}
         />
@@ -128,7 +128,7 @@ export default function Hero() {
             </button>
             <button
               onClick={() => handleScroll('#portfolio')}
-              className="px-7 py-3.5 text-sm font-semibold text-text-primary bg-surface-light border border-white/10 rounded-xl hover:border-white/20 hover:bg-white/5 active:scale-95 transition-all duration-200 cursor-pointer"
+              className="px-7 py-3.5 text-sm font-semibold text-text-primary bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:bg-gray-50 active:scale-95 transition-all duration-200 cursor-pointer"
             >
               View Work
             </button>
@@ -137,7 +137,7 @@ export default function Hero() {
           {/* Stats */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap justify-center gap-8 pt-8 mt-4 border-t border-white/5 w-full max-w-xl"
+            className="flex flex-wrap justify-center gap-8 pt-8 mt-4 border-t border-gray-100 w-full max-w-xl"
           >
             {[
               { value: '20+', label: 'Projects Delivered' },

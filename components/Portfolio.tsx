@@ -107,7 +107,7 @@ export default function Portfolio() {
               key={project.title}
               variants={cardVariants}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group relative bg-surface border border-white/5 rounded-2xl overflow-hidden cursor-default"
+              className="group relative bg-white border border-gray-100 rounded-2xl overflow-hidden cursor-default shadow-sm hover:shadow-md transition-shadow duration-300"
             >
               {/* Image placeholder */}
               <div
@@ -159,7 +159,7 @@ export default function Portfolio() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2.5 py-1 text-xs rounded-lg bg-surface-light border border-white/5 text-text-muted font-medium"
+                      className="px-2.5 py-1 text-xs rounded-lg bg-gray-50 border border-gray-100 text-text-muted font-medium"
                     >
                       {tag}
                     </span>

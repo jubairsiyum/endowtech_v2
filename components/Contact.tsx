@@ -100,7 +100,7 @@ export default function Contact() {
                 href="mailto:hello@endowtech.dev"
                 className="group flex items-center gap-3 text-text-muted hover:text-text-primary transition-colors duration-200"
               >
-                <span className="w-9 h-9 rounded-lg bg-surface border border-white/5 flex items-center justify-center group-hover:border-accent/30 transition-colors duration-200">
+                <span className="w-9 h-9 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center group-hover:border-accent/30 transition-colors duration-200">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -206,8 +206,8 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Alex Johnson"
                     autoComplete="name"
-                    className={`w-full px-4 py-3 text-sm rounded-xl bg-surface border ${
-                      errors.name ? 'border-red-500/60' : 'border-white/10'
+                    className={`w-full px-4 py-3 text-sm rounded-xl bg-white border ${
+                      errors.name ? 'border-red-400' : 'border-gray-200'
                     } text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-accent/60 transition-colors duration-200`}
                   />
                   {errors.name && (
@@ -233,8 +233,8 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="alex@company.com"
                     autoComplete="email"
-                    className={`w-full px-4 py-3 text-sm rounded-xl bg-surface border ${
-                      errors.email ? 'border-red-500/60' : 'border-white/10'
+                    className={`w-full px-4 py-3 text-sm rounded-xl bg-white border ${
+                      errors.email ? 'border-red-400' : 'border-gray-200'
                     } text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-accent/60 transition-colors duration-200`}
                   />
                   {errors.email && (
@@ -259,8 +259,8 @@ export default function Contact() {
                     onChange={handleChange}
                     rows={5}
                     placeholder="Tell us about your project — what you're building, your timeline, and any technical requirements..."
-                    className={`w-full px-4 py-3 text-sm rounded-xl bg-surface border ${
-                      errors.details ? 'border-red-500/60' : 'border-white/10'
+                    className={`w-full px-4 py-3 text-sm rounded-xl bg-white border ${
+                      errors.details ? 'border-red-400' : 'border-gray-200'
                     } text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-accent/60 transition-colors duration-200 resize-none`}
                   />
                   {errors.details && (

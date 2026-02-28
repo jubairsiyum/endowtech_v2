@@ -172,7 +172,7 @@ export default function About() {
                   delay: index * 0.08,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="flex gap-4 p-5 rounded-xl bg-surface border border-white/5 group hover:border-accent/20 transition-colors duration-300"
+                className="flex gap-4 p-5 rounded-xl bg-white border border-gray-100 shadow-sm group hover:border-accent/30 hover:shadow-md transition-all duration-300"
               >
                 <div className="shrink-0 w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent/20 transition-colors duration-300">
                   {item.icon}

@@ -175,14 +175,14 @@ export default function Services() {
               key={service.title}
               variants={cardVariants}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group relative bg-surface border border-white/5 rounded-2xl p-6 cursor-default overflow-hidden"
+              className="group relative bg-white border border-gray-100 rounded-2xl p-6 cursor-default overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
             >
               {/* Hover glow */}
               <div
                 className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                 style={{
                   background:
-                    'radial-gradient(circle at 50% 0%, rgba(59,130,246,0.08) 0%, transparent 70%)',
+                    'radial-gradient(circle at 50% 0%, rgba(220,38,38,0.05) 0%, transparent 70%)',
                 }}
                 aria-hidden="true"
               />
@@ -207,7 +207,7 @@ export default function Services() {
                 {service.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-0.5 text-xs rounded-md bg-surface-light border border-white/5 text-text-muted"
+                    className="px-2 py-0.5 text-xs rounded-md bg-gray-50 border border-gray-100 text-text-muted"
                   >
                     {tag}
                   </span>

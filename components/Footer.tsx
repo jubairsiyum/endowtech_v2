@@ -78,7 +78,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="border-t border-white/5 bg-surface"
+      className="border-t border-gray-100 bg-surface"
       aria-label="Site footer"
     >
       <div className="max-w-6xl mx-auto px-6 pt-16 pb-8">
@@ -110,7 +110,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-8 h-8 rounded-lg bg-surface-light border border-white/5 flex items-center justify-center text-text-muted hover:text-text-primary hover:border-white/20 transition-all duration-200"
+                  className="w-8 h-8 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-text-muted hover:text-text-primary hover:border-gray-300 transition-all duration-200"
                 >
                   {social.icon}
                 </a>
@@ -157,7 +157,7 @@ export default function Footer() {
         </motion.div>
 
         {/* Divider */}
-        <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <div className="border-t border-gray-100 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="text-xs text-text-muted">
             &copy; {new Date().getFullYear()} Endow Tech. All rights reserved.
           </p>
