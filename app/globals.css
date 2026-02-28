@@ -37,10 +37,16 @@ body {
   background: #DC2626;
 }
 
-/* Selection */
+/* Selection — light sections (white bg) */
 ::selection {
-  background: rgba(220, 38, 38, 0.15);
+  background: rgba(220, 38, 38, 0.18);
   color: #111827;
+}
+
+/* Selection — dark hero section: solid bg so white text stays legible */
+#hero ::selection {
+  background: rgba(220, 38, 38, 0.75);
+  color: #ffffff;
 }
 
 /* Focus ring */
