@@ -75,6 +75,19 @@ body {
   pointer-events: none;
 }
 
+/* ── Hero ticker (CSS, more reliable than % Framer translate) ── */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% / 3)); }
+}
+.hero-ticker {
+  animation: ticker 38s linear infinite;
+  will-change: transform;
+}
+.hero-ticker:hover {
+  animation-play-state: paused;
+}
+
 /* Section spacing */
 .section-padding {
   padding-top: 6rem;
