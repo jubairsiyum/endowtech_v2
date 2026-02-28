@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
+import SmoothScroll from '@/components/SmoothScroll'
 import './globals.css'
 
 const inter = Inter({
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0F172A',
+  themeColor: '#FFFFFF',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -75,7 +76,9 @@ export default function RootLayout({
   return (
       <html lang="en" className={`scroll-smooth ${inter.variable}`}>
       <body className="bg-background text-text-primary antialiased">
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   )
