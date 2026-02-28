@@ -74,8 +74,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-      <html lang="en" className={`scroll-smooth ${inter.variable}`}>
-      <body className="bg-background text-text-primary antialiased">
+    <html lang="en" className={`scroll-smooth ${inter.variable}`}>
+      <body className="bg-background text-text-primary antialiased" suppressHydrationWarning>
         <SmoothScroll>
           {children}
         </SmoothScroll>
