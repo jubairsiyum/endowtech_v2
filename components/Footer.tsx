@@ -79,7 +79,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="border-t border-gray-100 bg-surface"
+      className="border-t border-gray-200 bg-white"
       aria-label="Site footer"
     >
       <div className="max-w-6xl mx-auto px-6 pt-16 pb-8">

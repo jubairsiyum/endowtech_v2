@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent, type ChangeEvent } from 'react'
 import { motion } from 'framer-motion'
+import DotGridLight from './DotGridLight'
 
 interface FormData {
   name: string
@@ -65,10 +66,15 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="section-padding"
+      className="section-padding relative overflow-hidden"
       aria-labelledby="contact-heading"
     >
-      <div className="max-w-6xl mx-auto px-6">
+      {/* Dot grid background */}
+      <div className="absolute inset-0 z-0">
+        <DotGridLight />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left — info */}
           <motion.div
@@ -77,12 +83,12 @@ export default function Contact() {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="text-xs font-medium text-accent tracking-widest uppercase">
+            <span className="section-subtitle text-xs tracking-widest uppercase">
               Get in touch
             </span>
             <h2
               id="contact-heading"
-              className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight"
+              className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight"
             >
               Let&apos;s build
               <br />

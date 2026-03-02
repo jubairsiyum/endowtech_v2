@@ -105,12 +105,12 @@ export default function About() {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="text-xs font-medium text-accent tracking-widest uppercase">
+            <span className="section-subtitle text-xs tracking-widest uppercase">
               Who we are
             </span>
             <h2
               id="about-heading"
-              className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight leading-tight"
+              className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight leading-tight"
             >
               Built by builders,
               <br />

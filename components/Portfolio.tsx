@@ -65,10 +65,14 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="section-padding"
+      className="section-padding bg-[#0A0A0B] relative overflow-hidden"
       aria-labelledby="portfolio-heading"
     >
-      <div className="max-w-6xl mx-auto px-6">
+      {/* Ambient decorations */}
+      <div className="absolute top-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -77,18 +81,18 @@ export default function Portfolio() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="mb-16"
         >
-          <span className="text-xs font-medium text-accent tracking-widest uppercase">
+          <span className="section-subtitle text-xs tracking-widest uppercase">
             Our work
           </span>
           <h2
             id="portfolio-heading"
-            className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight"
+            className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight"
           >
             Projects we&apos;re
             <br />
             <span className="gradient-text">proud of.</span>
           </h2>
-          <p className="mt-4 text-text-muted max-w-lg text-base leading-relaxed">
+          <p className="mt-4 text-gray-400 max-w-lg text-base leading-relaxed">
             A selection of recent work across web platforms, SaaS products, and 
             education technology.
           </p>
@@ -107,7 +111,7 @@ export default function Portfolio() {
               key={project.title}
               variants={cardVariants}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group relative bg-white border border-gray-100 rounded-2xl overflow-hidden cursor-default shadow-sm hover:shadow-md transition-shadow duration-300"
+              className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden cursor-default hover:bg-white/[0.07] hover:border-white/20 transition-all duration-300"
             >
               {/* Image placeholder */}
               <div
@@ -147,10 +151,10 @@ export default function Portfolio() {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-white transition-colors">
+                <h3 className="text-lg font-semibold text-white mb-2">
                   {project.title}
                 </h3>
-                <p className="text-sm text-text-muted leading-relaxed mb-4">
+                <p className="text-sm text-gray-400 leading-relaxed mb-4">
                   {project.description}
                 </p>
 
@@ -159,7 +163,7 @@ export default function Portfolio() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2.5 py-1 text-xs rounded-lg bg-gray-50 border border-gray-100 text-text-muted font-medium"
+                      className="px-2.5 py-1 text-xs rounded-lg bg-white/5 border border-white/10 text-gray-300 font-medium"
                     >
                       {tag}
                     </span>
@@ -185,7 +189,7 @@ export default function Portfolio() {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="mt-10 text-center"
         >
-          <p className="text-text-muted text-sm">
+          <p className="text-gray-400 text-sm">
             More projects available on request.{' '}
             <button
               onClick={() => {

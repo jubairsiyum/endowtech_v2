@@ -145,12 +145,12 @@ export default function Services() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="mb-16"
         >
-          <span className="text-xs font-medium text-accent tracking-widest uppercase">
+          <span className="section-subtitle text-xs tracking-widest uppercase">
             What we do
           </span>
           <h2
             id="services-heading"
-            className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight"
+            className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight"
           >
             Services built for
             <br />

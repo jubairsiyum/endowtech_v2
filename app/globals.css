@@ -39,13 +39,16 @@ body {
 
 /* Selection — light sections (white bg) */
 ::selection {
-  background: rgba(220, 38, 38, 0.18);
+  background: rgba(220, 38, 38, 0.25);
   color: #111827;
 }
 
-/* Selection — dark hero section: solid bg so white text stays legible */
-#hero ::selection {
-  background: rgba(220, 38, 38, 0.75);
+/* Selection — dark sections: solid bg so white text stays legible */
+#hero ::selection,
+#tech-stack ::selection,
+#portfolio ::selection,
+#comparison ::selection {
+  background: rgba(239, 68, 68, 0.95);
   color: #ffffff;
 }
 
@@ -61,6 +64,17 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Subtitle styling for better visibility */
+.section-subtitle {
+  display: inline-block;
+  padding: 0.375rem 0.875rem;
+  background: rgba(220, 38, 38, 0.12);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: 0.5rem;
+  color: #DC2626;
+  font-weight: 700;
 }
 
 /* Animated border */
