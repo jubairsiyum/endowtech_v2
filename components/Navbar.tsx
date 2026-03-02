@@ -34,7 +34,7 @@ export default function Navbar() {
       }`}
     >
       <nav
-        className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 h-[72px] flex items-center justify-between"
+        className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 h-20 sm:h-24 lg:h-28 xl:h-32 flex items-center justify-between"
         aria-label="Main navigation"
       >
 
@@ -54,14 +54,15 @@ export default function Navbar() {
             style={{ opacity: onHero ? 1 : 0, position: onHero ? 'relative' : 'absolute', inset: 0 }}
             aria-hidden={!onHero}
           >
-            <Image
-              src="/images/logo_dark.png"
-              alt="Endow Tech"
-              width={148}
-              height={48}
-              style={{ objectFit: 'contain', height: '38px', width: 'auto' }}
-              priority
-            />
+            <div className="relative h-12 w-36 sm:h-14 sm:w-44 md:h-16 md:w-52 lg:h-20 lg:w-64 xl:h-24 xl:w-80">
+              <Image
+                src="/images/logo_dark.png"
+                alt="Endow Tech"
+                fill
+                style={{ objectFit: 'contain', objectPosition: 'left center' }}
+                priority
+              />
+            </div>
           </span>
 
           {/* logo for white scrolled bg */}
@@ -70,14 +71,15 @@ export default function Navbar() {
             style={{ opacity: onHero ? 0 : 1, position: onHero ? 'absolute' : 'relative', inset: 0 }}
             aria-hidden={onHero}
           >
-            <Image
-              src="/images/logo_light.png"
-              alt="Endow Tech"
-              width={148}
-              height={48}
-              style={{ objectFit: 'contain', height: '38px', width: 'auto' }}
-              priority
-            />
+            <div className="relative h-12 w-36 sm:h-14 sm:w-44 md:h-16 md:w-52 lg:h-20 lg:w-64 xl:h-24 xl:w-80">
+              <Image
+                src="/images/logo_light.png"
+                alt="Endow Tech"
+                fill
+                style={{ objectFit: 'contain', objectPosition: 'left center' }}
+                priority
+              />
+            </div>
           </span>
         </a>
 
