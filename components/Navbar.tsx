@@ -34,7 +34,11 @@ export default function Navbar() {
       }`}
     >
       <nav
-        className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 h-20 sm:h-24 lg:h-28 xl:h-32 flex items-center justify-between"
+        className={`max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 flex items-center justify-between transition-all duration-500 ${
+          onHero
+            ? 'h-20 sm:h-24 lg:h-28 xl:h-32'
+            : 'h-16 sm:h-18 md:h-20 lg:h-20'
+        }`}
         aria-label="Main navigation"
       >
 

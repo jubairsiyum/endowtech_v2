@@ -88,7 +88,7 @@ export default function Hero() {
               transform: 'translateY(-50%)',
               width: 'clamp(220px, 26vw, 360px)',
               aspectRatio: '1 / 1',
-              opacity: 0.06,
+              opacity: 0.14,
               mixBlendMode: 'screen',
             }}
           >

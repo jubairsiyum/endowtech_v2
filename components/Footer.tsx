@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 const footerLinks = {
   Company: [
@@ -92,11 +93,13 @@ export default function Footer() {
         >
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1 flex flex-col gap-4">
-            <div className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-sm">
-                ET
-              </span>
-              <span className="font-semibold text-text-primary">Endow Tech</span>
+            <div className="relative h-10 w-32 sm:h-12 sm:w-36 md:h-14 md:w-40">
+              <Image
+                src="/images/logo_light.png"
+                alt="Endow Tech"
+                fill
+                style={{ objectFit: 'contain', objectPosition: 'left center' }}
+              />
             </div>
             <p className="text-sm text-text-muted leading-relaxed max-w-[200px]">
               Modern software for growing teams and forward-thinking institutions.
