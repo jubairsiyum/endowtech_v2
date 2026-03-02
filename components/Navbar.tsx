@@ -1,142 +1,110 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-
-const navLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'Work', href: '#portfolio' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
-]
+import Image from 'next/image'
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  // true  = hero is visible  → transparent navbar, dark-bg logo
+  // false = scrolled past hero → white navbar, light-bg logo
+  const [onHero, setOnHero] = useState(true)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    const hero = document.getElementById('hero')
+    if (!hero) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setOnHero(entry.isIntersecting),
+      // trigger as soon as the hero starts leaving the top edge
+      { threshold: 0, rootMargin: '-80px 0px 0px 0px' }
+    )
+
+    observer.observe(hero)
+    return () => observer.disconnect()
   }, [])
 
-  const handleNavClick = (href: string) => {
-    setMenuOpen(false)
-    const el = document.querySelector(href)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
+  const scrollTo = (id: string) =>
+    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm'
-          : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        onHero
+          ? 'bg-transparent'
+          : 'bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-[0_1px_24px_rgba(0,0,0,0.06)]'
       }`}
     >
       <nav
-        className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between"
+        className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 h-[72px] flex items-center justify-between"
         aria-label="Main navigation"
       >
-        {/* Logo */}
+
+        {/* ── Logo ── */}
         <a
           href="#"
-          className="flex items-center gap-2 group"
-          aria-label="Endow Tech home"
+          className="relative flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded"
+          aria-label="Endow Tech — back to top"
           onClick={(e) => {
             e.preventDefault()
             window.scrollTo({ top: 0, behavior: 'smooth' })
           }}
         >
-          <span className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-sm group-hover:bg-accent-hover transition-colors duration-200">
-            ET
+          {/* logo for dark hero bg */}
+          <span
+            className="block transition-opacity duration-500"
+            style={{ opacity: onHero ? 1 : 0, position: onHero ? 'relative' : 'absolute', inset: 0 }}
+            aria-hidden={!onHero}
+          >
+            <Image
+              src="/images/logo_dark.png"
+              alt="Endow Tech"
+              width={148}
+              height={48}
+              style={{ objectFit: 'contain', height: '38px', width: 'auto' }}
+              priority
+            />
+          </span>
+
+          {/* logo for white scrolled bg */}
+          <span
+            className="block transition-opacity duration-500"
+            style={{ opacity: onHero ? 0 : 1, position: onHero ? 'absolute' : 'relative', inset: 0 }}
+            aria-hidden={onHero}
+          >
+            <Image
+              src="/images/logo_light.png"
+              alt="Endow Tech"
+              width={148}
+              height={48}
+              style={{ objectFit: 'contain', height: '38px', width: 'auto' }}
+              priority
+            />
           </span>
         </a>
 
-        {/* Desktop Links */}
-        <ul className="hidden md:flex items-center gap-8" role="list">
-          {navLinks.map((link) => (
-            <li key={link.label}>
-              <button
-                onClick={() => handleNavClick(link.href)}
-                className="text-sm text-text-muted hover:text-text-primary transition-colors duration-200 relative group cursor-pointer"
-              >
-                {link.label}
-                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-4">
-          <button
-            onClick={() => handleNavClick('#contact')}
-            className="px-4 py-2 text-sm font-medium text-white bg-accent rounded-lg hover:bg-accent-hover transition-colors duration-200 cursor-pointer"
-          >
-            Start a Project
-          </button>
-        </div>
-
-        {/* Mobile Menu Toggle */}
+        {/* ── CTA ── */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => scrollTo('#contact')}
+          className={`
+            inline-flex items-center gap-2.5 px-5 py-2.5 rounded-lg text-sm font-semibold
+            cursor-pointer select-none transition-all duration-300 active:scale-[0.97]
+            ${onHero
+              ? 'border border-white/25 text-white/90 bg-white/[0.06] hover:bg-white/[0.11] hover:border-white/40'
+              : 'bg-[#DC2626] text-white border border-[#DC2626] hover:bg-[#b91c1c] hover:border-[#b91c1c] shadow-sm shadow-red-200'
+            }
+          `}
         >
-          <motion.span
-            animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-            className="block w-5 h-0.5 bg-text-primary origin-center transition-all"
-          />
-          <motion.span
-            animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-            className="block w-5 h-0.5 bg-text-primary origin-center transition-all"
-          />
-          <motion.span
-            animate={menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-            className="block w-5 h-0.5 bg-text-primary origin-center transition-all"
-          />
-        </button>
-      </nav>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="md:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 overflow-hidden"
+          <svg
+            width="13" height="13" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" strokeWidth="2.2"
+            strokeLinecap="round" strokeLinejoin="round"
+            aria-hidden="true"
           >
-            <ul className="px-6 py-4 flex flex-col gap-4" role="list">
-              {navLinks.map((link) => (
-                <li key={link.label}>
-                  <button
-                    onClick={() => handleNavClick(link.href)}
-                    className="text-text-muted hover:text-text-primary transition-colors duration-200 text-sm w-full text-left py-1 cursor-pointer"
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-              <li className="pt-2 border-t border-gray-100">
-                <button
-                  onClick={() => handleNavClick('#contact')}
-                  className="w-full px-4 py-2.5 text-sm font-medium text-white bg-accent rounded-lg hover:bg-accent-hover transition-colors duration-200 cursor-pointer"
-                >
-                  Start a Project
-                </button>
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span>Start a Project</span>
+        </button>
+
+      </nav>
     </header>
   )
 }
