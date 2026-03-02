@@ -70,7 +70,7 @@ export default function Testimonials() {
           className="mb-16 text-center"
         >
           <span className="section-subtitle text-xs tracking-widest uppercase">
-            Client feedback
+            // testimonials
           </span>
           <h2
             id="testimonials-heading"

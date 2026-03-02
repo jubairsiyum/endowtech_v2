@@ -106,7 +106,7 @@ export default function About() {
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-subtitle text-xs tracking-widest uppercase">
-              Who we are
+              // about
             </span>
             <h2
               id="about-heading"

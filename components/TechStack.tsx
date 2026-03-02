@@ -163,7 +163,7 @@ export default function TechStack() {
           className="mb-12 text-center"
         >
           <span className="section-subtitle text-xs tracking-widest uppercase">
-            Technologies we use
+            // tech stack
           </span>
           <h2
             id="tech-stack-heading"

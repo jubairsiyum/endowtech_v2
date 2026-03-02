@@ -130,7 +130,7 @@ export default function ComparisonTable() {
           className="mb-16 text-center"
         >
           <span className="section-subtitle text-xs tracking-widest uppercase">
-            Why choose us
+            // why us
           </span>
           <h2
             id="comparison-heading"

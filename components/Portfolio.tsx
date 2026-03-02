@@ -82,7 +82,7 @@ export default function Portfolio() {
           className="mb-16"
         >
           <span className="section-subtitle text-xs tracking-widest uppercase">
-            Our work
+            // work
           </span>
           <h2
             id="portfolio-heading"

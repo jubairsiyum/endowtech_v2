@@ -84,7 +84,7 @@ export default function Contact() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-subtitle text-xs tracking-widest uppercase">
-              Get in touch
+              // contact
             </span>
             <h2
               id="contact-heading"

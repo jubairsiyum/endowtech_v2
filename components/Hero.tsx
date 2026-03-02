@@ -189,7 +189,7 @@ export default function Hero() {
                   <motion.div
                     className="text-[clamp(2.8rem,7vw,6.2rem)] font-black leading-[0.94] tracking-[-0.03em] uppercase"
                     style={{
-                      background: 'linear-gradient(100deg, #ff5555 0%, #DC2626 35%, #ececec 72%)',
+                      backgroundImage: 'linear-gradient(100deg, #ff5555 0%, #DC2626 35%, #ececec 72%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',

@@ -146,7 +146,7 @@ export default function Services() {
           className="mb-16"
         >
           <span className="section-subtitle text-xs tracking-widest uppercase">
-            What we do
+            // services
           </span>
           <h2
             id="services-heading"
@@ -154,7 +154,7 @@ export default function Services() {
           >
             Services built for
             <br />
-            <span className="gradient-text">modern teams.</span>
+            <span className="gradient-text">modern dev teams.</span>
           </h2>
           <p className="mt-4 text-text-muted max-w-lg text-base leading-relaxed">
             From concept to deployment, we handle every layer of your product — 

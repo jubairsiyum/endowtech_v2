@@ -53,7 +53,7 @@ export default function IndustryCoverage() {
           className="mb-16 text-center"
         >
           <span className="section-subtitle text-xs tracking-widest uppercase text-accent/80">
-            Backend Expertise
+            // industry coverage
           </span>
           <h2
             id="industry-heading"
@@ -125,7 +125,7 @@ export default function IndustryCoverage() {
                 points={points}
                 fill="url(#polygonGradient)"
                 stroke="#DC2626"
-                strokeWidth="2"                    // ← thinner border
+                strokeWidth="2"
                 strokeOpacity="0.9"
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -166,16 +166,6 @@ export default function IndustryCoverage() {
 
                 return (
                   <g key={i}>
-                    {/* Smaller icon */}
-                    <text
-                      x={x}
-                      y={y - 14}
-                      textAnchor="middle"
-                      className="text-base fill-gray-500/70"   // ↓ from text-lg to text-base
-                    >
-                      {industry.icon}
-                    </text>
-
                     {/* Industry name – smaller & lighter */}
                     <text
                       x={x}
