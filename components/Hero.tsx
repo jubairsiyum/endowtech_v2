@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import DotGrid from './DotGrid'
 
 // ─── constants ────────────────────────────────────────────────────────
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -53,29 +54,22 @@ export default function Hero() {
       className="relative flex flex-col bg-[#0A0A0B] overflow-hidden"
       aria-label="Hero section"
     >
-      {/* ── BG layer 1: extremely faint base grid — gives dark bg texture ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-        style={{
-          backgroundImage: 'radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
-      />
-
-      {/* ── BG layer 2: vivid grid revealed ONLY under mouse via CSS mask ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-        style={{
-          backgroundImage: 'radial-gradient(rgba(255,255,255,0.55) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-          opacity: mouse.active ? 1 : 0,
-          transition: 'opacity 0.4s ease',
-          WebkitMaskImage: `radial-gradient(circle 260px at ${mouse.x}px ${mouse.y}px, black 0%, transparent 100%)`,
-          maskImage: `radial-gradient(circle 260px at ${mouse.x}px ${mouse.y}px, black 0%, transparent 100%)`,
-        }}
-      />
+      {/* ── BG layer 1+2: interactive dot grid (DotGrid) ── */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <DotGrid
+          dotSize={3}
+          gap={18}
+          baseColor="#242424"
+          activeColor="#DC2626"
+          proximity={140}
+          speedTrigger={80}
+          shockRadius={220}
+          shockStrength={4}
+          maxSpeed={4000}
+          resistance={800}
+          returnDuration={1.8}
+        />
+      </div>
 
       {/* ── BG layer 3: red tint glow that follows cursor ── */}
       <div
@@ -91,13 +85,25 @@ export default function Hero() {
         }}
       />
 
-      {/* ── BG layer 4: vignette — darkens grid at all edges always ── */}
+      {/* ── BG layer 4: vignette — hard fade at all four edges ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
         style={{
-          background:
-            'radial-gradient(ellipse 85% 75% at 50% 45%, transparent 20%, #0A0A0B 100%)',
+          background: [
+            'radial-gradient(ellipse 90% 80% at 50% 50%, transparent 25%, #0A0A0B 78%)',
+          ].join(','),
+        }}
+      />
+      {/* ── BG layer 4b: extra top+bottom edge bleed ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          background: [
+            'linear-gradient(to bottom, #0A0A0B 0%, transparent 14%, transparent 82%, #0A0A0B 100%)',
+            'linear-gradient(to right,  #0A0A0B 0%, transparent 10%, transparent 90%, #0A0A0B 100%)',
+          ].join(','),
         }}
       />
 
