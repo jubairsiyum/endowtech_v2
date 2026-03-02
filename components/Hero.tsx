@@ -1,6 +1,7 @@
 ﻿'use client'
 
 import { useRef, useEffect, useState } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import DotGrid from './DotGrid'
 
@@ -69,6 +70,38 @@ export default function Hero() {
           resistance={800}
           returnDuration={1.8}
         />
+      </div>
+
+      {/* ── BG layer 2.5: logo watermark — right column, vertically centred with headline ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+      >
+        {/* mirror the content container so the logo sits inside the same max-w-7xl gutter */}
+        <div className="w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 h-full relative">
+          <div
+            style={{
+              position: 'absolute',
+              /* sit in the right half — starting just after the max-w-3xl text block */
+              right: '0%',
+              top: '38%',
+              transform: 'translateY(-50%)',
+              width: 'clamp(220px, 26vw, 360px)',
+              aspectRatio: '1 / 1',
+              opacity: 0.06,
+              mixBlendMode: 'screen',
+            }}
+          >
+            <Image
+              src="/images/logo.png"
+              alt=""
+              fill
+              style={{ objectFit: 'contain' }}
+              priority={false}
+              draggable={false}
+            />
+          </div>
+        </div>
       </div>
 
       {/* ── BG layer 3: red tint glow that follows cursor ── */}
