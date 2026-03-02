@@ -93,7 +93,7 @@ export default function Footer() {
         >
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1 flex flex-col gap-4">
-            <div className="relative h-10 w-32 sm:h-12 sm:w-36 md:h-14 md:w-40">
+            <div className="relative h-8 w-24 sm:h-9 sm:w-28 md:h-10 md:w-32">
               <Image
                 src="/images/logo_light.png"
                 alt="Endow Tech"

@@ -132,7 +132,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="section-padding"
+      className="section-padding bg-surface"
       aria-labelledby="services-heading"
       ref={ref}
     >

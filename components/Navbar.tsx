@@ -36,8 +36,8 @@ export default function Navbar() {
       <nav
         className={`max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 flex items-center justify-between transition-all duration-500 ${
           onHero
-            ? 'h-20 sm:h-24 lg:h-28 xl:h-32'
-            : 'h-16 sm:h-18 md:h-20 lg:h-20'
+            ? 'h-18 sm:h-20 lg:h-22 xl:h-24'
+            : 'h-14 sm:h-16 md:h-16 lg:h-16'
         }`}
         aria-label="Main navigation"
       >
@@ -58,7 +58,7 @@ export default function Navbar() {
             style={{ opacity: onHero ? 1 : 0, position: onHero ? 'relative' : 'absolute', inset: 0 }}
             aria-hidden={!onHero}
           >
-            <div className="relative h-12 w-36 sm:h-14 sm:w-44 md:h-16 md:w-52 lg:h-20 lg:w-64 xl:h-24 xl:w-80">
+            <div className="relative h-9 w-28 sm:h-10 sm:w-32 md:h-11 md:w-36 lg:h-14 lg:w-44 xl:h-16 xl:w-52">
               <Image
                 src="/images/logo_dark.png"
                 alt="Endow Tech"
@@ -75,7 +75,7 @@ export default function Navbar() {
             style={{ opacity: onHero ? 0 : 1, position: onHero ? 'absolute' : 'relative', inset: 0 }}
             aria-hidden={onHero}
           >
-            <div className="relative h-12 w-36 sm:h-14 sm:w-44 md:h-16 md:w-52 lg:h-20 lg:w-64 xl:h-24 xl:w-80">
+            <div className="relative h-9 w-28 sm:h-10 sm:w-32 md:h-11 md:w-36 lg:h-14 lg:w-44 xl:h-16 xl:w-52">
               <Image
                 src="/images/logo_light.png"
                 alt="Endow Tech"

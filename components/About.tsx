@@ -93,7 +93,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="section-padding"
+      className="section-padding bg-surface"
       aria-labelledby="about-heading"
     >
       <div className="max-w-6xl mx-auto px-6">
