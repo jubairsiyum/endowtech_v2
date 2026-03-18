@@ -1,12 +1,12 @@
 ﻿'use client'
 
 import { useRef, useEffect, useState } from 'react'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import DotGrid from './DotGrid'
 
 // ─── constants ────────────────────────────────────────────────────────
 const EASE = [0.16, 1, 0.3, 1] as const
+const GRID_GAP = 18
 
 function fadeUp(delay: number) {
   return {
@@ -59,7 +59,7 @@ export default function Hero() {
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <DotGrid
           dotSize={3}
-          gap={18}
+          gap={GRID_GAP}
           baseColor="#242424"
           activeColor="#DC2626"
           proximity={140}
@@ -79,28 +79,64 @@ export default function Hero() {
       >
         {/* mirror the content container so the logo sits inside the same max-w-7xl gutter */}
         <div className="w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 h-full relative">
-          <div
-            style={{
-              position: 'absolute',
-              /* sit in the right half — starting just after the max-w-3xl text block */
-              right: '0%',
-              top: '38%',
-              transform: 'translateY(-50%)',
-              width: 'clamp(220px, 26vw, 360px)',
-              aspectRatio: '1 / 1',
-              opacity: 0.14,
-              mixBlendMode: 'screen',
-            }}
+          <motion.div
+            className="absolute right-[-8%] top-1/2 w-[360px] sm:w-[420px] lg:w-[500px] aspect-square pointer-events-none select-none"
+            style={{ transform: 'translateY(-50%)' }}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.45, ease: EASE }}
           >
-            <Image
-              src="/images/logo.png"
-              alt=""
-              fill
-              style={{ objectFit: 'contain' }}
-              priority={false}
-              draggable={false}
+            <motion.div
+              className="absolute inset-[8%]"
+              style={{
+                background: 'radial-gradient(circle at 45% 50%, rgba(220,38,38,0.20) 0%, rgba(220,38,38,0.08) 45%, transparent 78%)',
+                filter: 'blur(24px)',
+              }}
+              animate={{ opacity: [0.35, 0.55, 0.35] }}
+              transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
             />
-          </div>
+
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                opacity: 0.2,
+                mixBlendMode: 'screen',
+                backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.85) 1.1px, transparent 1.1px), linear-gradient(130deg, rgba(255,255,255,0.20) 0%, rgba(220,38,38,0.32) 48%, rgba(255,255,255,0.16) 100%)`,
+                backgroundSize: `${GRID_GAP}px ${GRID_GAP}px, 100% 100%`,
+                backgroundPosition: '0 0, 0 0',
+                maskImage: "url('/images/logo.png')",
+                WebkitMaskImage: "url('/images/logo.png')",
+                maskSize: 'contain',
+                WebkitMaskSize: 'contain',
+                maskRepeat: 'no-repeat',
+                WebkitMaskRepeat: 'no-repeat',
+                maskPosition: 'center',
+                WebkitMaskPosition: 'center',
+              }}
+              animate={{ y: [0, -8, 0], x: [0, 4, 0], rotate: [0, 0.8, 0] }}
+              transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+            />
+
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                opacity: 0.12,
+                mixBlendMode: 'screen',
+                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.9) 48%, transparent 100%)',
+                filter: 'blur(6px)',
+                maskImage: "url('/images/logo.png')",
+                WebkitMaskImage: "url('/images/logo.png')",
+                maskSize: 'contain',
+                WebkitMaskSize: 'contain',
+                maskRepeat: 'no-repeat',
+                WebkitMaskRepeat: 'no-repeat',
+                maskPosition: 'center',
+                WebkitMaskPosition: 'center',
+              }}
+              animate={{ x: ['-6%', '6%', '-6%'] }}
+              transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </motion.div>
         </div>
       </div>
 
