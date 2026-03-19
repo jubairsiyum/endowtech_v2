@@ -27,17 +27,13 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        onHero
-          ? 'bg-transparent'
-          : 'bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-[0_1px_24px_rgba(0,0,0,0.06)]'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 flex justify-center px-2 sm:px-4 lg:px-0 pointer-events-none"
     >
       <nav
-        className={`max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 flex items-center justify-between transition-all duration-500 ${
+        className={`pointer-events-auto mt-3 sm:mt-4 px-6 sm:px-10 lg:px-12 flex items-center justify-between transition-all duration-500 ease-out ${
           onHero
-            ? 'h-18 sm:h-20 lg:h-22 xl:h-24'
-            : 'h-14 sm:h-16 md:h-16 lg:h-16'
+            ? 'w-full max-w-7xl bg-transparent h-20 sm:h-22 lg:h-24 xl:h-24 rounded-none shadow-none border border-transparent'
+            : 'w-[92%] sm:w-[82%] lg:w-[70%] xl:w-[66%] h-14 sm:h-16 md:h-16 rounded-2xl bg-white/12 backdrop-blur-2xl border border-white/35 shadow-[0_10px_34px_rgba(15,23,42,0.22)]'
         }`}
         aria-label="Main navigation"
       >
@@ -58,7 +54,7 @@ export default function Navbar() {
             style={{ opacity: onHero ? 1 : 0, position: onHero ? 'relative' : 'absolute', inset: 0 }}
             aria-hidden={!onHero}
           >
-            <div className="relative h-9 w-28 sm:h-10 sm:w-32 md:h-11 md:w-36 lg:h-14 lg:w-44 xl:h-16 xl:w-52">
+            <div className="relative h-10 w-32 sm:h-11 sm:w-36 md:h-12 md:w-40 lg:h-[3.8rem] lg:w-48 xl:h-[4.2rem] xl:w-56">
               <Image
                 src="/images/logo_dark.svg"
                 alt="Endow Tech"
@@ -75,7 +71,7 @@ export default function Navbar() {
             style={{ opacity: onHero ? 0 : 1, position: onHero ? 'absolute' : 'relative', inset: 0 }}
             aria-hidden={onHero}
           >
-            <div className="relative h-9 w-28 sm:h-10 sm:w-32 md:h-11 md:w-36 lg:h-14 lg:w-44 xl:h-16 xl:w-52">
+            <div className="relative h-10 w-32 sm:h-11 sm:w-36 md:h-12 md:w-40 lg:h-[3.8rem] lg:w-48 xl:h-[4.2rem] xl:w-56">
               <Image
                 src="/images/logo_light.svg"
                 alt="Endow Tech"
