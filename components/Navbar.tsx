@@ -60,7 +60,7 @@ export default function Navbar() {
           >
             <div className="relative h-9 w-28 sm:h-10 sm:w-32 md:h-11 md:w-36 lg:h-14 lg:w-44 xl:h-16 xl:w-52">
               <Image
-                src="/images/logo_dark.png"
+                src="/images/logo_dark.svg"
                 alt="Endow Tech"
                 fill
                 style={{ objectFit: 'contain', objectPosition: 'left center' }}
@@ -77,7 +77,7 @@ export default function Navbar() {
           >
             <div className="relative h-9 w-28 sm:h-10 sm:w-32 md:h-11 md:w-36 lg:h-14 lg:w-44 xl:h-16 xl:w-52">
               <Image
-                src="/images/logo_light.png"
+                src="/images/logo_light.svg"
                 alt="Endow Tech"
                 fill
                 style={{ objectFit: 'contain', objectPosition: 'left center' }}

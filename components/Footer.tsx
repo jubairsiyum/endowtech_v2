@@ -95,7 +95,7 @@ export default function Footer() {
           <div className="col-span-2 sm:col-span-1 flex flex-col gap-4">
             <div className="relative h-8 w-24 sm:h-9 sm:w-28 md:h-10 md:w-32">
               <Image
-                src="/images/logo_light.png"
+                src="/images/logo_light.svg"
                 alt="Endow Tech"
                 fill
                 style={{ objectFit: 'contain', objectPosition: 'left center' }}
