@@ -3,23 +3,68 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
+function parseRgb(color: string): [number, number, number] | null {
+  const match = color.match(/rgba?\(([^)]+)\)/i)
+  if (!match) return null
+
+  const parts = match[1].split(',').map((p) => p.trim())
+  if (parts.length < 3) return null
+
+  const r = Number(parts[0])
+  const g = Number(parts[1])
+  const b = Number(parts[2])
+
+  if ([r, g, b].some((n) => Number.isNaN(n))) return null
+  return [r, g, b]
+}
+
+function getEffectiveBgColor(start: Element | null): string {
+  let current: Element | null = start
+
+  while (current && current instanceof HTMLElement) {
+    const bg = window.getComputedStyle(current).backgroundColor
+    if (bg && bg !== 'transparent' && bg !== 'rgba(0, 0, 0, 0)') return bg
+    current = current.parentElement
+  }
+
+  return window.getComputedStyle(document.body).backgroundColor || 'rgb(255, 255, 255)'
+}
+
+function isDarkColor(color: string): boolean {
+  const rgb = parseRgb(color)
+  if (!rgb) return false
+
+  const [r, g, b] = rgb
+  // Relative luminance approximation. Lower value means darker background.
+  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+  return luminance < 0.52
+}
+
 export default function Navbar() {
-  // true  = hero is visible  → transparent navbar, dark-bg logo
-  // false = scrolled past hero → white navbar, light-bg logo
-  const [onHero, setOnHero] = useState(true)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [useLightLogo, setUseLightLogo] = useState(true)
 
   useEffect(() => {
-    const hero = document.getElementById('hero')
-    if (!hero) return
+    const updateNavbarTheme = () => {
+      setIsScrolled(window.scrollY > 10)
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setOnHero(entry.isIntersecting),
-      // trigger as soon as the hero starts leaving the top edge
-      { threshold: 0, rootMargin: '-80px 0px 0px 0px' }
-    )
+      // Sample just below the navbar to infer the currently visible section tone.
+      const probeX = Math.round(window.innerWidth / 2)
+      const probeY = 96
+      const el = document.elementFromPoint(probeX, probeY)
+      const effectiveBg = getEffectiveBgColor(el)
 
-    observer.observe(hero)
-    return () => observer.disconnect()
+      setUseLightLogo(isDarkColor(effectiveBg))
+    }
+
+    updateNavbarTheme()
+    window.addEventListener('scroll', updateNavbarTheme, { passive: true })
+    window.addEventListener('resize', updateNavbarTheme)
+
+    return () => {
+      window.removeEventListener('scroll', updateNavbarTheme)
+      window.removeEventListener('resize', updateNavbarTheme)
+    }
   }, [])
 
   const scrollTo = (id: string) =>
@@ -31,9 +76,9 @@ export default function Navbar() {
     >
       <nav
         className={`pointer-events-auto mt-3 sm:mt-4 px-6 sm:px-10 lg:px-12 flex items-center justify-between transition-all duration-500 ease-out ${
-          onHero
-            ? 'w-full max-w-7xl bg-transparent h-20 sm:h-22 lg:h-24 xl:h-24 rounded-none shadow-none border border-transparent'
-            : 'w-[92%] sm:w-[82%] lg:w-[70%] xl:w-[66%] h-14 sm:h-16 md:h-16 rounded-2xl bg-white/12 backdrop-blur-2xl border border-white/35 shadow-[0_10px_34px_rgba(15,23,42,0.22)]'
+          isScrolled
+            ? 'w-[92%] sm:w-[82%] lg:w-[70%] xl:w-[66%] h-14 sm:h-16 md:h-16 rounded-2xl bg-white/12 backdrop-blur-2xl border border-white/35 shadow-[0_10px_34px_rgba(15,23,42,0.22)]'
+            : 'w-full max-w-7xl bg-transparent h-20 sm:h-22 lg:h-24 xl:h-24 rounded-none shadow-none border border-transparent'
         }`}
         aria-label="Main navigation"
       >
@@ -48,11 +93,11 @@ export default function Navbar() {
             window.scrollTo({ top: 0, behavior: 'smooth' })
           }}
         >
-          {/* logo for dark hero bg */}
+          {/* logo for dark backgrounds */}
           <span
             className="block transition-opacity duration-500"
-            style={{ opacity: onHero ? 1 : 0, position: onHero ? 'relative' : 'absolute', inset: 0 }}
-            aria-hidden={!onHero}
+            style={{ opacity: useLightLogo ? 1 : 0, position: useLightLogo ? 'relative' : 'absolute', inset: 0 }}
+            aria-hidden={!useLightLogo}
           >
             <div className="relative h-10 w-32 sm:h-11 sm:w-36 md:h-12 md:w-40 lg:h-[3.8rem] lg:w-48 xl:h-[4.2rem] xl:w-56">
               <Image
@@ -65,11 +110,11 @@ export default function Navbar() {
             </div>
           </span>
 
-          {/* logo for white scrolled bg */}
+          {/* logo for light backgrounds */}
           <span
             className="block transition-opacity duration-500"
-            style={{ opacity: onHero ? 0 : 1, position: onHero ? 'absolute' : 'relative', inset: 0 }}
-            aria-hidden={onHero}
+            style={{ opacity: useLightLogo ? 0 : 1, position: useLightLogo ? 'absolute' : 'relative', inset: 0 }}
+            aria-hidden={useLightLogo}
           >
             <div className="relative h-10 w-32 sm:h-11 sm:w-36 md:h-12 md:w-40 lg:h-[3.8rem] lg:w-48 xl:h-[4.2rem] xl:w-56">
               <Image
@@ -89,7 +134,7 @@ export default function Navbar() {
           className={`
             inline-flex items-center gap-2.5 px-5 py-2.5 rounded-lg text-sm font-semibold
             cursor-pointer select-none transition-all duration-300 active:scale-[0.97]
-            ${onHero
+            ${useLightLogo
               ? 'border border-white/25 text-white/90 bg-white/[0.06] hover:bg-white/[0.11] hover:border-white/40'
               : 'bg-[#DC2626] text-white border border-[#DC2626] hover:bg-[#b91c1c] hover:border-[#b91c1c] shadow-sm shadow-red-200'
             }
