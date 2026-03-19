@@ -42,19 +42,43 @@ function isDarkColor(color: string): boolean {
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [useLightLogo, setUseLightLogo] = useState(true)
+  const [isDarkSurface, setIsDarkSurface] = useState(true)
 
   useEffect(() => {
     const updateNavbarTheme = () => {
-      setIsScrolled(window.scrollY > 10)
+      const scrolled = window.scrollY > 10
+      setIsScrolled(scrolled)
 
-      // Sample just below the navbar to infer the currently visible section tone.
+      // Sample beneath navbar center to infer the currently visible section tone.
       const probeX = Math.round(window.innerWidth / 2)
-      const probeY = 96
+      const probeY = scrolled ? 84 : 104
       const el = document.elementFromPoint(probeX, probeY)
-      const effectiveBg = getEffectiveBgColor(el)
+      let darkSurface: boolean | null = null
 
-      setUseLightLogo(isDarkColor(effectiveBg))
+      // Keep hero behavior stable until the probe point truly leaves hero bounds.
+      const hero = document.getElementById('hero')
+      if (hero) {
+        const heroRect = hero.getBoundingClientRect()
+        if (heroRect.top <= probeY && heroRect.bottom >= probeY) {
+          darkSurface = true
+        }
+      }
+
+      // Prefer explicit section IDs where available.
+      if (darkSurface === null) {
+        const section = el?.closest('section[id]') as HTMLElement | null
+        const sectionId = section?.id || ''
+        const darkSections = new Set(['hero', 'tech-stack', 'portfolio', 'comparison'])
+        if (sectionId) darkSurface = darkSections.has(sectionId)
+      }
+
+      // Fallback to computed color when section metadata is unavailable.
+      if (darkSurface === null) {
+        const effectiveBg = getEffectiveBgColor(el)
+        darkSurface = isDarkColor(effectiveBg)
+      }
+
+      setIsDarkSurface(darkSurface)
     }
 
     updateNavbarTheme()
@@ -93,11 +117,11 @@ export default function Navbar() {
             window.scrollTo({ top: 0, behavior: 'smooth' })
           }}
         >
-          {/* logo for dark backgrounds */}
+          {/* dark logo for dark backgrounds */}
           <span
             className="block transition-opacity duration-500"
-            style={{ opacity: useLightLogo ? 1 : 0, position: useLightLogo ? 'relative' : 'absolute', inset: 0 }}
-            aria-hidden={!useLightLogo}
+            style={{ opacity: isDarkSurface ? 1 : 0, position: isDarkSurface ? 'relative' : 'absolute', inset: 0 }}
+            aria-hidden={!isDarkSurface}
           >
             <div className="relative h-10 w-32 sm:h-11 sm:w-36 md:h-12 md:w-40 lg:h-[3.8rem] lg:w-48 xl:h-[4.2rem] xl:w-56">
               <Image
@@ -110,11 +134,11 @@ export default function Navbar() {
             </div>
           </span>
 
-          {/* logo for light backgrounds */}
+          {/* light logo for light backgrounds */}
           <span
             className="block transition-opacity duration-500"
-            style={{ opacity: useLightLogo ? 0 : 1, position: useLightLogo ? 'absolute' : 'relative', inset: 0 }}
-            aria-hidden={useLightLogo}
+            style={{ opacity: isDarkSurface ? 0 : 1, position: isDarkSurface ? 'absolute' : 'relative', inset: 0 }}
+            aria-hidden={isDarkSurface}
           >
             <div className="relative h-10 w-32 sm:h-11 sm:w-36 md:h-12 md:w-40 lg:h-[3.8rem] lg:w-48 xl:h-[4.2rem] xl:w-56">
               <Image
@@ -134,7 +158,7 @@ export default function Navbar() {
           className={`
             inline-flex items-center gap-2.5 px-5 py-2.5 rounded-lg text-sm font-semibold
             cursor-pointer select-none transition-all duration-300 active:scale-[0.97]
-            ${useLightLogo
+            ${isDarkSurface
               ? 'border border-white/25 text-white/90 bg-white/[0.06] hover:bg-white/[0.11] hover:border-white/40'
               : 'bg-[#DC2626] text-white border border-[#DC2626] hover:bg-[#b91c1c] hover:border-[#b91c1c] shadow-sm shadow-red-200'
             }
