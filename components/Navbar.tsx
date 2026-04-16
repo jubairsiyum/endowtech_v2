@@ -43,6 +43,10 @@ function isDarkColor(color: string): boolean {
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isDarkSurface, setIsDarkSurface] = useState(true)
+  const [isSchedulerOpen, setIsSchedulerOpen] = useState(false)
+
+  const schedulerUrl =
+    'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2zexcWNE3NziYY_WuRT2fORMic816-dL_sf099AVlqES2rHl27JJdYb5BKtYqNNAYs07YbWFdy?gv=true'
 
   useEffect(() => {
     const updateNavbarTheme = () => {
@@ -91,21 +95,36 @@ export default function Navbar() {
     }
   }, [])
 
-  const scrollTo = (id: string) =>
-    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
+  useEffect(() => {
+    if (!isSchedulerOpen) return
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsSchedulerOpen(false)
+    }
+
+    const originalOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      document.body.style.overflow = originalOverflow
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [isSchedulerOpen])
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 flex justify-center px-2 sm:px-4 lg:px-0 pointer-events-none"
-    >
-      <nav
-        className={`pointer-events-auto mt-3 sm:mt-4 px-6 sm:px-10 lg:px-12 flex items-center justify-between transition-all duration-500 ease-out ${
-          isScrolled
-            ? 'w-[92%] sm:w-[82%] lg:w-[70%] xl:w-[66%] h-14 sm:h-16 md:h-16 rounded-2xl bg-white/12 backdrop-blur-2xl border border-white/35 shadow-[0_10px_34px_rgba(15,23,42,0.22)]'
-            : 'w-full max-w-7xl bg-transparent h-20 sm:h-22 lg:h-24 xl:h-24 rounded-none shadow-none border border-transparent'
-        }`}
-        aria-label="Main navigation"
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 flex justify-center px-2 sm:px-4 lg:px-0 pointer-events-none"
       >
+        <nav
+          className={`pointer-events-auto mt-3 sm:mt-4 px-6 sm:px-10 lg:px-12 flex items-center justify-between transition-all duration-500 ease-out ${
+            isScrolled
+              ? 'w-[92%] sm:w-[82%] lg:w-[70%] xl:w-[66%] h-14 sm:h-16 md:h-16 rounded-2xl bg-white/12 backdrop-blur-2xl border border-white/35 shadow-[0_10px_34px_rgba(15,23,42,0.22)]'
+              : 'w-full max-w-7xl bg-transparent h-20 sm:h-22 lg:h-24 xl:h-24 rounded-none shadow-none border border-transparent'
+          }`}
+          aria-label="Main navigation"
+        >
 
         {/* ── Logo ── */}
         <a
@@ -153,17 +172,17 @@ export default function Navbar() {
         </a>
 
         {/* ── CTA ── */}
-        <button
-          onClick={() => scrollTo('#contact')}
-          className={`
-            inline-flex items-center gap-2.5 px-5 py-2.5 rounded-lg text-sm font-semibold
-            cursor-pointer select-none transition-all duration-300 active:scale-[0.97]
-            ${isDarkSurface
-              ? 'border border-white/25 text-white/90 bg-white/[0.06] hover:bg-white/[0.11] hover:border-white/40'
-              : 'bg-[#DC2626] text-white border border-[#DC2626] hover:bg-[#b91c1c] hover:border-[#b91c1c] shadow-sm shadow-red-200'
-            }
-          `}
-        >
+          <button
+            onClick={() => setIsSchedulerOpen(true)}
+            className={`
+              inline-flex items-center gap-2.5 px-5 py-2.5 rounded-lg text-sm font-semibold
+              cursor-pointer select-none transition-all duration-300 active:scale-[0.97]
+              ${isDarkSurface
+                ? 'border border-white/25 text-white/90 bg-white/[0.06] hover:bg-white/[0.11] hover:border-white/40'
+                : 'bg-[#DC2626] text-white border border-[#DC2626] hover:bg-[#b91c1c] hover:border-[#b91c1c] shadow-sm shadow-red-200'
+              }
+            `}
+          >
           <svg
             width="13" height="13" viewBox="0 0 24 24"
             fill="none" stroke="currentColor" strokeWidth="2.2"
@@ -172,10 +191,63 @@ export default function Navbar() {
           >
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
           </svg>
-          <span>Start a Project</span>
-        </button>
+            <span>Start a Project</span>
+          </button>
 
-      </nav>
-    </header>
+        </nav>
+      </header>
+
+      {isSchedulerOpen && (
+        <div
+          className="fixed inset-0 z-[70] bg-slate-950/70 backdrop-blur-sm px-4 py-6 sm:px-6 md:px-10"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Book a project call"
+          onClick={() => setIsSchedulerOpen(false)}
+        >
+          <div
+            className="mx-auto h-full w-full max-w-5xl rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200 overflow-hidden flex flex-col"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 sm:px-6">
+              <h2 className="text-base sm:text-lg font-semibold text-slate-900">
+                Schedule Your Project Call
+              </h2>
+              <button
+                type="button"
+                onClick={() => setIsSchedulerOpen(false)}
+                className="inline-flex items-center justify-center h-9 w-9 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors"
+                aria-label="Close scheduling modal"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4"
+                  aria-hidden="true"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="flex-1 min-h-0">
+              <iframe
+                src={schedulerUrl}
+                title="Google Calendar appointment scheduling"
+                className="h-full w-full"
+                style={{ border: 0 }}
+                frameBorder={0}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
