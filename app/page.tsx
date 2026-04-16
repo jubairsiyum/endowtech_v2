@@ -9,6 +9,7 @@ import Testimonials from '@/components/Testimonials'
 import ComparisonTable from '@/components/ComparisonTable'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
+import WhatsAppFloatingButton from '@/components/WhatsAppFloatingButton'
 
 export default function HomePage() {
   return (
@@ -25,6 +26,7 @@ export default function HomePage() {
         <ComparisonTable />
         <Contact />
       </main>
+      <WhatsAppFloatingButton />
       <Footer />
     </>
   )
