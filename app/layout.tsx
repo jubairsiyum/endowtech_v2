@@ -1,26 +1,23 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
 import SmoothScroll from '@/components/SmoothScroll'
 import './globals.css'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
 export const metadata: Metadata = {
-  title: 'Endow Tech — Modern Web Solutions & SaaS Development',
+  title: 'Endow Tech — Enterprise Software & Digital Product Studio',
   description:
-    'Endow Tech builds scalable web applications, SaaS platforms, student portal systems, and API integrations. Clean code. Modern design. Real results.',
+    'Endow Tech is the technology and product engineering wing of Endow Corporation. We engineer high-performance web applications, student portal systems, and scalable SaaS platforms.',
   keywords: [
-    'web development',
-    'SaaS platforms',
-    'student portals',
-    'API integration',
-    'Next.js agency',
-    'TypeScript development',
     'Endow Tech',
+    'Endow Corporation',
+    'Endow Global Education',
+    'student portals',
+    'admission management system',
+    'SaaS platforms',
+    'enterprise web development',
+    'Next.js product studio',
+    'TypeScript engineering',
+    'Seoul tech studio',
+    'Dhaka software agency',
   ],
   authors: [{ name: 'Endow Tech' }],
   creator: 'Endow Tech',
@@ -29,24 +26,16 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://endowtech.dev',
-    title: 'Endow Tech — Modern Web Solutions & SaaS Development',
+    title: 'Endow Tech — Enterprise Software & Digital Product Studio',
     description:
-      'Scalable web applications, SaaS platforms, and student portal systems built with modern technology.',
+      'The technology and product engineering studio behind global academic portals and scalable SaaS architectures.',
     siteName: 'Endow Tech',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Endow Tech',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Endow Tech — Modern Web Solutions',
-    description: 'Scalable web apps, SaaS, and student portals.',
-    images: ['/og-image.png'],
+    title: 'Endow Tech — Enterprise Software & Digital Product Studio',
+    description:
+      'High-performance web applications, student portal systems, and scalable SaaS platforms.',
   },
   robots: {
     index: true,
@@ -62,7 +51,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#FFFFFF',
+  themeColor: '#0A0A0B',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -74,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable}`}>
+    <html lang="en" className="scroll-smooth">
       <body className="bg-background text-text-primary antialiased" suppressHydrationWarning>
         <SmoothScroll>
           {children}

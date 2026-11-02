@@ -1,32 +1,46 @@
-import Navbar from '@/components/Navbar'
-import Hero from '@/components/Hero'
-import Services from '@/components/Services'
-import TechStack from '@/components/TechStack'
-import IndustryCoverage from '@/components/IndustryCoverage'
-import Portfolio from '@/components/Portfolio'
-import About from '@/components/About'
-import Testimonials from '@/components/Testimonials'
-import ComparisonTable from '@/components/ComparisonTable'
-import Contact from '@/components/Contact'
-import Footer from '@/components/Footer'
-import WhatsAppFloatingButton from '@/components/WhatsAppFloatingButton'
+'use client'
+
+import React, { useState } from 'react'
+import Navbar from '@/components/layout/Navbar'
+import HeroSection from '@/components/sections/HeroSection'
+import TrustEcosystem from '@/components/sections/TrustEcosystem'
+import FlagshipProducts from '@/components/sections/FlagshipProducts'
+import ServicesSection from '@/components/sections/ServicesSection'
+import ProcessSection from '@/components/sections/ProcessSection'
+import TechStackSection from '@/components/sections/TechStackSection'
+import CaseStudiesSection from '@/components/sections/CaseStudiesSection'
+import ComparisonSection from '@/components/sections/ComparisonSection'
+import GlobalPresence from '@/components/sections/GlobalPresence'
+import TestimonialsSection from '@/components/sections/TestimonialsSection'
+import FAQSection from '@/components/sections/FAQSection'
+import ContactSection from '@/components/sections/ContactSection'
+import WhatsAppButton from '@/components/layout/WhatsAppButton'
+import Footer from '@/components/layout/Footer'
 
 export default function HomePage() {
+  const [isSchedulerOpen, setIsSchedulerOpen] = useState(false)
+
   return (
     <>
-      <Navbar />
+      <Navbar
+        isSchedulerOpen={isSchedulerOpen}
+        setIsSchedulerOpen={setIsSchedulerOpen}
+      />
       <main>
-        <Hero />
-        <Services />
-        <TechStack />
-        <IndustryCoverage />
-        <Portfolio />
-        <About />
-        <Testimonials />
-        <ComparisonTable />
-        <Contact />
+        <HeroSection onOpenScheduler={() => setIsSchedulerOpen(true)} />
+        <TrustEcosystem />
+        <FlagshipProducts />
+        <ServicesSection />
+        <ProcessSection />
+        <TechStackSection />
+        <CaseStudiesSection />
+        <ComparisonSection />
+        <GlobalPresence />
+        <TestimonialsSection />
+        <FAQSection />
+        <ContactSection onOpenScheduler={() => setIsSchedulerOpen(true)} />
       </main>
-      <WhatsAppFloatingButton />
+      <WhatsAppButton />
       <Footer />
     </>
   )

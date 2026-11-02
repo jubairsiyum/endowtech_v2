@@ -74,9 +74,15 @@ const DotGrid: React.FC<DotGridProps> = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotsRef = useRef<Dot[]>([]);
+  const isVisibleRef = useRef(false);
+  const isRunningRef = useRef(false);
+  const rafIdRef = useRef<number | null>(null);
+  const activeTweensRef = useRef(0);
+  const lastInteractionTimeRef = useRef(0);
+
   const pointerRef = useRef({
-    x: 0,
-    y: 0,
+    x: -9999,
+    y: -9999,
     vx: 0,
     vy: 0,
     speed: 0,
@@ -87,13 +93,111 @@ const DotGrid: React.FC<DotGridProps> = ({
 
   const baseRgb = useMemo(() => hexToRgb(baseColor), [baseColor]);
   const activeRgb = useMemo(() => hexToRgb(activeColor), [activeColor]);
+  const baseRadius = dotSize / 2;
+  const PI2 = Math.PI * 2;
 
-  const circlePath = useMemo(() => {
-    if (typeof window === 'undefined' || !window.Path2D) return null;
-    const p = new Path2D();
-    p.arc(0, 0, dotSize / 2, 0, Math.PI * 2);
-    return p;
-  }, [dotSize]);
+  // ── draw frame (no save/restore, batched static dots) ────────────────────
+
+  const drawFrame = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const wrap = wrapperRef.current;
+    const width = wrap ? wrap.clientWidth : canvas.width;
+    const height = wrap ? wrap.clientHeight : canvas.height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const { x: px, y: py } = pointerRef.current;
+    const proxSq = proximity * proximity;
+
+    // Batch all base static dots into a single path for 1 GPU draw call
+    ctx.beginPath();
+    let hasBaseDots = false;
+    const dynamicDots: Array<{ ox: number; oy: number; fillStyle: string }> = [];
+
+    const dots = dotsRef.current;
+    const len = dots.length;
+
+    for (let i = 0; i < len; i++) {
+      const dot = dots[i];
+      const ox = dot.cx + dot.xOffset;
+      const oy = dot.cy + dot.yOffset;
+      const dx = dot.cx - px;
+      const dy = dot.cy - py;
+      const distSq = dx * dx + dy * dy;
+
+      if (distSq < proxSq) {
+        const t = 1 - Math.sqrt(distSq) / proximity;
+        const r = Math.round(baseRgb.r + (activeRgb.r - baseRgb.r) * t);
+        const g = Math.round(baseRgb.g + (activeRgb.g - baseRgb.g) * t);
+        const b = Math.round(baseRgb.b + (activeRgb.b - baseRgb.b) * t);
+        dynamicDots.push({ ox, oy, fillStyle: `rgb(${r},${g},${b})` });
+      } else if (dot.xOffset !== 0 || dot.yOffset !== 0) {
+        dynamicDots.push({ ox, oy, fillStyle: baseColor });
+      } else {
+        ctx.moveTo(ox + baseRadius, oy);
+        ctx.arc(ox, oy, baseRadius, 0, PI2);
+        hasBaseDots = true;
+      }
+    }
+
+    if (hasBaseDots) {
+      ctx.fillStyle = baseColor;
+      ctx.fill();
+    }
+
+    // Draw active dots near cursor or in motion
+    for (let i = 0; i < dynamicDots.length; i++) {
+      const d = dynamicDots[i];
+      ctx.beginPath();
+      ctx.fillStyle = d.fillStyle;
+      ctx.arc(d.ox, d.oy, baseRadius, 0, PI2);
+      ctx.fill();
+    }
+  }, [baseColor, baseRgb, activeRgb, baseRadius, proximity, PI2]);
+
+  // ── loop management (on-demand rendering) ─────────────────────────────────
+
+  const stopLoop = useCallback(() => {
+    if (rafIdRef.current !== null) {
+      cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = null;
+    }
+    isRunningRef.current = false;
+  }, []);
+
+  const startLoop = useCallback(() => {
+    if (isRunningRef.current || !isVisibleRef.current) return;
+    isRunningRef.current = true;
+
+    const tick = () => {
+      if (!isVisibleRef.current) {
+        isRunningRef.current = false;
+        rafIdRef.current = null;
+        return;
+      }
+
+      drawFrame();
+
+      const now = performance.now();
+      const isPointerActive = now - lastInteractionTimeRef.current < 150;
+      const hasActiveTweens = activeTweensRef.current > 0;
+
+      if (hasActiveTweens || isPointerActive) {
+        rafIdRef.current = requestAnimationFrame(tick);
+      } else {
+        // Render resting frame and sleep
+        drawFrame();
+        isRunningRef.current = false;
+        rafIdRef.current = null;
+      }
+    };
+
+    rafIdRef.current = requestAnimationFrame(tick);
+  }, [drawFrame]);
 
   // ── build the dot grid ────────────────────────────────────────────────────
 
@@ -135,56 +239,45 @@ const DotGrid: React.FC<DotGridProps> = ({
       }
     }
     dotsRef.current = dots;
-  }, [dotSize, gap]);
+    activeTweensRef.current = 0;
 
-  // ── render loop ───────────────────────────────────────────────────────────
+    if (isVisibleRef.current) {
+      drawFrame();
+    }
+  }, [dotSize, gap, drawFrame]);
+
+  // ── viewport visibility (pause offscreen) ─────────────────────────────────
 
   useEffect(() => {
-    if (!circlePath) return;
+    const wrap = wrapperRef.current;
+    if (!wrap) return;
 
-    let rafId: number;
-    const proxSq = proximity * proximity;
-
-    const draw = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const { x: px, y: py } = pointerRef.current;
-
-      for (const dot of dotsRef.current) {
-        const ox = dot.cx + dot.xOffset;
-        const oy = dot.cy + dot.yOffset;
-        const dx = dot.cx - px;
-        const dy = dot.cy - py;
-        const distSq = dx * dx + dy * dy;
-
-        let fillStyle: string;
-        if (distSq < proxSq) {
-          const t = 1 - Math.sqrt(distSq) / proximity;
-          const r = Math.round(baseRgb.r + (activeRgb.r - baseRgb.r) * t);
-          const g = Math.round(baseRgb.g + (activeRgb.g - baseRgb.g) * t);
-          const b = Math.round(baseRgb.b + (activeRgb.b - baseRgb.b) * t);
-          fillStyle = `rgb(${r},${g},${b})`;
-        } else {
-          fillStyle = baseColor;
-        }
-
-        ctx.save();
-        ctx.translate(ox, oy);
-        ctx.fillStyle = fillStyle;
-        ctx.fill(circlePath);
-        ctx.restore();
-      }
-
-      rafId = requestAnimationFrame(draw);
-    };
-
-    draw();
-    return () => cancelAnimationFrame(rafId);
-  }, [proximity, baseColor, activeRgb, baseRgb, circlePath]);
+    if (typeof IntersectionObserver !== 'undefined') {
+      const io = new IntersectionObserver(
+        ([entry]) => {
+          const visible = entry.isIntersecting;
+          isVisibleRef.current = visible;
+          if (visible) {
+            drawFrame();
+            if (activeTweensRef.current > 0 || performance.now() - lastInteractionTimeRef.current < 150) {
+              startLoop();
+            }
+          } else {
+            stopLoop();
+          }
+        },
+        { rootMargin: '100px 0px 100px 0px', threshold: 0 }
+      );
+      io.observe(wrap);
+      return () => {
+        io.disconnect();
+        stopLoop();
+      };
+    } else {
+      isVisibleRef.current = true;
+      drawFrame();
+    }
+  }, [drawFrame, startLoop, stopLoop]);
 
   // ── grid build + resize ───────────────────────────────────────────────────
 
@@ -208,6 +301,8 @@ const DotGrid: React.FC<DotGridProps> = ({
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
+      if (!isVisibleRef.current) return;
+
       const now = performance.now();
       const pr = pointerRef.current;
       const dt = pr.lastTime ? now - pr.lastTime : 16;
@@ -237,10 +332,14 @@ const DotGrid: React.FC<DotGridProps> = ({
       pr.x = e.clientX - rect.left;
       pr.y = e.clientY - rect.top;
 
-      for (const dot of dotsRef.current) {
+      lastInteractionTimeRef.current = now;
+
+      for (let i = 0; i < dotsRef.current.length; i++) {
+        const dot = dotsRef.current[i];
         const dist = Math.hypot(dot.cx - pr.x, dot.cy - pr.y);
         if (speed > speedTrigger && dist < proximity && !dot._inertiaApplied) {
           dot._inertiaApplied = true;
+          activeTweensRef.current++;
           gsap.killTweensOf(dot);
           const pushX = dot.cx - pr.x + vx * 0.005;
           const pushY = dot.cy - pr.y + vy * 0.005;
@@ -252,25 +351,36 @@ const DotGrid: React.FC<DotGridProps> = ({
                 yOffset: 0,
                 duration: returnDuration,
                 ease: 'elastic.out(1,0.75)',
+                onComplete: () => {
+                  dot._inertiaApplied = false;
+                  activeTweensRef.current = Math.max(0, activeTweensRef.current - 1);
+                },
               });
-              dot._inertiaApplied = false;
             },
           });
         }
       }
+
+      startLoop();
     };
 
     const onClick = (e: MouseEvent) => {
+      if (!isVisibleRef.current) return;
+
       const canvas = canvasRef.current;
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
       const cx = e.clientX - rect.left;
       const cy = e.clientY - rect.top;
 
-      for (const dot of dotsRef.current) {
+      lastInteractionTimeRef.current = performance.now();
+
+      for (let i = 0; i < dotsRef.current.length; i++) {
+        const dot = dotsRef.current[i];
         const dist = Math.hypot(dot.cx - cx, dot.cy - cy);
         if (dist < shockRadius && !dot._inertiaApplied) {
           dot._inertiaApplied = true;
+          activeTweensRef.current++;
           gsap.killTweensOf(dot);
           const falloff = Math.max(0, 1 - dist / shockRadius);
           const pushX = (dot.cx - cx) * shockStrength * falloff;
@@ -283,23 +393,37 @@ const DotGrid: React.FC<DotGridProps> = ({
                 yOffset: 0,
                 duration: returnDuration,
                 ease: 'elastic.out(1,0.75)',
+                onComplete: () => {
+                  dot._inertiaApplied = false;
+                  activeTweensRef.current = Math.max(0, activeTweensRef.current - 1);
+                },
               });
-              dot._inertiaApplied = false;
             },
           });
         }
       }
+
+      startLoop();
     };
 
-    const throttledMove = throttle(onMove, 50);
+    const onLeave = () => {
+      pointerRef.current.x = -9999;
+      pointerRef.current.y = -9999;
+      lastInteractionTimeRef.current = performance.now();
+      startLoop();
+    };
+
+    const throttledMove = throttle(onMove, 40);
     window.addEventListener('mousemove', throttledMove, { passive: true });
     window.addEventListener('click', onClick);
+    document.addEventListener('mouseleave', onLeave);
 
     return () => {
       window.removeEventListener('mousemove', throttledMove);
       window.removeEventListener('click', onClick);
+      document.removeEventListener('mouseleave', onLeave);
     };
-  }, [maxSpeed, speedTrigger, proximity, resistance, returnDuration, shockRadius, shockStrength]);
+  }, [maxSpeed, speedTrigger, proximity, resistance, returnDuration, shockRadius, shockStrength, startLoop]);
 
   // ── render ────────────────────────────────────────────────────────────────
 
