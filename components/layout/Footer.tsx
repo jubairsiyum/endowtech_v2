@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <footer
-      className="bg-[#050506] border-t border-white/10 text-gray-400"
+      className="bg-theme-footer border-t border-white/10 text-gray-400"
       aria-label="Site footer"
     >
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 pt-16 pb-12">

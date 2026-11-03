@@ -7,12 +7,12 @@ export default function FlagshipProducts() {
   return (
     <section
       id="products"
-      className="section-padding bg-[#0A0A0B] relative overflow-hidden"
+      className="section-padding bg-theme-dark relative overflow-hidden"
       aria-labelledby="products-heading"
     >
       {/* Ambient background glow */}
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-red-800/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Section Header */}

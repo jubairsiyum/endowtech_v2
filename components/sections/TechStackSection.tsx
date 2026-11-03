@@ -55,7 +55,7 @@ export default function TechStackSection() {
   return (
     <section
       id="tech-stack"
-      className="section-padding bg-[#0A0A0B] relative overflow-hidden"
+      className="section-padding bg-theme-dark relative overflow-hidden"
       aria-labelledby="tech-stack-heading"
     >
       {/* Ambient background glow */}

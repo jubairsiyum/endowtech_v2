@@ -7,7 +7,7 @@ export default function ComparisonSection() {
   return (
     <section
       id="comparison"
-      className="section-padding bg-[#0A0A0B] relative overflow-hidden"
+      className="section-padding bg-theme-dark relative overflow-hidden"
       aria-labelledby="comparison-heading"
     >
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">

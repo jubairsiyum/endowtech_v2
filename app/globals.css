@@ -1,11 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   THEME COLOR PALETTE (EDIT HERE TO CHANGE COLORS EASILY)
+   Change any hex code below to instantly update the entire site theme!
+   ========================================================================== */
 :root {
-  --font-inter: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-inter:
+    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+
+  /* ── 1. PRIMARY ACCENT (Main brand highlight: buttons, active tabs, badges, glows) ── */
+  --primary-color: #dc2626; /* Primary Red */
+  --primary-hover: #b91c1c; /* Darker Red on hover */
+  --primary-light: #ef4444; /* Brighter Red for gradients */
+  --primary-glow: rgba(220, 38, 38, 0.15);
+  --primary-border: rgba(220, 38, 38, 0.25);
+
+  /* ── 2. DARK SECTIONS (Hero, Flagship Products, Process, Tech Stack, Comparison) ── */
+  --dark-bg: #0f0000; /* Deep Dark Red Background (Try: #180000, #2A0505, #450A0A) */
+  --dark-bg-card: rgba(255, 255, 255, 0.04); /* Frosted card surface on dark */
+  --dark-border: rgba(255, 255, 255, 0.1); /* Card borders on dark */
+  --dark-text: #ffffff; /* Primary headings on dark */
+  --dark-text-muted: #d1d5db; /* Subtext & descriptions on dark */
+  --dark-dot: #3d0000; /* Hero canvas dot resting color */
+
+  /* ── 3. FOOTER (Deepest dark tone) ── */
+  --footer-bg: #100000; /* Footer background */
+
+  /* ── 4. LIGHT SECTIONS (Trust, Services, Case Studies, Global, Testimonials, FAQ, Contact) ── */
+  --light-bg: #ffffff; /* Pure White background */
+  --light-surface: #f8f9fa; /* Off-white surface background */
+  --light-surface-alt: #f1f2f5; /* Slightly deeper light surface */
+  --light-card: #ffffff; /* White card background */
+  --light-border: #e5e7eb; /* Borders on light sections */
+  --light-text: #111827; /* Dark headings on light */
+  --light-text-muted: #6b7280; /* Muted text on light */
 }
 
 html {
@@ -15,8 +48,8 @@ html {
 }
 
 body {
-  background-color: #FFFFFF;
-  color: #111827;
+  background-color: var(--light-bg);
+  color: var(--light-text);
   font-family: var(--font-inter), system-ui, sans-serif;
   overflow-x: hidden;
 }
@@ -27,42 +60,48 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F8F9FA;
+  background: var(--light-surface);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #E5E7EB;
+  background: var(--primary-hover);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #DC2626;
+  background: var(--primary-color);
 }
 
-/* Selection — light sections (white bg) */
+/* Selection — light sections */
 ::selection {
-  background: rgba(220, 38, 38, 0.25);
-  color: #111827;
+  background: var(--primary-glow);
+  color: var(--light-text);
 }
 
-/* Selection — dark sections: solid bg so white text stays legible */
+/* Selection — dark sections */
 #hero ::selection,
 #tech-stack ::selection,
 #portfolio ::selection,
-#comparison ::selection {
-  background: rgba(239, 68, 68, 0.95);
+#comparison ::selection,
+#products ::selection,
+#process ::selection {
+  background: var(--primary-color);
   color: #ffffff;
 }
 
 /* Focus ring */
 *:focus-visible {
-  outline: 2px solid #DC2626;
+  outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-light) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -72,23 +111,44 @@ body {
 .section-subtitle {
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  background: rgba(220, 38, 38, 0.07);
-  border: 1px solid rgba(220, 38, 38, 0.20);
+  background: var(--primary-glow);
+  border: 1px solid var(--primary-border);
   border-radius: 0.375rem;
-  color: #DC2626;
+  color: var(--primary-color);
   font-weight: 600;
-  font-family: ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-family: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
   font-size: 0.68rem;
   letter-spacing: 0.05em;
 }
 
-/* Light sections: subtle red grid for developer feel */
+/* Light sections: subtle red grid */
 .bg-surface {
-  background-color: #F8F9FA;
+  background-color: var(--light-surface);
   background-image:
     linear-gradient(rgba(220, 38, 38, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(220, 38, 38, 0.035) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* Dark sections: subtle grid on dark bg */
+.bg-dark-red,
+.bg-dark-section {
+  background-color: var(--dark-bg);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Decorative gradient orb for section transitions */
+.section-orb {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary-glow), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Animated border */
@@ -97,22 +157,28 @@ body {
 }
 
 .border-gradient::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.4), transparent);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  background: linear-gradient(135deg, var(--primary-border), transparent);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
 }
 
-/* ── Hero ticker (CSS, more reliable than % Framer translate) ── */
+/* ── Hero ticker ── */
 @keyframes ticker {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(calc(-100% / 3)); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 3));
+  }
 }
 .hero-ticker {
   animation: ticker 38s linear infinite;
@@ -149,7 +215,7 @@ body {
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
-    --accent: 0 84.2% 60.2%;        /* Red-500 */
+    --accent: 0 84.2% 60.2%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
