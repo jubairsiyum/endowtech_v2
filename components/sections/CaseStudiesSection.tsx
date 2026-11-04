@@ -2,6 +2,7 @@ import React from 'react'
 import { caseStudies } from '@/data/caseStudies'
 import { Badge } from '@/components/ui/Badge'
 import { FadeIn } from '@/components/motion/FadeIn'
+import { CountUp } from '@/components/motion/CountUp'
 
 export default function CaseStudiesSection() {
   return (
@@ -67,7 +68,7 @@ export default function CaseStudiesSection() {
                     {caseStudy.metrics.map((m) => (
                       <div key={m.label} className="text-center">
                         <div className="text-lg sm:text-xl font-extrabold text-text-primary">
-                          {m.value}
+                          <CountUp value={m.value} delay={0.1} duration={1.8} />
                         </div>
                         <div className="text-[11px] text-text-muted mt-0.5 leading-tight font-medium">
                           {m.label}

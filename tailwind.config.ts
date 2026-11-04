@@ -102,6 +102,11 @@ const config: Config = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      transitionTimingFunction: {
+        'flow-elastic': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        'flow-smooth': 'cubic-bezier(0.23, 1, 0.32, 1)',
+        'flow-bloom': 'cubic-bezier(0.16, 1, 0.3, 1)',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

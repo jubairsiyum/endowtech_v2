@@ -2,6 +2,7 @@ import React from 'react'
 import { siteConfig } from '@/data/siteConfig'
 import { Badge } from '@/components/ui/Badge'
 import { FadeIn } from '@/components/motion/FadeIn'
+import { FlowButton } from '@/components/ui/FlowButton'
 
 export default function GlobalPresence() {
   return (
@@ -39,18 +40,18 @@ export default function GlobalPresence() {
               </p>
 
               <div className="mt-8 flex flex-wrap gap-4">
-                <a
+                <FlowButton
+                  text="Work With Our Engineers"
                   href="#contact"
-                  className="px-6 py-3 rounded-xl bg-accent text-white text-sm font-semibold hover:bg-accent-hover transition-colors shadow-sm shadow-red-900/20"
-                >
-                  Work With Our Engineers
-                </a>
-                <a
+                  variant="primary"
+                  size="md"
+                />
+                <FlowButton
+                  text="Explore Our Work"
                   href="#products"
-                  className="px-6 py-3 rounded-xl border border-gray-300 text-text-primary text-sm font-semibold hover:bg-gray-100 transition-colors"
-                >
-                  Explore Our Work
-                </a>
+                  variant="outline"
+                  size="md"
+                />
               </div>
             </FadeIn>
           </div>

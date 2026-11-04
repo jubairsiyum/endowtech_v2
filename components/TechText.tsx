@@ -291,7 +291,7 @@ const TechText = ({
       const fit = Math.min(
         1,
         maxAvailableWidth / Math.max(m.actualBoundingBoxLeft + m.actualBoundingBoxRight, 1),
-        (height * 0.88) / Math.max(m.actualBoundingBoxAscent + m.actualBoundingBoxDescent, 1)
+        (height * 0.78) / Math.max(m.actualBoundingBoxAscent + m.actualBoundingBoxDescent, 1)
       );
       const size = s.fontSize * fit;
       setFont(probe, s, size);
@@ -575,14 +575,21 @@ const TechText = ({
       if (!s.labels) return;
       ctx.font = LABEL_FONT;
       ctx.textAlign = 'left';
-      ctx.textBaseline = 'bottom';
       ctx.fillStyle = accent;
       ctx.globalAlpha = 0.62 * a;
       const label =
         moved > 1
           ? `${signed(Math.round(glyph.offset.x))}, ${signed(Math.round(-glyph.offset.y))}`
           : `${glyph.char}  ${Math.round(glyph.box.x2 - glyph.box.x1)} × ${Math.round(glyph.box.y2 - glyph.box.y1)}`;
-      ctx.fillText(label, Math.round(frame.x1), Math.round(frame.y1) - 7);
+      const labelY = Math.round(frame.y1) - 7;
+      const labelX = Math.max(4, Math.min(width - 70, Math.round(frame.x1)));
+      if (labelY < 12) {
+        ctx.textBaseline = 'top';
+        ctx.fillText(label, labelX, Math.min(height - 12, Math.round(frame.y2) + 5));
+      } else {
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(label, labelX, labelY);
+      }
       ctx.globalAlpha = 1;
     };
 
@@ -859,10 +866,11 @@ const TechText = ({
       const focus = introducing ? typing : dragging >= 0 ? dragging : active ? glyphAt(lens.x, lens.y) : -1;
       if (focus >= 0 && s.selection) {
         const glyph = glyphs[focus];
-        const bx1 = glyph.box.x1 + glyph.offset.x - 6;
-        const by1 = glyph.box.y1 + glyph.offset.y - 6;
-        const bx2 = glyph.box.x2 + glyph.offset.x + 6;
-        const by2 = glyph.box.y2 + glyph.offset.y + 6;
+        const pad = 4;
+        const bx1 = Math.max(pad, glyph.box.x1 + glyph.offset.x - 6);
+        const by1 = Math.max(pad, glyph.box.y1 + glyph.offset.y - 6);
+        const bx2 = Math.min(width - pad, glyph.box.x2 + glyph.offset.x + 6);
+        const by2 = Math.min(height - pad, glyph.box.y2 + glyph.offset.y + 6);
         if (frame.index < 0 || frame.alpha < 0.02) {
           frame.x1 = bx1;
           frame.y1 = by1;

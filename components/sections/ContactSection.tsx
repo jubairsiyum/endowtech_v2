@@ -4,6 +4,7 @@ import React, { useState, type FormEvent, type ChangeEvent } from 'react'
 import { siteConfig } from '@/data/siteConfig'
 import { Badge } from '@/components/ui/Badge'
 import DotGridLight from '@/components/DotGridLight'
+import { FlowButton } from '@/components/ui/FlowButton'
 import { validateContactForm, type ContactFormData } from '@/lib/validations'
 
 export default function ContactSection({
@@ -304,13 +305,14 @@ export default function ContactSection({
                   )}
                 </div>
 
-                <button
+                <FlowButton
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-3.5 px-6 rounded-lg text-sm font-bold text-white bg-accent hover:bg-accent-hover shadow-md shadow-red-950/20 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50"
-                >
-                  {submitting ? 'Submitting Inquiry...' : 'Submit Project Inquiry →'}
-                </button>
+                  variant="primary"
+                  size="lg"
+                  fullWidth
+                  text={submitting ? 'Submitting Inquiry...' : 'Submit Project Inquiry'}
+                />
               </form>
             )}
           </div>

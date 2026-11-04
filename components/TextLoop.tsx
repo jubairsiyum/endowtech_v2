@@ -6,8 +6,19 @@ import { gsap } from 'gsap';
 export type TextLoopShape = 'wave' | 'circle' | 'infinity' | 'arch' | 'line';
 export type TextLoopDirection = 'forward' | 'reverse';
 
+export interface TextLoopLogo {
+  name: string;
+  icon?: string;
+  src?: string;
+}
+
 export interface TextLoopProps {
   text?: string;
+  logos?: (TextLoopLogo | string)[];
+  logoSize?: number;
+  logoSpacing?: number;
+  grayscale?: boolean;
+  reddishGray?: boolean;
   shape?: TextLoopShape;
   path?: string;
   speed?: number;
@@ -157,6 +168,11 @@ const inkOn = (color: string): string => {
 
 const TextLoop = ({
   text = 'React ✦ Bits',
+  logos,
+  logoSize = 32,
+  logoSpacing = 72,
+  grayscale = false,
+  reddishGray = false,
   shape = 'wave',
   path,
   speed = 90,
@@ -197,8 +213,59 @@ const TextLoop = ({
   const crossHeadRef = useRef<SVGTextPathElement | null>(null);
   const crossTailRef = useRef<SVGTextPathElement | null>(null);
   const progressRef = useRef(0);
+  const logoRefs = useRef<(SVGGElement | null)[]>([]);
 
-  const [metrics, setMetrics] = useState<Metrics>({ length: 0, reps: 1, crossLength: 0, crossReps: 1 });
+  const normalizedLogos = useMemo(() => {
+    if (!logos || logos.length === 0) return [];
+    return logos.map((item, idx) => {
+      if (typeof item === 'string') {
+        return { id: `logo-${idx}`, name: item, icon: item };
+      }
+      return {
+        id: `logo-${idx}-${item.name || ''}`,
+        name: item.name || '',
+        icon: item.icon || item.src || ''
+      };
+    });
+  }, [logos]);
+
+  const hasLogos = normalizedLogos.length > 0;
+
+  const [metrics, setMetrics] = useState<Metrics>({ length: 1900, reps: 1, crossLength: 0, crossReps: 1 });
+
+  const cycleWidth = useMemo(
+    () => (hasLogos ? normalizedLogos.length * logoSpacing : 0),
+    [hasLogos, normalizedLogos.length, logoSpacing]
+  );
+
+  const groupCount = useMemo(() => {
+    if (!hasLogos || cycleWidth === 0) return 0;
+    const pathLen = metrics.length || 1900;
+    return Math.max(2, Math.ceil((pathLen * 1.5) / cycleWidth) + 1);
+  }, [hasLogos, cycleWidth, metrics.length]);
+
+  const logoItems = useMemo(() => {
+    if (!hasLogos || groupCount === 0) return [];
+    const items: Array<{
+      id: string;
+      name: string;
+      icon: string;
+      groupIdx: number;
+      itemIdx: number;
+    }> = [];
+    for (let g = 0; g < groupCount; g++) {
+      for (let i = 0; i < normalizedLogos.length; i++) {
+        items.push({
+          id: `logo-g${g}-i${i}`,
+          name: normalizedLogos[i].name,
+          icon: normalizedLogos[i].icon,
+          groupIdx: g,
+          itemIdx: i
+        });
+      }
+    }
+    return items;
+  }, [hasLogos, groupCount, normalizedLogos]);
 
   const rawId = useId();
   const pathId = `text-loop-${rawId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
@@ -207,6 +274,9 @@ const TextLoop = ({
   const maskId = `${pathId}-mask`;
   const shadowId = `${pathId}-shadow`;
   const underId = `${pathId}-under`;
+  const grayscaleId = `${pathId}-grayscale`;
+  const reddishFilterId = `${pathId}-reddish-gray`;
+  const logoClass = `tl-logo-${rawId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
 
   const custom = Boolean(path);
   const d = useMemo(() => path || buildPath(shape, curviness, ribbonWidth), [path, shape, curviness, ribbonWidth]);
@@ -264,7 +334,7 @@ const TextLoop = ({
   useIsomorphicLayoutEffect(() => {
     const pathEl = pathRef.current;
     const measureEl = measureRef.current;
-    if (!pathEl || !measureEl) return undefined;
+    if (!pathEl || (!hasLogos && !measureEl)) return undefined;
 
     let cancelled = false;
 
@@ -275,7 +345,9 @@ const TextLoop = ({
       let crossLength = 0;
       try {
         length = pathEl.getTotalLength ? pathEl.getTotalLength() : 0;
-        unitWidth = measureEl.getComputedTextLength ? measureEl.getComputedTextLength() : 0;
+        if (!hasLogos && measureEl?.getComputedTextLength) {
+          unitWidth = measureEl.getComputedTextLength();
+        }
         crossLength = crossPathRef.current?.getTotalLength ? crossPathRef.current.getTotalLength() : 0;
       } catch {
         // Fallback calculations below
@@ -283,11 +355,11 @@ const TextLoop = ({
       if (!length || isNaN(length)) {
         length = 1900;
       }
-      if (!unitWidth || isNaN(unitWidth) || unitWidth <= 0) {
+      if (!hasLogos && (!unitWidth || isNaN(unitWidth) || unitWidth <= 0)) {
         unitWidth = Math.max(40, unit.length * (fontSize * 0.6 + letterSpacing));
       }
 
-      const repsFor = (total: number) => (unitWidth > 0 ? Math.max(1, Math.round(total / unitWidth)) : 1);
+      const repsFor = (total: number) => (unitWidth > 0 ? Math.max(2, Math.ceil(total / unitWidth) + 1) : 2);
       const next = { length, reps: repsFor(length), crossLength, crossReps: repsFor(crossLength), unitWidth };
       setMetrics(prev =>
         prev.length === next.length &&
@@ -308,7 +380,7 @@ const TextLoop = ({
     return () => {
       cancelled = true;
     };
-  }, [d, crossD, unit, fontSize, fontWeight, letterSpacing]);
+  }, [d, crossD, unit, fontSize, fontWeight, letterSpacing, hasLogos]);
 
   useIsomorphicLayoutEffect(() => {
     const { length, crossLength } = metrics;
@@ -316,24 +388,60 @@ const TextLoop = ({
     const tail = tailRef.current;
     const root = rootRef.current;
     const svg = svgRef.current;
-    if (!head || !tail || !root || !svg || !length) return undefined;
+    const pathEl = pathRef.current;
+    if (!root || !svg || !length) return undefined;
+    if (!hasLogos && (!head || !tail)) return undefined;
 
     const crossHead = crossHeadRef.current;
     const crossTail = crossTailRef.current;
     const crossPaths = cross && crossHead && crossTail && crossLength > 0 ? [crossHead, crossTail] : null;
 
-    const loopDistance = Math.max(length, (metrics.unitWidth || length) * metrics.reps);
+    const loopDistance = hasLogos
+      ? cycleWidth || length
+      : (metrics.unitWidth || (length / Math.max(1, metrics.reps))) * metrics.reps;
     let travel = progressRef.current * loopDistance;
+
     const apply = () => {
-      const offset = wrap(travel, loopDistance);
-      progressRef.current = offset / loopDistance;
-      head.setAttribute('startOffset', String(offset));
-      tail.setAttribute('startOffset', String(offset - loopDistance));
-      if (crossPaths) {
-        const crossLoopDistance = Math.max(crossLength, (metrics.unitWidth || crossLength) * metrics.crossReps);
-        const crossOffset = wrap(-travel, crossLoopDistance);
-        crossPaths[0].setAttribute('startOffset', String(crossOffset));
-        crossPaths[1].setAttribute('startOffset', String(crossOffset - crossLoopDistance));
+      if (hasLogos && pathEl) {
+        const offset = wrap(travel, cycleWidth || 1);
+        progressRef.current = cycleWidth ? offset / cycleWidth : 0;
+        const totalSpan = length;
+
+        for (let idx = 0; idx < logoItems.length; idx++) {
+          const el = logoRefs.current[idx];
+          if (!el) continue;
+
+          const { groupIdx, itemIdx } = logoItems[idx];
+          const dist = offset + (groupIdx * normalizedLogos.length + itemIdx) * logoSpacing - (cycleWidth || 0);
+
+          if (dist < 0 || dist > totalSpan) {
+            el.setAttribute('opacity', '0');
+            continue;
+          }
+
+          el.setAttribute('opacity', '1');
+          const pt = pathEl.getPointAtLength(dist);
+
+          if (curviness > 0) {
+            const nextDist = Math.min(totalSpan, dist + 1);
+            const ptNext = pathEl.getPointAtLength(nextDist);
+            const angleDeg = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI);
+            el.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angleDeg})`);
+          } else {
+            el.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
+          }
+        }
+      } else if (head && tail) {
+        const offset = wrap(travel, loopDistance);
+        progressRef.current = offset / loopDistance;
+        head.setAttribute('startOffset', String(offset));
+        tail.setAttribute('startOffset', String(offset - loopDistance));
+        if (crossPaths) {
+          const crossLoopDistance = Math.max(crossLength, (metrics.unitWidth || crossLength) * metrics.crossReps);
+          const crossOffset = wrap(-travel, crossLoopDistance);
+          crossPaths[0].setAttribute('startOffset', String(crossOffset));
+          crossPaths[1].setAttribute('startOffset', String(crossOffset - crossLoopDistance));
+        }
       }
     };
     apply();
@@ -511,7 +619,12 @@ const TextLoop = ({
     shape,
     mainAngle,
     curviness,
-    ribbonWidth
+    ribbonWidth,
+    hasLogos,
+    cycleWidth,
+    logoItems,
+    logoSpacing,
+    normalizedLogos.length
   ]);
 
   const loopText = unit.repeat(metrics.reps);
@@ -597,7 +710,43 @@ const TextLoop = ({
               </g>
             </mask>
           )}
+          {reddishGray && (
+            <filter id={reddishFilterId} colorInterpolationFilters="sRGB">
+              <feColorMatrix
+                type="matrix"
+                result="tinted"
+                values="
+                  0.0897 0.1761 0.0342 0 0.32
+                  0.0718 0.1409 0.0274 0 0.21
+                  0.0748 0.1468 0.0285 0 0.22
+                  0      0      0      1 0
+                "
+              />
+              <feComposite in="tinted" in2="SourceAlpha" operator="in" />
+            </filter>
+          )}
+          {grayscale && !reddishGray && (
+            <filter id={grayscaleId}>
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
+          )}
         </defs>
+
+        <style>{`
+          .${logoClass} {
+            ${reddishGray ? `filter: url(#${reddishFilterId}) grayscale(100%) sepia(35%) hue-rotate(315deg) saturate(180%);` : grayscale ? `filter: url(#${grayscaleId});` : ''}
+            opacity: 0.78;
+            transition: filter 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, transform 0.25s ease;
+            transform-box: fill-box;
+            transform-origin: center;
+          }
+          .${logoClass}:hover,
+          g:hover > .${logoClass} {
+            filter: none !important;
+            opacity: 1 !important;
+            transform: scale(1.18);
+          }
+        `}</style>
 
         <text ref={measureRef} opacity="0" pointerEvents="none" style={textStyle} aria-hidden="true">
           {unit}
@@ -689,33 +838,93 @@ const TextLoop = ({
               strokeLinejoin="round"
             />
 
-            <text
-              className="select-none"
-              style={textStyle}
-              {...mainPaint}
-              dominantBaseline="central"
-              aria-hidden="true"
-              textLength={fitLength}
-              lengthAdjust="spacing"
-            >
-              <textPath ref={headRef} href={`#${pathId}`} xlinkHref={`#${pathId}`} startOffset={0}>
-                {loopText}
-              </textPath>
-            </text>
+            {hasLogos ? (
+              <g className="select-none pointer-events-auto">
+                {logoItems.map((item, idx) => {
+                  const initialDist =
+                    (item.groupIdx * normalizedLogos.length + item.itemIdx) * logoSpacing - cycleWidth;
+                  const inBounds = initialDist >= 0 && initialDist <= (metrics.length || 1900);
+                  const initialX = -320 + initialDist;
+                  const initialY = CY;
+                  return (
+                    <g
+                      key={item.id}
+                      ref={el => {
+                        logoRefs.current[idx] = el;
+                      }}
+                      transform={`translate(${initialX}, ${initialY})`}
+                      opacity={inBounds ? 1 : 0}
+                      style={{ willChange: 'transform' }}
+                      className="cursor-pointer"
+                    >
+                      <title>{item.name}</title>
+                      {item.icon ? (
+                        <image
+                          href={item.icon}
+                          xlinkHref={item.icon}
+                          x={-logoSize / 2}
+                          y={-logoSize / 2}
+                          width={logoSize}
+                          height={logoSize}
+                          preserveAspectRatio="xMidYMid meet"
+                          className={logoClass}
+                        />
+                      ) : (
+                        <g>
+                          <rect
+                            x={-logoSize / 2}
+                            y={-logoSize / 2}
+                            width={logoSize}
+                            height={logoSize}
+                            rx={4}
+                            fill="rgba(0,0,0,0.08)"
+                          />
+                          <text
+                            textAnchor="middle"
+                            dominantBaseline="central"
+                            fontSize={fontSize || 12}
+                            fontWeight={fontWeight}
+                            fill={fill}
+                          >
+                            {item.name}
+                          </text>
+                        </g>
+                      )}
+                    </g>
+                  );
+                })}
+              </g>
+            ) : (
+              <>
+                <text
+                  className="select-none"
+                  style={textStyle}
+                  {...mainPaint}
+                  dominantBaseline="central"
+                  aria-hidden="true"
+                  textLength={fitLength}
+                  lengthAdjust="spacing"
+                >
+                  <textPath ref={headRef} href={`#${pathId}`} xlinkHref={`#${pathId}`} startOffset={0}>
+                    {loopText}
+                  </textPath>
+                </text>
 
-            <text
-              className="select-none"
-              style={textStyle}
-              {...mainPaint}
-              dominantBaseline="central"
-              aria-hidden="true"
-              textLength={fitLength}
-              lengthAdjust="spacing"
-            >
-              <textPath ref={tailRef} href={`#${pathId}`} xlinkHref={`#${pathId}`} startOffset={0}>
-                {loopText}
-              </textPath>
-            </text>
+                <text
+                  className="select-none"
+                  style={textStyle}
+                  {...mainPaint}
+                  dominantBaseline="central"
+                  aria-hidden="true"
+                  textLength={fitLength}
+                  lengthAdjust="spacing"
+                >
+                  <textPath ref={tailRef} href={`#${pathId}`} xlinkHref={`#${pathId}`} startOffset={0}>
+                    {loopText}
+                  </textPath>
+                </text>
+              </>
+            )}
           </g>
         </g>
       </svg>

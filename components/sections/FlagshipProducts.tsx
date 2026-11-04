@@ -2,6 +2,7 @@ import React from 'react'
 import { flagshipProducts } from '@/data/products'
 import { Badge } from '@/components/ui/Badge'
 import { FadeIn } from '@/components/motion/FadeIn'
+import { FlowButton } from '@/components/ui/FlowButton'
 
 export default function FlagshipProducts() {
   return (
@@ -133,15 +134,13 @@ export default function FlagshipProducts() {
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-white/10">
-                      <a
+                      <FlowButton
+                        text="Request System Demo"
                         href="#contact"
-                        className="inline-flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider text-white border border-white/20 hover:border-white/40 hover:bg-white/10 transition-all cursor-pointer"
-                      >
-                        <span>Request System Demo</span>
-                        <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                          <path d="M2.5 7h9m0 0L8 3.5M11.5 7 8 10.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </a>
+                        variant="secondary"
+                        size="md"
+                        fullWidth
+                      />
                     </div>
                   </div>
                 </div>

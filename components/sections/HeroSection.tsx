@@ -3,25 +3,53 @@
 import DotGrid from "@/components/DotGrid";
 import TechText from "@/components/TechText";
 import TextLoop from "@/components/TextLoop";
+import { FlowButton } from "@/components/ui/FlowButton";
+import { CountUp } from "@/components/motion/CountUp";
 import { siteConfig } from "@/data/siteConfig";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const TICKER_CLIENTS = [
-  "Endow Global Education",
-  "EduFlow LMS",
-  "UniMatch AI",
-  "LeadFlow CRM",
-  "Seoul Tech Hub",
-  "Finland Student Desk",
-  "LaunchMetrics",
-  "ConnectBridge API",
-  "Global Tuition Settlement",
-];
+// ── PREVIOUS TEXT TICKER (KEPT IN COMMENT FOR LATER USE) ──
+// const TICKER_CLIENTS = [
+//   "Endow Global Education",
+//   "EduFlow LMS",
+//   "UniMatch AI",
+//   "LeadFlow CRM",
+//   "Seoul Tech Hub",
+//   "Finland Student Desk",
+//   "LaunchMetrics",
+//   "ConnectBridge API",
+//   "Global Tuition Settlement",
+// ];
+// const LOOP_TEXT = TICKER_CLIENTS.join(" ✦ ");
 
-const LOOP_TEXT = TICKER_CLIENTS.join(" ✦ ");
+// ── TECH STACK LOGOS FOR RIBBON TICKER (PURE VECTOR ICONS, NO BACKGROUND) ──
+// Easily customize, reorder, add, or remove logos here
+export const TECH_STACK_LOGOS = [
+  { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs" },
+  { name: "React", icon: "https://cdn.simpleicons.org/react" },
+  { name: "TypeScript", icon: "https://cdn.simpleicons.org/typescript" },
+  { name: "Tailwind CSS", icon: "https://cdn.simpleicons.org/tailwindcss" },
+  { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs" },
+  { name: "Python", icon: "https://cdn.simpleicons.org/python" },
+  { name: "FastAPI", icon: "https://cdn.simpleicons.org/fastapi" },
+  { name: "Docker", icon: "https://cdn.simpleicons.org/docker" },
+  { name: "Kubernetes", icon: "https://cdn.simpleicons.org/kubernetes" },
+  // { name: "AWS", icon: "https://cdn.simpleicons.org/amazonwebservices" },
+  { name: "PostgreSQL", icon: "https://cdn.simpleicons.org/postgresql" },
+  { name: "MongoDB", icon: "https://cdn.simpleicons.org/mongodb" },
+  { name: "Redis", icon: "https://cdn.simpleicons.org/redis" },
+  { name: "GraphQL", icon: "https://cdn.simpleicons.org/graphql" },
+  { name: "Supabase", icon: "https://cdn.simpleicons.org/supabase" },
+  { name: "Firebase", icon: "https://cdn.simpleicons.org/firebase" },
+  { name: "Git", icon: "https://cdn.simpleicons.org/git" },
+  { name: "GitHub Actions", icon: "https://cdn.simpleicons.org/githubactions" },
+  { name: "Vercel", icon: "https://cdn.simpleicons.org/vercel" },
+  { name: "Linux", icon: "https://cdn.simpleicons.org/linux" },
+];
 
 const TRUST_SCORES = [
   {
@@ -188,8 +216,8 @@ export default function HeroSection({
               <h1 className="sr-only">
                 Building Software That Scales Real Impact.
               </h1>
-              <div className="flex flex-col gap-0.5 sm:gap-1">
-                <div className="h-12 sm:h-16 md:h-20 lg:h-[70px] w-full">
+              <div className="flex flex-col gap-1.5 sm:gap-2 md:gap-2.5">
+                <div className="relative z-10 hover:z-20 h-14 sm:h-18 md:h-20 lg:h-[78px] w-full">
                   <TechText
                     text="BUILDING SOFTWARE"
                     fontWeight={700}
@@ -219,7 +247,7 @@ export default function HeroSection({
                     sweep={false}
                   />
                 </div>
-                <div className="h-12 sm:h-16 md:h-20 lg:h-[70px] w-full pt-4">
+                <div className="relative z-10 hover:z-20 h-14 sm:h-18 md:h-20 lg:h-[78px] w-full">
                   <TechText
                     text="THAT SCALES REAL IMPACT."
                     fontWeight={700}
@@ -272,46 +300,21 @@ export default function HeroSection({
               transition={{ duration: 0.7, ease: EASE, delay: 0.45 }}
               className="flex flex-wrap items-center gap-4 mb-4 sm:mb-6"
             >
-              <button
+              <FlowButton
+                variant="primary"
+                size="lg"
                 onClick={() => scroll("#contact")}
-                className="px-8 py-3.5 text-sm font-bold text-white bg-accent rounded-xl hover:bg-accent-hover shadow-lg shadow-red-950/40 hover:shadow-accent/40 active:scale-[0.98] transition-all duration-200 cursor-pointer inline-flex items-center gap-2.5"
               >
-                <span>Start a Project</span>
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M2.5 7h9m0 0L8 3.5M11.5 7 8 10.5"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+                Start a Project
+              </FlowButton>
 
-              <button
+              <FlowButton
+                variant="secondary"
+                size="lg"
                 onClick={() => scroll("#products")}
-                className="px-6 py-3.5 text-sm font-semibold text-white/90 bg-white/5 hover:bg-white/10 border border-white/15 rounded-xl active:scale-[0.98] transition-all duration-200 cursor-pointer inline-flex items-center gap-2"
               >
-                <span>Explore Flagship Products</span>
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </button>
+                Explore Products
+              </FlowButton>
             </motion.div>
           </motion.div>
         </div>
@@ -319,33 +322,28 @@ export default function HeroSection({
 
       {/* ── SCROLLING OVERLAY: TEXTLOOP WAVE SEPARATOR + TRUST SCORE SECTION ── */}
       <div className="relative z-20 w-full">
-        {/* ── TEXT LOOP (WAVE SEPARATOR: CURVE UP = HERO, CURVE DOWN = TRUST SCORE) ── */}
+        {/* ── TEXT LOOP (WAVE SEPARATOR: TECH STACK LOGOS RIBBON) ── */}
         <div className="relative z-30 w-full pointer-events-none overflow-hidden -mb-1">
           <div className="pointer-events-auto w-full">
             <TextLoop
-              text={LOOP_TEXT}
+              logos={TECH_STACK_LOGOS}
+              reddishGray
+              logoSize={isMobile ? 70 : 28}
+              logoSpacing={isMobile ? 120 : 64}
               shape="wave"
-              speed={50}
+              speed={45}
               direction="forward"
-              separator="✦"
               curviness={0}
               tilt={-5}
-              fontSize={isMobile ? 50 : 12}
-              fontWeight={800}
-              letterSpacing={isMobile ? 1.5 : 1}
-              uppercase
               ribbon
               ribbonColor="#ffff"
-              ribbonWidth={isMobile ? 100 : 50}
+              ribbonWidth={isMobile ? 120 : 50}
               edgeFade={0}
               cross={false}
               crossAngle={0}
-              draggable={false}
-              scrollBoost={0.8}
-              outline={false}
-              pauseOnHover={false}
-              outlineWidth={1.5}
-              color="#000000"
+              draggable={true}
+              scrollBoost={0.9}
+              pauseOnHover={true}
               bottomColor="#dc2626"
             />
           </div>
@@ -354,9 +352,21 @@ export default function HeroSection({
         {/* ── TRUST SCORE SECTION (BOTTOM OF HERO SECTION, BG PRIMARY RED, TEXT WHITE, TALL & PROMINENT) ── */}
         <div
           id="trust-score"
-          className="relative z-10 w-full bg-accent text-white pt-3 sm:pt-4 pb-12 sm:pb-18 lg:pb-22"
+          className="relative z-10 w-full bg-accent text-white pt-4 sm:pt-6 pb-14 sm:pb-20 lg:pb-24 overflow-hidden"
         >
-          <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+          {/* Ambient Right Watermark Branding */}
+          <div className="absolute right-[-20px] sm:right-0 lg:right-6 xl:right-10 top-6 sm:top-10 md:top-12 lg:top-16 w-[300px] sm:w-[420px] md:w-[540px] lg:w-[650px] xl:w-[740px] 2xl:w-[800px] pointer-events-none select-none opacity-30 sm:opacity-35 xl:opacity-40 transition-opacity duration-300">
+            <Image
+              src="/images/watermark_white.png"
+              alt=""
+              width={750}
+              height={880}
+              className="w-full h-auto object-contain"
+              priority
+            />
+          </div>
+
+          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
             {/* Header block for extra height and architectural weight */}
             <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10 lg:mb-14">
               <h5 className="mt-2 sm:mt-3 text-base sm:text-xl md:text-2xl text-white tracking-tight">
@@ -372,7 +382,7 @@ export default function HeroSection({
                   className="flex flex-col items-center justify-center text-center px-2 sm:px-6 py-2 lg:py-2"
                 >
                   <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-none">
-                    {stat.value}
+                    <CountUp value={stat.value} delay={idx * 0.12} duration={2} />
                   </div>
                   <div className="text-xs sm:text-base font-semibold text-white tracking-wide mt-2 sm:mt-3">
                     {stat.label}

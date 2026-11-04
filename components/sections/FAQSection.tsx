@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/Badge'
 import { FadeIn } from '@/components/motion/FadeIn'
 import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
+import { FlowButton } from '@/components/ui/FlowButton'
 
 /* ── Light-themed Accordion (designed for white/light bg) ── */
 
@@ -132,16 +133,16 @@ export default function FAQSection() {
         </FadeIn>
 
         {/* Still have questions prompt */}
-        <FadeIn delay={0.25} className="mt-12 text-center">
-          <p className="text-sm text-text-muted">
-            Have a custom requirement or technical question?{' '}
-            <a
-              href="#contact"
-              className="text-accent font-semibold hover:underline cursor-pointer"
-            >
-              Reach out directly →
-            </a>
+        <FadeIn delay={0.25} className="mt-14 text-center flex flex-col items-center justify-center">
+          <p className="text-sm text-text-muted mb-4">
+            Have a custom requirement or technical question?
           </p>
+          <FlowButton
+            text="Reach Out Directly"
+            href="#contact"
+            variant="outline"
+            size="md"
+          />
         </FadeIn>
       </div>
     </section>
