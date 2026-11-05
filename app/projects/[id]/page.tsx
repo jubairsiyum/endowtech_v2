@@ -18,8 +18,14 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import JsonLd from "@/components/seo/JsonLd";
+import { getProjectSchema, getBreadcrumbSchema } from "@/lib/seo/schema";
 
-export const dynamic = "force-dynamic";
+export function generateStaticParams() {
+  return featuredProjects.map((p) => ({
+    id: p.id,
+  }));
+}
 
 export async function generateMetadata({
   params,
@@ -35,9 +41,36 @@ export async function generateMetadata({
     };
   }
 
+  const pageUrl = `${siteConfig.url}/projects/${id}`;
+
   return {
-    title: `${project.title} | Featured Projects | Endow Tech`,
+    title: `${project.title} | Featured Projects`,
     description: project.description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${project.title} | Endow Tech Engineering Case Study`,
+      description: project.description,
+      url: pageUrl,
+      type: "article",
+      images: [
+        {
+          url: project.image.startsWith("http")
+            ? project.image
+            : `${siteConfig.url}${project.image}`,
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.description,
+      images: [project.image],
+    },
   };
 }
 
@@ -63,8 +96,17 @@ export default async function ProjectDetailPage({
       ? featuredProjects[projectIndex + 1]
       : featuredProjects[0];
 
+  const projectSchema = getProjectSchema(project);
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Featured Projects", url: "/#featured-projects" },
+    { name: project.shortTitle, url: `/projects/${project.id}` },
+  ]);
+
   return (
-    <main className="min-h-screen bg-[#070811] text-white pt-28 pb-24 selection:bg-accent selection:text-white">
+    <>
+      <JsonLd schema={[projectSchema, breadcrumbSchema]} />
+      <main className="min-h-screen bg-[#070811] text-white pt-28 pb-24 selection:bg-accent selection:text-white">
       {/* Background ambient lighting */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div
@@ -390,5 +432,6 @@ export default async function ProjectDetailPage({
         </div>
       </div>
     </main>
+    </>
   );
 }

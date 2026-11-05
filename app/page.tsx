@@ -1,49 +1,31 @@
-'use client'
+import { Metadata } from "next";
+import HomeClient from "@/components/HomeClient";
+import JsonLd from "@/components/seo/JsonLd";
+import { faqItems } from "@/data/faq";
+import { getFaqSchema } from "@/lib/seo/schema";
 
-import React, { useState } from 'react'
-import Navbar from '@/components/layout/Navbar'
-import HeroSection from '@/components/sections/HeroSection'
-import TrustEcosystem from '@/components/sections/TrustEcosystem'
-import FeaturedProjects from '@/components/sections/FeaturedProjects'
-import FlagshipProducts from '@/components/sections/FlagshipProducts'
-import ServicesSection from '@/components/sections/ServicesSection'
-import ProcessSection from '@/components/sections/ProcessSection'
-import TechStackSection from '@/components/sections/TechStackSection'
-import CaseStudiesSection from '@/components/sections/CaseStudiesSection'
-import ComparisonSection from '@/components/sections/ComparisonSection'
-import GlobalPresence from '@/components/sections/GlobalPresence'
-import TestimonialsSection from '@/components/sections/TestimonialsSection'
-import FAQSection from '@/components/sections/FAQSection'
-import ContactSection from '@/components/sections/ContactSection'
-import WhatsAppButton from '@/components/layout/WhatsAppButton'
-import Footer from '@/components/layout/Footer'
+export const metadata: Metadata = {
+  title: "Endow Tech — Enterprise Software & Digital Product Studio",
+  description:
+    "Endow Tech engineers high-performance web applications, student portal systems, and scalable SaaS platforms backed by Endow Corporation across Seoul and Dhaka.",
+  alternates: {
+    canonical: "https://endowtech.dev",
+  },
+  openGraph: {
+    title: "Endow Tech — Enterprise Software & Digital Product Studio",
+    description:
+      "Enterprise engineering studio behind mission-critical admissions platforms and scalable cloud architectures.",
+    url: "https://endowtech.dev",
+  },
+};
 
 export default function HomePage() {
-  const [isSchedulerOpen, setIsSchedulerOpen] = useState(false)
+  const faqSchema = getFaqSchema(faqItems);
 
   return (
     <>
-      <Navbar
-        isSchedulerOpen={isSchedulerOpen}
-        setIsSchedulerOpen={setIsSchedulerOpen}
-      />
-      <main>
-        <HeroSection onOpenScheduler={() => setIsSchedulerOpen(true)} />
-        <TrustEcosystem />
-        <FeaturedProjects />
-        <FlagshipProducts />
-        <ServicesSection />
-        <ProcessSection />
-        <TechStackSection />
-        <CaseStudiesSection />
-        <ComparisonSection />
-        <GlobalPresence />
-        <TestimonialsSection />
-        <FAQSection />
-        <ContactSection onOpenScheduler={() => setIsSchedulerOpen(true)} />
-      </main>
-      <WhatsAppButton />
-      <Footer />
+      <JsonLd schema={faqSchema} />
+      <HomeClient />
     </>
-  )
+  );
 }

@@ -4,8 +4,14 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FlowButton } from "@/components/ui/FlowButton";
+import JsonLd from "@/components/seo/JsonLd";
+import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo/schema";
 
-export const dynamic = "force-dynamic";
+export function generateStaticParams() {
+  return coreServices.map((s) => ({
+    id: s.id,
+  }));
+}
 
 export async function generateMetadata({
   params,
@@ -21,9 +27,25 @@ export async function generateMetadata({
     };
   }
 
+  const pageUrl = `${siteConfig.url}/services/${id}`;
+
   return {
-    title: `${service.title} | Services | Endow Tech`,
+    title: `${service.title} | Services`,
     description: service.description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${service.title} | Endow Tech Services`,
+      description: service.description,
+      url: pageUrl,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: service.title,
+      description: service.description,
+    },
   };
 }
 
@@ -39,8 +61,17 @@ export default async function ServiceDetailPage({
     notFound();
   }
 
+  const serviceSchema = getServiceSchema(service);
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/#services" },
+    { name: service.title, url: `/services/${service.id}` },
+  ]);
+
   return (
-    <main className="min-h-screen bg-[#070811] text-white pt-28 pb-20">
+    <>
+      <JsonLd schema={[serviceSchema, breadcrumbSchema]} />
+      <main className="min-h-screen bg-[#070811] text-white pt-28 pb-20">
       {/* Background ambient glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-accent/15 rounded-full blur-[140px]" />
@@ -153,5 +184,6 @@ export default async function ServiceDetailPage({
         </div>
       </div>
     </main>
+    </>
   );
 }
