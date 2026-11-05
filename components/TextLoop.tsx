@@ -476,6 +476,7 @@ const TextLoop = ({
     const isExpandActive = expandOnScroll || expandProgress !== undefined;
 
     let currentExpansion = 1;
+    let targetExp = 1;
     const calculateTargetExpansion = () => {
       if (expandProgress !== undefined) {
         return clamp(expandProgress, 0, 1);
@@ -495,6 +496,11 @@ const TextLoop = ({
       const currentTravel = startY - ribbonCenterY;
       return clamp(currentTravel / travelTotal, 0, 1);
     };
+
+    if (isExpandActive && root) {
+      targetExp = calculateTargetExpansion();
+      currentExpansion = targetExp;
+    }
 
     const updateClipRect = (expansion: number) => {
       if (!expandClipRectRef.current) return;
@@ -562,12 +568,10 @@ const TextLoop = ({
         boost += (target - boost) * (1 - Math.exp(-dt / 0.18));
       }
       if (isExpandActive && expandClipRectRef.current && root) {
-        const targetExp = calculateTargetExpansion();
-        currentExpansion += (targetExp - currentExpansion) * (1 - Math.exp(-dt / 0.08));
-        if (Math.abs(currentExpansion - targetExp) < 0.001) {
-          currentExpansion = targetExp;
+        if (Math.abs(currentExpansion - targetExp) > 0.001) {
+          currentExpansion += (targetExp - currentExpansion) * (1 - Math.exp(-dt / 0.08));
+          updateClipRect(currentExpansion);
         }
-        updateClipRect(currentExpansion);
       }
       const v = base * hover.scale + fling + boost;
       if (Math.abs(v) < 0.01 && !isExpandActive) return;
@@ -645,6 +649,9 @@ const TextLoop = ({
     };
 
     const onScroll = (event: Event) => {
+      if (isExpandActive) {
+        targetExp = calculateTargetExpansion();
+      }
       const source = event.target;
       const isPage = source === document || source === document.documentElement || source === document.body;
       if (!isPage && !(source instanceof Node && source.contains(root))) return;

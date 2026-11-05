@@ -4,6 +4,7 @@ import DotGrid from "@/components/DotGrid";
 import TechText from "@/components/TechText";
 import TextLoop from "@/components/TextLoop";
 import { FlowButton } from "@/components/ui/FlowButton";
+import { scrollToElement } from "@/components/SmoothScroll";
 import { CountUp } from "@/components/motion/CountUp";
 import { siteConfig } from "@/data/siteConfig";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -101,14 +102,18 @@ export default function HeroSection({
   const heroScale = useTransform(scrollYProgress, [0, 0.75], [1, 0.98]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.1]);
 
-  // Direct DOM style updates for cursor glow: ZERO React re-renders!
+  // Direct DOM style updates for cursor glow: cached rect avoids layout thrashing
   useEffect(() => {
     const el = stickyRef.current;
     const glow = glowRef.current;
     if (!el || !glow) return;
 
+    let r = el.getBoundingClientRect();
+    const updateRect = () => {
+      r = el.getBoundingClientRect();
+    };
+
     const onMove = (e: MouseEvent) => {
-      const r = el.getBoundingClientRect();
       const x = e.clientX - r.left;
       const y = e.clientY - r.top;
       glow.style.opacity = "1";
@@ -121,15 +126,19 @@ export default function HeroSection({
 
     el.addEventListener("mousemove", onMove, { passive: true });
     el.addEventListener("mouseleave", onLeave);
+    window.addEventListener("resize", updateRect, { passive: true });
+    window.addEventListener("scroll", updateRect, { passive: true });
 
     return () => {
       el.removeEventListener("mousemove", onMove);
       el.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("resize", updateRect);
+      window.removeEventListener("scroll", updateRect);
     };
   }, []);
 
   const scroll = (id: string) => {
-    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+    scrollToElement(id, -40, 0.75);
   };
 
   return (

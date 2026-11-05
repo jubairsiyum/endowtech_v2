@@ -134,6 +134,12 @@ function poseFor(u: number): CardPose {
 
 /** Lay the strips out along a circular arc so the card behaves like a bent sheet of paper. */
 function bendCard(strips: HTMLElement[], b: number, F: number) {
+  if (Math.abs(b) < 0.05) {
+    for (let i = 0; i < STRIPS; i++) {
+      if (strips[i]) strips[i].style.transform = 'translate3d(0,0,0) rotateY(0rad)';
+    }
+    return;
+  }
   const kappa = (8 * b) / (REF_W * REF_W);
   const out: [number, number, number][] = new Array(STRIPS);
   for (let dir = -1; dir <= 1; dir += 2) {
@@ -153,7 +159,7 @@ function bendCard(strips: HTMLElement[], b: number, F: number) {
   }
   for (let i = 0; i < STRIPS; i++) {
     const o = out[i];
-    if (!o) continue;
+    if (!o || !strips[i]) continue;
     strips[i].style.transform =
       `translate3d(${(o[0] * F).toFixed(2)}px,0,${(o[1] * F).toFixed(2)}px) rotateY(${o[2].toFixed(4)}rad)`;
   }
@@ -169,14 +175,26 @@ export default function FeaturedProjects() {
   const N = featuredProjects.length;
 
   useEffect(() => {
-    const section = sectionRef.current!;
-    const stage = stageRef.current!;
+    const section = sectionRef.current;
+    const stage = stageRef.current;
+    if (!section || !stage) return;
+
     let F = 1;
     let target = 0;
     let current = 0;
     let last = performance.now();
     let lastIdx = -1;
     let raf = 0;
+    let isVisible = false;
+    let isRunning = false;
+    const cachedStrips: HTMLElement[][] = [];
+
+    const getStrips = (i: number, el: HTMLAnchorElement) => {
+      if (!cachedStrips[i] || cachedStrips[i].length === 0) {
+        cachedStrips[i] = Array.from(el.children) as HTMLElement[];
+      }
+      return cachedStrips[i];
+    };
 
     const resize = () => {
       const vw = window.innerWidth;
@@ -197,15 +215,17 @@ export default function FeaturedProjects() {
       stage.style.setProperty("--h", `${H}px`);
       stage.style.setProperty("--sw", `${W / STRIPS}px`);
       // On mobile: vertically balance the card and text between header and footer
-      // Header ends ~180px, footer clearance ~55px. Text under card is ~75px.
       const cardTop = isMobile
         ? `${Math.max(195, Math.round((vh + 130 - (H + 75)) / 2))}px`
         : `calc(51% - ${H / 2}px)`;
       stage.style.setProperty("--card-top", cardTop);
       F = W / REF_W;
+      if (isVisible) {
+        render();
+      }
     };
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
 
     const render = () => {
       const t = current * (N - 1);
@@ -224,7 +244,7 @@ export default function FeaturedProjects() {
           `translate3d(${(P.x * F).toFixed(2)}px, ${(P.y * F).toFixed(2)}px, 0) ` +
           `rotateZ(${P.rz.toFixed(3)}deg) rotateY(${P.ry.toFixed(3)}deg) scale(${P.s.toFixed(4)})`;
         el.style.setProperty("--txt", P.txt.toFixed(3));
-        bendCard(Array.from(el.children) as HTMLElement[], P.bend, F);
+        bendCard(getStrips(i, el), P.bend, F);
         el.style.zIndex = String(
           u < 0 ? 60 + Math.round(u * 10) : 50 - Math.round(u * 10),
         );
@@ -238,22 +258,75 @@ export default function FeaturedProjects() {
         fillRef.current.style.width = `${(((t + 1) / N) * 100).toFixed(2)}%`;
     };
 
+    const stopLoop = () => {
+      isRunning = false;
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    };
+
     const tick = (now: number) => {
+      if (!isVisible) {
+        stopLoop();
+        return;
+      }
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       const r = section.getBoundingClientRect();
       const total = section.offsetHeight - window.innerHeight;
       target = Math.min(1, Math.max(0, -r.top / total));
-      current += (target - current) * (1 - Math.exp(-dt * 7.5)); // inertial smoothing
-      if (Math.abs(target - current) < 0.00005) current = target;
+
+      // Crisp, responsive tracking without sluggish secondary drag
+      current += (target - current) * (1 - Math.exp(-dt * 16));
+      const diff = Math.abs(target - current);
+      if (diff < 0.0001) {
+        current = target;
+      }
+
       render();
+
+      if (diff < 0.0001) {
+        // Settled: pause RAF loop until next scroll or resize event
+        stopLoop();
+      } else {
+        raf = requestAnimationFrame(tick);
+      }
+    };
+
+    const startLoop = () => {
+      if (isRunning || !isVisible) return;
+      isRunning = true;
+      last = performance.now();
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
+
+    const onScroll = () => {
+      if (isVisible && !isRunning) {
+        startLoop();
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // IntersectionObserver: sleep completely when outside viewport
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      },
+      { rootMargin: "200px 0px 200px 0px" }
+    );
+    observer.observe(section);
 
     return () => {
-      cancelAnimationFrame(raf);
+      stopLoop();
+      observer.disconnect();
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onScroll);
     };
   }, [N]);
 

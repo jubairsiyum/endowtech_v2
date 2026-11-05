@@ -1,6 +1,7 @@
 "use client";
 
 import { FlowButton } from "@/components/ui/FlowButton";
+import { scrollToElement } from "@/components/SmoothScroll";
 import { coreServices } from "@/data/services";
 import { siteConfig } from "@/data/siteConfig";
 import Image from "next/image";
@@ -98,8 +99,7 @@ export default function Navbar({
 
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
-    const el = document.querySelector(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    scrollToElement(id, -40, 0.75);
   };
 
   return (
