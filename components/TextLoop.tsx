@@ -49,7 +49,7 @@ export interface TextLoopProps {
   bottomColor?: string;
   topColor?: string;
   expandOnScroll?: boolean;
-  expandDirection?: 'left-to-right' | 'right-to-left';
+  expandDirection?: 'left-to-right' | 'right-to-left' | 'top-to-bottom' | 'up-to-down';
   expandFinishTopRatio?: number;
   expandFinishProgress?: number;
   expandStartProgress?: number;
@@ -304,8 +304,13 @@ const TextLoop = ({
 
   const calculatedViewBox = useMemo(() => {
     if (shape === 'wave' || shape === 'line') {
-      const tiltSpan = Math.abs(Math.sin(((tilt || 0) * Math.PI) / 180) * (VIEW_W / 2));
-      const halfHeight = Math.max(90, Math.min(curviness * 2.2, 130) + ribbonWidth / 2 + tiltSpan + 35);
+      const rad = ((tilt || 0) * Math.PI) / 180;
+      const tiltSpan = Math.abs(Math.sin(rad) * (VIEW_W / 2));
+      const halfHeight = Math.ceil(
+        Math.min(curviness * 2.2, 130) +
+        (ribbonWidth / 2) * Math.cos(rad) +
+        tiltSpan + 6
+      );
       const minY = Math.max(0, CY - halfHeight);
       const h = halfHeight * 2;
       return `0 ${minY} ${VIEW_W} ${h}`;
@@ -496,20 +501,34 @@ const TextLoop = ({
       if (expansion >= 0.999) {
         expandClipRectRef.current.setAttribute('x', '-400');
         expandClipRectRef.current.setAttribute('width', '2400');
+        expandClipRectRef.current.setAttribute('y', String(-CY * 4));
+        expandClipRectRef.current.setAttribute('height', String(CY * 8));
         return;
       }
-      const totalSpan = VIEW_W + 120;
-      const currentWidth = Math.max(0, totalSpan * expansion);
 
-      if (expandDirection === 'right-to-left') {
-        const rightX = VIEW_W + 60;
-        const currentX = rightX - currentWidth;
-        expandClipRectRef.current.setAttribute('x', String(currentX));
-        expandClipRectRef.current.setAttribute('width', String(currentWidth));
+      if (expandDirection === 'top-to-bottom' || expandDirection === 'up-to-down') {
+        const totalHeight = CY * 8;
+        const currentHeight = Math.max(0, totalHeight * expansion);
+        expandClipRectRef.current.setAttribute('x', '-400');
+        expandClipRectRef.current.setAttribute('width', '2400');
+        expandClipRectRef.current.setAttribute('y', String(-CY * 4));
+        expandClipRectRef.current.setAttribute('height', String(currentHeight));
       } else {
-        const startX = -60;
-        expandClipRectRef.current.setAttribute('x', String(startX));
-        expandClipRectRef.current.setAttribute('width', String(currentWidth));
+        const totalSpan = VIEW_W + 120;
+        const currentWidth = Math.max(0, totalSpan * expansion);
+        expandClipRectRef.current.setAttribute('y', String(-CY * 4));
+        expandClipRectRef.current.setAttribute('height', String(CY * 8));
+
+        if (expandDirection === 'right-to-left') {
+          const rightX = VIEW_W + 60;
+          const currentX = rightX - currentWidth;
+          expandClipRectRef.current.setAttribute('x', String(currentX));
+          expandClipRectRef.current.setAttribute('width', String(currentWidth));
+        } else {
+          const startX = -60;
+          expandClipRectRef.current.setAttribute('x', String(startX));
+          expandClipRectRef.current.setAttribute('width', String(currentWidth));
+        }
       }
     };
 

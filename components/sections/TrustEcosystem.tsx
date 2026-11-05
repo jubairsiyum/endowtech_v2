@@ -33,15 +33,18 @@ export default function TrustEcosystem() {
   }, []);
 
   return (
-    <section className="relative bg-white pt-16 sm:pt-24 pb-0 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 mb-16 sm:mb-20">
+    <section className="relative bg-white pt-12 sm:pt-16 pb-0 overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 mb-6 sm:mb-8">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12 lg:gap-16">
           {/* Left description */}
           <div className="max-w-2xl">
             <FadeIn>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/25 text-accent font-mono text-xs font-semibold uppercase tracking-wider mb-5">
+              {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/25 text-accent font-mono text-xs font-semibold uppercase tracking-wider mb-5">
                 {"// Corporate Ecosystem"}
-              </div>
+              </div> */}
+              <span className="hidden md:block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-5">
+                Corporate Ecosystem
+              </span>
 
               <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-black text-gray-900 tracking-tight leading-[1.15]">
                 An international technology wing backed by{" "}
@@ -151,7 +154,7 @@ export default function TrustEcosystem() {
       </div>
 
       {/* ── TEXTLOOP: WAVE SEPARATOR WITH CORPORATE ECOSYSTEM TEXT ── */}
-      <div className="relative z-30 w-full pointer-events-none overflow-hidden -mb-1">
+      <div className="relative z-30 w-full pointer-events-none overflow-hidden -my-2 sm:-my-3">
         <div className="pointer-events-auto w-full">
           <TextLoop
             text={ECOSYSTEM_TICKER}
@@ -174,7 +177,6 @@ export default function TrustEcosystem() {
             draggable={true}
             scrollBoost={0}
             pauseOnHover={true}
-            bottomColor="#0f0000"
             expandOnScroll={true}
             expandDirection="right-to-left"
             expandFinishTopRatio={0.3}

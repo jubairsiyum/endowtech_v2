@@ -111,3 +111,6 @@ export interface FAQItem {
   answer: string;
   category: "Engineering" | "Engagement & Pricing" | "Security & SLA";
 }
+
+export type { FeaturedProject, FeaturedProjectMetric } from "@/data/featuredProjects";
+

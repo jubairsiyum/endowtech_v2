@@ -1,19 +1,21 @@
 "use client";
 
+import { FlowButton } from "@/components/ui/FlowButton";
 import { coreServices } from "@/data/services";
 import { siteConfig } from "@/data/siteConfig";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { FlowButton } from "@/components/ui/FlowButton";
 
 const NAV_LINKS = [
+  // { label: "Featured", href: "/#featured-projects", hasChevron: false },
   { label: "Services", href: "#services", hasChevron: true },
-  { label: "Solutions", href: "#products", hasChevron: true },
-  { label: "Methodology", href: "#process", hasChevron: false },
+  { label: "Projects", href: "/#featured-projects", hasChevron: false },
+  { label: "Solutions", href: "#products", hasChevron: false },
+  // { label: "Methodology", href: "#process", hasChevron: false },
   { label: "Stack", href: "#tech-stack", hasChevron: false },
   { label: "Case Studies", href: "#work", hasChevron: false },
-  { label: "FAQ", href: "#faq", hasChevron: false },
+  // { label: "FAQ", href: "#faq", hasChevron: false },
 ];
 
 export default function Navbar({
@@ -199,7 +201,9 @@ export default function Navbar({
                                     href={`/services/${service.id}`}
                                     onClick={() => setServicesMenuOpen(false)}
                                     className={`group/item p-6 sm:p-7 flex flex-col justify-start bg-white hover:bg-neutral-50/80 transition-all duration-150 text-left ${
-                                      !isLastCol ? "border-r border-gray-200" : ""
+                                      !isLastCol
+                                        ? "border-r border-gray-200"
+                                        : ""
                                     } ${isFirstRow ? "border-b border-gray-200" : ""}`}
                                   >
                                     <div className="flex items-center justify-between gap-2">
@@ -309,7 +313,10 @@ export default function Navbar({
             {NAV_LINKS.map((link) => {
               if (link.label === "Services") {
                 return (
-                  <div key={link.label} className="border-b border-white/5 pb-2">
+                  <div
+                    key={link.label}
+                    className="border-b border-white/5 pb-2"
+                  >
                     <button
                       onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                       className="w-full text-base sm:text-lg font-semibold text-white/90 hover:text-white text-left uppercase tracking-wider py-2.5 flex items-center justify-between"

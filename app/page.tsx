@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Navbar from '@/components/layout/Navbar'
 import HeroSection from '@/components/sections/HeroSection'
 import TrustEcosystem from '@/components/sections/TrustEcosystem'
+import FeaturedProjects from '@/components/sections/FeaturedProjects'
 import FlagshipProducts from '@/components/sections/FlagshipProducts'
 import ServicesSection from '@/components/sections/ServicesSection'
 import ProcessSection from '@/components/sections/ProcessSection'
@@ -29,6 +30,7 @@ export default function HomePage() {
       <main>
         <HeroSection onOpenScheduler={() => setIsSchedulerOpen(true)} />
         <TrustEcosystem />
+        <FeaturedProjects />
         <FlagshipProducts />
         <ServicesSection />
         <ProcessSection />
