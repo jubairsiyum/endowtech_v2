@@ -164,7 +164,7 @@ export default function TrustEcosystem() {
             ribbon
             ribbonColor="#dc2626"
             ribbonWidth={isMobile ? 110 : 54}
-            fontSize={isMobile ? 16 : 21}
+            fontSize={isMobile ? 40 : 21}
             fontWeight={800}
             letterSpacing={2}
             uppercase
@@ -172,9 +172,12 @@ export default function TrustEcosystem() {
             edgeFade={0}
             cross={false}
             draggable={true}
-            scrollBoost={0.9}
+            scrollBoost={0}
             pauseOnHover={true}
             bottomColor="#0f0000"
+            expandOnScroll={true}
+            expandDirection="right-to-left"
+            expandFinishTopRatio={0.3}
           />
         </div>
       </div>

@@ -48,6 +48,12 @@ export interface TextLoopProps {
   preserveAspectRatio?: SVGProps<SVGSVGElement>['preserveAspectRatio'];
   bottomColor?: string;
   topColor?: string;
+  expandOnScroll?: boolean;
+  expandDirection?: 'left-to-right' | 'right-to-left';
+  expandFinishTopRatio?: number;
+  expandFinishProgress?: number;
+  expandStartProgress?: number;
+  expandProgress?: number;
 }
 
 interface Metrics {
@@ -201,7 +207,13 @@ const TextLoop = ({
   style = {},
   preserveAspectRatio = 'xMidYMid meet',
   bottomColor,
-  topColor
+  topColor,
+  expandOnScroll = false,
+  expandDirection = 'right-to-left',
+  expandFinishTopRatio = 0.3,
+  expandFinishProgress = 0.7,
+  expandStartProgress = 0,
+  expandProgress
 }: TextLoopProps) => {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -214,6 +226,7 @@ const TextLoop = ({
   const crossTailRef = useRef<SVGTextPathElement | null>(null);
   const progressRef = useRef(0);
   const logoRefs = useRef<(SVGGElement | null)[]>([]);
+  const expandClipRectRef = useRef<SVGRectElement | null>(null);
 
   const normalizedLogos = useMemo(() => {
     if (!logos || logos.length === 0) return [];
@@ -276,6 +289,7 @@ const TextLoop = ({
   const underId = `${pathId}-under`;
   const grayscaleId = `${pathId}-grayscale`;
   const reddishFilterId = `${pathId}-reddish-gray`;
+  const expandClipId = `${pathId}-expand-clip`;
   const logoClass = `tl-logo-${rawId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
 
   const custom = Boolean(path);
@@ -454,6 +468,55 @@ const TextLoop = ({
     const circular = !custom && shape === 'circle';
     const radius = circleRadius(curviness, ribbonWidth);
     const boosting = scrollBoost > 0 && !reduced;
+    const isExpandActive = expandOnScroll || expandProgress !== undefined;
+
+    let currentExpansion = 1;
+    const calculateTargetExpansion = () => {
+      if (expandProgress !== undefined) {
+        return clamp(expandProgress, 0, 1);
+      }
+      if (!expandOnScroll || !root) return 1;
+      const windowH = window.innerHeight || 800;
+      const rect = root.getBoundingClientRect();
+      const ribbonCenterY = rect.top + rect.height * 0.5;
+
+      // 30% from top of screen means ribbon finishes when ribbonCenterY reaches windowH * 0.3
+      const finishY = windowH * (expandFinishTopRatio ?? 0.3);
+      const startY = windowH;
+
+      const travelTotal = startY - finishY;
+      if (travelTotal <= 0) return 1;
+
+      const currentTravel = startY - ribbonCenterY;
+      return clamp(currentTravel / travelTotal, 0, 1);
+    };
+
+    const updateClipRect = (expansion: number) => {
+      if (!expandClipRectRef.current) return;
+      if (expansion >= 0.999) {
+        expandClipRectRef.current.setAttribute('x', '-400');
+        expandClipRectRef.current.setAttribute('width', '2400');
+        return;
+      }
+      const totalSpan = VIEW_W + 120;
+      const currentWidth = Math.max(0, totalSpan * expansion);
+
+      if (expandDirection === 'right-to-left') {
+        const rightX = VIEW_W + 60;
+        const currentX = rightX - currentWidth;
+        expandClipRectRef.current.setAttribute('x', String(currentX));
+        expandClipRectRef.current.setAttribute('width', String(currentWidth));
+      } else {
+        const startX = -60;
+        expandClipRectRef.current.setAttribute('x', String(startX));
+        expandClipRectRef.current.setAttribute('width', String(currentWidth));
+      }
+    };
+
+    if (isExpandActive && expandClipRectRef.current && root) {
+      currentExpansion = calculateTargetExpansion();
+      updateClipRect(currentExpansion);
+    }
 
     let fling = 0;
     let boost = 0;
@@ -479,8 +542,16 @@ const TextLoop = ({
         const target = clamp(scrollVelocity * scrollBoost * 0.35 * sign, -MAX_BOOST, MAX_BOOST);
         boost += (target - boost) * (1 - Math.exp(-dt / 0.18));
       }
+      if (isExpandActive && expandClipRectRef.current && root) {
+        const targetExp = calculateTargetExpansion();
+        currentExpansion += (targetExp - currentExpansion) * (1 - Math.exp(-dt / 0.08));
+        if (Math.abs(currentExpansion - targetExp) < 0.001) {
+          currentExpansion = targetExp;
+        }
+        updateClipRect(currentExpansion);
+      }
       const v = base * hover.scale + fling + boost;
-      if (Math.abs(v) < 0.01) return;
+      if (Math.abs(v) < 0.01 && !isExpandActive) return;
       travel += v * dt;
       apply();
     };
@@ -582,14 +653,14 @@ const TextLoop = ({
       root.addEventListener('pointerup', onUp);
       root.addEventListener('pointercancel', onUp);
     }
-    if (boosting) window.addEventListener('scroll', onScroll, { capture: true, passive: true });
+    if (boosting || isExpandActive) window.addEventListener('scroll', onScroll, { capture: true, passive: true });
 
     const observer =
       typeof IntersectionObserver !== 'undefined'
         ? new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting) start();
             else stop();
-          })
+          }, { rootMargin: '300px 0px 300px 0px' })
         : null;
     if (observer) observer.observe(root);
     else start();
@@ -624,7 +695,13 @@ const TextLoop = ({
     cycleWidth,
     logoItems,
     logoSpacing,
-    normalizedLogos.length
+    normalizedLogos.length,
+    expandOnScroll,
+    expandDirection,
+    expandFinishTopRatio,
+    expandFinishProgress,
+    expandStartProgress,
+    expandProgress
   ]);
 
   const loopText = unit.repeat(metrics.reps);
@@ -730,6 +807,17 @@ const TextLoop = ({
               <feColorMatrix type="saturate" values="0" />
             </filter>
           )}
+          {(expandOnScroll || expandProgress !== undefined) && (
+            <clipPath id={expandClipId}>
+              <rect
+                ref={expandClipRectRef}
+                x={-60}
+                y={-CY * 4}
+                width={2400}
+                height={CY * 8}
+              />
+            </clipPath>
+          )}
         </defs>
 
         <style>{`
@@ -827,16 +915,17 @@ const TextLoop = ({
                 fill={bottomColor}
               />
             )}
-            <path
-              ref={pathRef}
-              id={pathId}
-              d={d}
-              fill="none"
-              stroke={ribbon ? ribbonColor : 'none'}
-              strokeWidth={ribbon ? ribbonWidth : 0}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            <g clipPath={expandOnScroll || expandProgress !== undefined ? `url(#${expandClipId})` : undefined}>
+              <path
+                ref={pathRef}
+                id={pathId}
+                d={d}
+                fill="none"
+                stroke={ribbon ? ribbonColor : 'none'}
+                strokeWidth={ribbon ? ribbonWidth : 0}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
 
             {hasLogos ? (
               <g className="select-none pointer-events-auto">
@@ -925,6 +1014,7 @@ const TextLoop = ({
                 </text>
               </>
             )}
+            </g>
           </g>
         </g>
       </svg>
