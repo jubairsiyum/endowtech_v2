@@ -14,11 +14,34 @@ export function scrollToElement(
   offset = -30,
   duration = 0.75
 ) {
-  if (typeof window !== "undefined" && window.lenis) {
-    window.lenis.scrollTo(target, { offset, duration });
-  } else if (typeof window !== "undefined") {
-    const el = typeof target === "string" ? document.querySelector(target) : target;
-    el?.scrollIntoView({ behavior: "smooth" });
+  if (typeof window === "undefined") return;
+
+  let resolvedElement: HTMLElement | null = null;
+
+  if (typeof target === "string") {
+    // Sanitize target in case a path like "/#featured-projects" was passed
+    const hashIndex = target.indexOf("#");
+    const cleanSelector = hashIndex !== -1 ? target.slice(hashIndex) : target;
+
+    try {
+      const el = document.querySelector(cleanSelector);
+      if (el instanceof HTMLElement) {
+        resolvedElement = el;
+      }
+    } catch {
+      // In case of invalid selector, safely ignore without crashing
+      return;
+    }
+  } else if (target instanceof HTMLElement) {
+    resolvedElement = target;
+  }
+
+  if (!resolvedElement) return;
+
+  if (window.lenis) {
+    window.lenis.scrollTo(resolvedElement, { offset, duration });
+  } else {
+    resolvedElement.scrollIntoView({ behavior: "smooth" });
   }
 }
 
@@ -55,11 +78,23 @@ export default function SmoothScroll({
       const target = (e.target as HTMLElement)?.closest("a");
       if (!target) return;
       const href = target.getAttribute("href");
-      if (href && href.startsWith("#") && href.length > 1) {
-        const el = document.querySelector(href);
-        if (el) {
-          e.preventDefault();
-          lenis.scrollTo(el as HTMLElement, { offset: -30, duration: 0.75 });
+      if (!href) return;
+
+      const isAnchor = href.startsWith("#") && href.length > 1;
+      const isHomeAnchor =
+        href.startsWith("/#") &&
+        (window.location.pathname === "/" || window.location.pathname === "");
+
+      if (isAnchor || isHomeAnchor) {
+        const hash = href.slice(href.indexOf("#"));
+        try {
+          const el = document.querySelector(hash);
+          if (el instanceof HTMLElement) {
+            e.preventDefault();
+            lenis.scrollTo(el, { offset: -30, duration: 0.75 });
+          }
+        } catch {
+          // ignore invalid selector
         }
       }
     };

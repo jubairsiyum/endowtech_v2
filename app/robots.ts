@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://endowtech.dev";
+  const baseUrl = "https://endowtech.net";
 
   return {
     rules: [
@@ -32,4 +32,3 @@ export default function robots(): MetadataRoute.Robots {
     host: baseUrl,
   };
 }
-

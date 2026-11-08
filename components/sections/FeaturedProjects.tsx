@@ -9,6 +9,7 @@ import { featuredProjects } from "@/data/featuredProjects"; // { id, title, imag
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import FeaturedWorkCta from "@/components/sections/FeaturedWorkCta";
 
 const REF_W = 874;
 const ASPECT = 16 / 9;
@@ -165,7 +166,11 @@ function bendCard(strips: HTMLElement[], b: number, F: number) {
   }
 }
 
-export default function FeaturedProjects() {
+export default function FeaturedProjects({
+  onOpenScheduler,
+}: {
+  onOpenScheduler?: () => void;
+} = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -331,32 +336,33 @@ export default function FeaturedProjects() {
   }, [N]);
 
   return (
-    <section
-      id="featured-projects"
-      ref={sectionRef}
-      aria-label="Featured Projects Showcase"
-      className="relative w-full"
-      style={{ height: "600vh", background: BG, color: "#111" }}
-    >
-      <div
-        ref={stageRef}
-        className="sticky top-0 h-screen w-full overflow-hidden"
-        style={{
-          background: BG,
-          perspective: 1200,
-          perspectiveOrigin: "50% 50%",
-        }}
+    <>
+      <section
+        id="featured-projects"
+        ref={sectionRef}
+        aria-label="Featured Projects Showcase"
+        className="relative w-full"
+        style={{ height: `${N * 100}vh`, background: BG, color: "#111" }}
       >
-        {/* Ambient Red Watermark Branding in Middle of Section */}
+        <div
+          ref={stageRef}
+          className="sticky top-0 h-screen w-full overflow-hidden"
+          style={{
+            background: BG,
+            perspective: 1200,
+            perspectiveOrigin: "50% 50%",
+          }}
+        >
+          {/* Ambient Red Watermark Branding in Middle of Section */}
         <div
           aria-hidden="true"
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none w-[240px] sm:w-[380px] md:w-[520px] lg:w-[680px] xl:w-[780px] max-w-[85vw] opacity-[0.12] sm:opacity-[0.14] transition-opacity duration-300"
         >
           <Image
-            src="/images/watermark_red.png"
+            src="/images/watermark_red.webp"
             alt=""
-            width={780}
-            height={900}
+            width={640}
+            height={748}
             className="w-full h-auto object-contain"
             priority
           />
@@ -539,5 +545,9 @@ export default function FeaturedProjects() {
         </footer>
       </div>
     </section>
+
+    {/* ── BOTTOM OF FEATURED WORK SECTION: ENGINEERING CHALLENGE BANNER ── */}
+    <FeaturedWorkCta onOpenScheduler={onOpenScheduler} />
+  </>
   );
 }

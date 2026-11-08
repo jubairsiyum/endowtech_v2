@@ -21,11 +21,7 @@ import { notFound } from "next/navigation";
 import JsonLd from "@/components/seo/JsonLd";
 import { getProjectSchema, getBreadcrumbSchema } from "@/lib/seo/schema";
 
-export function generateStaticParams() {
-  return featuredProjects.map((p) => ({
-    id: p.id,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -146,7 +142,7 @@ export default async function ProjectDetailPage({
                 color: project.accentColor,
               }}
             >
-              {`// PROJECT ${project.number} OF 06`}
+              {`// PROJECT ${project.number} OF ${String(featuredProjects.length).padStart(2, "0")}`}
             </span>
             <span className="px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider text-gray-300 bg-white/5 border border-white/10">
               {project.category}
@@ -410,7 +406,7 @@ export default async function ProjectDetailPage({
             href="/#featured-projects"
             className="hidden md:inline-flex px-5 py-2.5 rounded-full text-xs font-mono text-gray-400 hover:text-white border border-white/10 hover:border-white/30 transition-all"
           >
-            All 6 Featured Projects
+            All {featuredProjects.length} Featured Projects
           </Link>
 
           <Link

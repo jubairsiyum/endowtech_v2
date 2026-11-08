@@ -366,10 +366,10 @@ export default function HeroSection({
           {/* Ambient Right Watermark Branding */}
           <div className="absolute right-[-20px] sm:right-0 lg:right-6 xl:right-10 top-6 sm:top-10 md:top-12 lg:top-16 w-[300px] sm:w-[420px] md:w-[540px] lg:w-[650px] xl:w-[740px] 2xl:w-[800px] pointer-events-none select-none opacity-30 sm:opacity-35 xl:opacity-40 transition-opacity duration-300">
             <Image
-              src="/images/watermark_white.png"
+              src="/images/watermark_white.webp"
               alt=""
-              width={750}
-              height={880}
+              width={640}
+              height={748}
               className="w-full h-auto object-contain"
               priority
             />

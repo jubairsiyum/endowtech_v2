@@ -1,11 +1,11 @@
-import type { Metadata, Viewport } from "next";
 import SmoothScroll from "@/components/SmoothScroll";
 import JsonLd from "@/components/seo/JsonLd";
 import { getOrganizationSchema, getWebSiteSchema } from "@/lib/seo/schema";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://endowtech.dev"),
+  metadataBase: new URL("https://endowtech.net"),
   title: {
     default: "Endow Tech — Enterprise Software & Digital Product Studio",
     template: "%s | Endow Tech",
@@ -27,16 +27,16 @@ export const metadata: Metadata = {
     "AI-driven education evaluation",
     "cross-border visa pipeline software",
   ],
-  authors: [{ name: "Endow Tech", url: "https://endowtech.dev" }],
+  authors: [{ name: "Endow Tech", url: "https://endowtech.net" }],
   creator: "Endow Tech",
   publisher: "Endow Tech",
   alternates: {
-    canonical: "https://endowtech.dev",
+    canonical: "https://endowtech.net",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://endowtech.dev",
+    url: "https://endowtech.net",
     title: "Endow Tech — Enterprise Software & Digital Product Studio",
     description:
       "The technology and product engineering studio behind global academic portals and scalable SaaS architectures.",

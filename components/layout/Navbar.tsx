@@ -4,19 +4,18 @@ import { FlowButton } from "@/components/ui/FlowButton";
 import { scrollToElement } from "@/components/SmoothScroll";
 import { coreServices } from "@/data/services";
 import { siteConfig } from "@/data/siteConfig";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
-  // { label: "Featured", href: "/#featured-projects", hasChevron: false },
   { label: "Services", href: "#services", hasChevron: true },
-  { label: "Projects", href: "/#featured-projects", hasChevron: false },
+  { label: "Projects", href: "#featured-projects", hasChevron: false },
   { label: "Solutions", href: "#products", hasChevron: false },
-  // { label: "Methodology", href: "#process", hasChevron: false },
   { label: "Stack", href: "#tech-stack", hasChevron: false },
   { label: "Case Studies", href: "#work", hasChevron: false },
-  // { label: "FAQ", href: "#faq", hasChevron: false },
 ];
 
 export default function Navbar({
@@ -26,6 +25,8 @@ export default function Navbar({
   isSchedulerOpen: boolean;
   setIsSchedulerOpen: (open: boolean) => void;
 }) {
+  const pathname = usePathname();
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesMenuOpen, setServicesMenuOpen] = useState(false);
@@ -97,9 +98,22 @@ export default function Navbar({
     };
   }, [isSchedulerOpen, setIsSchedulerOpen]);
 
-  const scrollTo = (id: string) => {
+  const scrollTo = (href: string) => {
     setMobileMenuOpen(false);
-    scrollToElement(id, -40, 0.75);
+
+    const hashIndex = href.indexOf("#");
+    const hasHash = hashIndex !== -1;
+    const hash = hasHash ? href.slice(hashIndex) : "";
+
+    if (pathname === "/" || pathname === "") {
+      if (hasHash) {
+        scrollToElement(hash, -40, 0.75);
+      } else {
+        router.push(href);
+      }
+    } else {
+      router.push(hasHash ? `/${hash}` : href);
+    }
   };
 
   return (
@@ -111,7 +125,7 @@ export default function Navbar({
         }`}
       >
         {/* Full-width dark container with thin bottom border */}
-        <div className="w-full bg-dark-red-900 backdrop-blur-md border-b border-white/[0.15]">
+        <div className="w-full bg-[#0f0000] bg-dark-red-900 backdrop-blur-md border-b border-white/[0.15]">
           {/* Outer gutter padding so left and right vertical borders are clearly visible across all viewport sizes */}
           <div className="w-full px-3 sm:px-6 md:px-8 lg:px-12 xl:px-16">
             <nav
@@ -119,11 +133,13 @@ export default function Navbar({
               aria-label="Main navigation"
             >
               {/* ── Brand Logo ── */}
-              <a
-                href="#"
+              <Link
+                href="/"
                 onClick={(e) => {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  if (pathname === "/" || pathname === "") {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
                 }}
                 className="relative flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
                 aria-label="Endow Tech homepage"
@@ -140,7 +156,7 @@ export default function Navbar({
                     priority
                   />
                 </div>
-              </a>
+              </Link>
 
               {/* ── Desktop Navigation Links ── */}
               <div className="hidden lg:flex items-center h-full gap-7 xl:gap-9">
@@ -277,16 +293,24 @@ export default function Navbar({
                 {/* Mobile Menu Toggle Button */}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="lg:hidden p-1.5 sm:p-2 rounded-lg text-white/80 hover:text-white focus:outline-none cursor-pointer shrink-0"
-                  aria-label="Toggle navigation menu"
+                  className={`lg:hidden p-2 rounded-lg transition-colors cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent flex items-center justify-center ${
+                    mobileMenuOpen
+                      ? "text-accent bg-accent/10 hover:bg-accent/20"
+                      : "text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15"
+                  }`}
+                  aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+                  aria-expanded={mobileMenuOpen}
                 >
                   <svg
-                    width="22"
-                    height="22"
+                    width="24"
+                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="transition-transform duration-200"
                   >
                     {mobileMenuOpen ? (
                       <>
@@ -307,99 +331,105 @@ export default function Navbar({
           </div>
         </div>
 
-        {/* ── Mobile Navigation Drawer ── */}
-        {mobileMenuOpen && (
-          <div className="w-full bg-[#070811]/98 backdrop-blur-xl border-b border-white/10 lg:hidden px-6 py-6 flex flex-col space-y-4 shadow-2xl">
-            {NAV_LINKS.map((link) => {
-              if (link.label === "Services") {
-                return (
-                  <div
-                    key={link.label}
-                    className="border-b border-white/5 pb-2"
-                  >
+        {/* ── Mobile Navigation Drawer with Smooth Animation ── */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              key="mobile-nav-drawer"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full bg-[#070811] bg-[#070811]/98 backdrop-blur-xl border-b border-white/10 lg:hidden overflow-hidden shadow-2xl"
+            >
+              <div className="px-6 py-6 flex flex-col space-y-4">
+                {NAV_LINKS.map((link) => {
+                  if (link.label === "Services") {
+                    return (
+                      <div
+                        key={link.label}
+                        className="border-b border-white/5 pb-2"
+                      >
+                        <button
+                          onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                          className="w-full text-base sm:text-lg font-semibold text-white/90 hover:text-white text-left uppercase tracking-wider py-2.5 flex items-center justify-between"
+                        >
+                          <span>{link.label}</span>
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            className={`transition-transform duration-200 ${
+                              mobileServicesOpen ? "rotate-180" : ""
+                            }`}
+                          >
+                            <path d="m6 9 6 6 6-6" />
+                          </svg>
+                        </button>
+                        <AnimatePresence initial={false}>
+                          {mobileServicesOpen && (
+                            <motion.div
+                              key="mobile-services-accordion"
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                              className="overflow-hidden"
+                            >
+                              <div className="pl-3 pr-1 py-2 flex flex-col space-y-2 border-l-2 border-accent/40 ml-1 mt-1">
+                                {coreServices.map((service) => (
+                                  <Link
+                                    key={service.id}
+                                    href={`/services/${service.id}`}
+                                    onClick={() => {
+                                      setMobileMenuOpen(false);
+                                      setMobileServicesOpen(false);
+                                    }}
+                                    className="text-sm font-medium text-gray-300 hover:text-white py-1 flex items-center justify-between group/mob transition-colors"
+                                  >
+                                    <span className="font-semibold text-white/90 group-hover/mob:text-accent transition-colors">
+                                      {service.title}
+                                    </span>
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  }
+
+                  return (
                     <button
-                      onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                      className="w-full text-base sm:text-lg font-semibold text-white/90 hover:text-white text-left uppercase tracking-wider py-2.5 flex items-center justify-between"
+                      key={link.label}
+                      onClick={() => scrollTo(link.href)}
+                      className="text-base sm:text-lg font-semibold text-white/90 hover:text-white text-left uppercase tracking-wider py-2.5 border-b border-white/5 flex items-center justify-between"
                     >
                       <span>{link.label}</span>
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        className={`transition-transform duration-200 ${
-                          mobileServicesOpen ? "rotate-180" : ""
-                        }`}
-                      >
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
+                      {link.hasChevron && (
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          className="opacity-50"
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      )}
                     </button>
-                    {mobileServicesOpen && (
-                      <div className="pl-3 pr-1 py-2 flex flex-col space-y-2.5 border-l-2 border-accent/40 ml-1 mt-1">
-                        {coreServices.map((service) => (
-                          <Link
-                            key={service.id}
-                            href={`/services/${service.id}`}
-                            onClick={() => {
-                              setMobileMenuOpen(false);
-                              setMobileServicesOpen(false);
-                            }}
-                            className="text-sm text-gray-300 hover:text-white py-1 flex flex-col group/mob"
-                          >
-                            <span className="font-semibold text-white/90 group-hover/mob:text-accent transition-colors">
-                              {service.title}
-                            </span>
-                            <span className="text-xs text-gray-400 line-clamp-1 mt-0.5">
-                              {service.description}
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-
-              return (
-                <button
-                  key={link.label}
-                  onClick={() => scrollTo(link.href)}
-                  className="text-base sm:text-lg font-semibold text-white/90 hover:text-white text-left uppercase tracking-wider py-2.5 border-b border-white/5 flex items-center justify-between"
-                >
-                  <span>{link.label}</span>
-                  {link.hasChevron && (
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      className="opacity-50"
-                    >
-                      <path d="m9 18 6-6-6-6" />
-                    </svg>
-                  )}
-                </button>
-              );
-            })}
-
-            <div className="pt-4 mt-2 border-t border-white/10">
-              <FlowButton
-                text="Schedule Consultation Call"
-                variant="white"
-                size="md"
-                fullWidth
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setIsSchedulerOpen(true);
-                }}
-              />
-            </div>
-          </div>
-        )}
+                  );
+                })}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* ── Google Calendar Scheduling Modal ── */}

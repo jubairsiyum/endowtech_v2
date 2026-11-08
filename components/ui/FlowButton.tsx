@@ -9,6 +9,8 @@ export type FlowButtonVariant =
   | 'primary'
   | 'secondary'
   | 'white'
+  | 'white-red'
+  | 'white-gray'
   | 'dark'
   | 'outline'
   | 'accent-outline'
@@ -103,6 +105,22 @@ export function FlowButton({
       circle: 'bg-accent',
       arrow: 'stroke-black group-hover/flow:stroke-white',
       hoverText: 'group-hover/flow:text-white',
+    },
+    'white-red': {
+      // White button -> blooms with a tiny soft white-red (blush) on hover, stands out crisp on red backgrounds
+      button:
+        'bg-white text-[#111111] border-0 hover:border-0 shadow-sm',
+      circle: 'bg-[#fff1f2]',
+      arrow: 'stroke-[#111111] group-hover/flow:stroke-accent',
+      hoverText: 'group-hover/flow:text-accent',
+    },
+    'white-gray': {
+      // White button -> blooms with a tiny soft gray on hover, stands out crisp on red backgrounds
+      button:
+        'bg-white text-[#111111] border-0 hover:border-0 shadow-sm',
+      circle: 'bg-neutral-100',
+      arrow: 'stroke-[#111111] group-hover/flow:stroke-[#111111]',
+      hoverText: 'group-hover/flow:text-[#111111]',
     },
     dark: {
       button:

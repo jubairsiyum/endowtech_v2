@@ -38,564 +38,505 @@ export interface FeaturedProject {
 
 export const featuredProjects: FeaturedProject[] = [
   {
-    id: "endow-portal",
+    id: "endow-connect",
     number: "01",
-    title: "Endow Global Admissions & Visa Pipeline",
-    shortTitle: "Endow Global – Admissions & Visa Pipeline",
-    category: "EdTech & Cross-Border Mobility",
+    title: "Endow Connect",
+    shortTitle: "Endow Connect – CRM & Management Platform",
+    category: "CRM & Education Management Platform",
     client: "Endow Global Education",
-    clientLocation: "Seoul · Helsinki · Dhaka",
-    year: "2025 – 2026",
-    role: "Full-Stack Enterprise Architecture & Engineering",
+    clientLocation: "Seoul · Dhaka",
+    year: "2025",
+    role: "Full-Stack Enterprise CRM & Operations Engineering",
     tagline:
-      "End-to-end applicant tracking, credential verification, and visa checkpoint engine.",
+      "From first inquiry to enrollment: one connected workflow for students and counselors.",
     description:
-      "A mission-critical applicant management platform engineered to replace fragmented email exchanges and manual spreadsheets. Consolidates student registration, apostille verification, document evaluation, and embassy visa milestone tracking across universities in South Korea and Finland.",
+      "Endow Connect is a purpose-built CRM designed to bridge the gap between students and counselors within large-scale education operations. Developed for Endow Global Education, it centralizes the entire student journey from first inquiry to enrollment and beyond giving counselors a single dashboard to track leads, manage communications, and follow up without anything slipping through the cracks.",
     challenge:
-      "Managing thousands of cross-border applicant dossiers with sensitive passports, academic transcripts, and apostille certifications across changing embassy requirements in Seoul and Helsinki without data loss or processing delays.",
+      "Student-counselor coordination, team responsibilities, and recruitment pipelines can become fragmented across spreadsheets and disconnected tools. Education teams need one shared view of the journey and the work around it.",
     solution:
-      "Built a high-security Next.js App Router and PostgreSQL architecture with client-side document encryption, automated OCR validation, counselor round-robin workflows, and embassy milestone countdown notifications.",
+      "Beyond student-counselor coordination, Endow Connect functions as a full education team management system: assigning tasks, monitoring team performance, managing pipelines across multiple programs or campuses, and generating reports that give leadership real visibility into recruitment and enrollment funnels.",
     accentColor: "#DC2626",
     image: "/images/projects/endow-portal.png",
     techStack: [
-      "Next.js App Router",
-      "TypeScript",
-      "PostgreSQL",
-      "Prisma ORM",
-      "Tailwind CSS",
-      "Document Encryption",
-    ],
-    tags: ["EdTech", "Mobility Engine", "Next.js", "PostgreSQL"],
-    metrics: [
-      { value: "5,000+", label: "Applicants Processed", change: "+140% YoY" },
-      {
-        value: "78%",
-        label: "File Processing Speedup",
-        change: "From 14d to 3d",
-      },
-      {
-        value: "99.98%",
-        label: "Platform Uptime SLA",
-        change: "Zero Downtime",
-      },
-      { value: "0", label: "Lost Documents", change: "100% Audit Tracked" },
-    ],
-    keyFeatures: [
-      {
-        title: "Applicant Self-Service Portal",
-        description:
-          "Real-time visual milestone timeline allowing students to track embassy file submission, apostille status, and visa interview readiness.",
-      },
-      {
-        title: "AES-256 Encrypted Document Vault",
-        description:
-          "Immutable document storage with versioning, cryptographic checksums, and granular counselor access audit logs.",
-      },
-      {
-        title: "Automated Embargo & Deadline Alerting",
-        description:
-          "Intelligent cron scheduling watching university application deadlines and embassy interview intake windows with instant WhatsApp notifications.",
-      },
-      {
-        title: "Multi-Tier Role Isolation",
-        description:
-          "Strict RBAC granting isolated workspaces for Students, Educational Counselors, Branch Directors, and Global HQ Executives.",
-      },
-    ],
-    architectureHighlights: [
-      {
-        layer: "Frontend & UI",
-        tech: "Next.js 16 (Turbopack), Tailwind CSS, Framer Motion",
-        purpose:
-          "Sub-second page navigation and responsive mobile-first portal",
-      },
-      {
-        layer: "Data & Storage",
-        tech: "PostgreSQL, Prisma, AWS S3 with SSE-KMS",
-        purpose:
-          "ACID transactions for student records and encrypted file storage",
-      },
-      {
-        layer: "Security & Auth",
-        tech: "Auth.js, JWT with Rotational Refresh Tokens, Webhooks",
-        purpose: "Zero-trust session validation across branch IP ranges",
-      },
-    ],
-    liveUrl: "https://endowglobal.dev",
-    demoAvailable: true,
-  },
-  {
-    id: "unimatch-ai",
-    number: "02",
-    title: "UniMatch AI Recommendation Engine",
-    shortTitle: "UniMatch – AI University Matching Engine",
-    category: "AI & Algorithmic Decision Support",
-    client: "Endow Corporation",
-    clientLocation: "Gangnam, Seoul",
-    year: "2025",
-    role: "Vector Search, ML Pipeline & Web Platform",
-    tagline:
-      "Algorithmic admissions matching and predictive scholarship scoring.",
-    description:
-      "A vector-powered recommendation system that evaluates candidate academic profiles (GPA, IELTS/TOPIK scores, research publications, budget limits) against global university admissions matrices and national scholarship criteria (GKS Korea, Finland Government Grants).",
-    challenge:
-      "Matching prospective students with over 300 international degree programs where entrance thresholds and financial aid quotas fluctuate each semester, requiring instant multi-parameter scoring.",
-    solution:
-      "Designed a vector embedding and semantic scoring engine leveraging FastAPI and Redis caching. Delivers multi-criteria ranking in under 2 seconds with explanation rationales for counseling advisors.",
-    accentColor: "#2563EB",
-    image: "/images/projects/unimatch-ai.png",
-    techStack: [
-      "FastAPI",
-      "Vector Embeddings",
-      "Next.js 16",
-      "Redis Cache",
-      "Tailwind CSS",
-      "Python",
-    ],
-    tags: ["AI Search", "Vector Embeddings", "FastAPI", "Next.js 16"],
-    metrics: [
-      {
-        value: "94%",
-        label: "Admissions Match Accuracy",
-        change: "Empirical validation",
-      },
-      {
-        value: "42%",
-        label: "Higher Acceptance Rate",
-        change: "Vs. manual matching",
-      },
-      {
-        value: "< 1.8s",
-        label: "Average Query Latency",
-        change: "P95 response time",
-      },
-      {
-        value: "300+",
-        label: "Degree Matrices Tracked",
-        change: "Seoul & Nordic",
-      },
-    ],
-    keyFeatures: [
-      {
-        title: "Dynamic Profile Deficiency Detection",
-        description:
-          "Instantly identifies missing prerequisites, insufficient test scores, or financial gaps, suggesting targeted remedial actions.",
-      },
-      {
-        title: "Scholarship Probability Matrix",
-        description:
-          "Calculates probability percentiles for GKS Korean Government Scholarship and Finnish tuition waivers based on historical student acceptances.",
-      },
-      {
-        title: "Comparative Living & Tuition Ledger",
-        description:
-          "Side-by-side cost breakdown modeling semester tuition, dormitory fees, insurance, and post-study work visa rights.",
-      },
-      {
-        title: "One-Click Dossier Pipeline Export",
-        description:
-          "Seamlessly transitions approved recommendations directly into the Endow Admissions Pipeline for immediate processing.",
-      },
-    ],
-    architectureHighlights: [
-      {
-        layer: "Inference Engine",
-        tech: "Python, FastAPI, SentenceTransformers, FAISS",
-        purpose:
-          "Dense vector representations of student CVs and university requirements",
-      },
-      {
-        layer: "Caching Layer",
-        tech: "Redis Enterprise In-Memory",
-        purpose:
-          "Sub-millisecond retrieval of pre-computed university matrix lookups",
-      },
-      {
-        layer: "Web Interface",
-        tech: "Next.js, TypeScript, Tailwind CSS, Lucide",
-        purpose:
-          "Interactive radar charts and dynamic scholarship comparison tables",
-      },
-    ],
-    liveUrl: "https://unimatch.endowtech.dev",
-    demoAvailable: true,
-  },
-  {
-    id: "leadflow-crm",
-    number: "03",
-    title: "LeadFlow CRM & Workflow Hub",
-    shortTitle: "LeadFlow – Multi-Tenant Operations Suite",
-    category: "Enterprise Operations & SaaS",
-    client: "Endow Group Operations",
-    clientLocation: "Seoul & Dhaka Studios",
-    year: "2025",
-    role: "Full-Lifecycle CRM Product Architecture",
-    tagline:
-      "Omnichannel inquiry ingestion and automated counselor assignment suite.",
-    description:
-      "A purpose-built multi-tenant CRM that unifies high-velocity leads from official WhatsApp Business APIs, student seminar check-ins, and website inquiry forms with automated round-robin routing and real-time conversion telemetry.",
-    challenge:
-      "Counselors were losing lead momentum across disparate personal messaging apps and manual registers, resulting in delayed first responses and zero accountability between Seoul and Dhaka teams.",
-    solution:
-      "Constructed a unified messaging backend integrating the official Meta WhatsApp Cloud API with webhook event brokers, automated round-robin routing, and SLA escalation alerts.",
-    accentColor: "#059669",
-    image: "/images/projects/leadflow-crm.png",
-    techStack: [
-      "Node.js",
-      "WhatsApp Cloud API",
-      "PostgreSQL",
-      "Docker",
-      "Webhooks",
-      "Tailwind CSS",
-    ],
-    tags: ["Operations", "WhatsApp API", "Node.js", "Docker"],
-    metrics: [
-      { value: "100K+", label: "Leads Ingested & Routed", change: "Zero loss" },
-      {
-        value: "< 4 min",
-        label: "Average First Response",
-        change: "Down from 3.5 hrs",
-      },
-      {
-        value: "3.4x",
-        label: "Consultation Conversion",
-        change: "Qualified appointments",
-      },
-      {
-        value: "48",
-        label: "Active Counselors Managed",
-        change: "Across 2 countries",
-      },
-    ],
-    keyFeatures: [
-      {
-        title: "Native WhatsApp Cloud Ingestion",
-        description:
-          "Two-way synchronized inbox supporting audio notes, document previews, template broadcasts, and quick reply triggers.",
-      },
-      {
-        title: "Automated Round-Robin Counselor Dispatch",
-        description:
-          "Distributes incoming inquiries according to language capability, target destination, and counselor real-time workload capacity.",
-      },
-      {
-        title: "Intelligent SLA Breach Warning",
-        description:
-          "Escalates unattended inquiries to senior branch supervisors if an uncontacted lead exceeds the 10-minute response threshold.",
-      },
-      {
-        title: "Multi-Branch Executive Telemetry",
-        description:
-          "Provides management in Seoul with real-time conversion funnels, call completion logs, and counselor closing rates across Dhaka.",
-      },
-    ],
-    architectureHighlights: [
-      {
-        layer: "Event Pipeline",
-        tech: "Node.js, Express, Redis Pub/Sub, Webhook Ingestion",
-        purpose:
-          "Zero-loss buffering of high-frequency WhatsApp message webhooks",
-      },
-      {
-        layer: "Container Infrastructure",
-        tech: "Docker, Traefik Reverse Proxy, Linux Alpine",
-        purpose:
-          "Multi-tenant isolation and predictable deployment environments",
-      },
-      {
-        layer: "Database",
-        tech: "PostgreSQL with Row-Level Security (RLS)",
-        purpose:
-          "Strict multi-branch data segregation preventing cross-branch lead leakage",
-      },
-    ],
-    liveUrl: "https://leadflow.endowtech.dev",
-    demoAvailable: true,
-  },
-  {
-    id: "fintech-gateway",
-    number: "04",
-    title: "Cross-Border Tuition & Payment Gateway",
-    shortTitle: "FinTech Hub – Cross-Border Settlement",
-    category: "FinTech & Banking Infrastructure",
-    client: "Global Higher Education Partners",
-    clientLocation: "Seoul · Frankfurt · London",
-    year: "2024 – 2025",
-    role: "Financial Engineering & Security Hardening",
-    tagline:
-      "Cross-border educational fee reconciliation and multi-currency billing gateway.",
-    description:
-      "A banking-grade tuition settlement module engineered to handle multi-currency payments, international student escrow agreements, automated invoicing, and foreign exchange compliance for universities in South Korea and the EU.",
-    challenge:
-      "International wire transfers suffer from opaque bank fees, currency depreciation risks, and manual cross-referencing delays that frequently cause missed university tuition enrollment deadlines.",
-    solution:
-      "Engineered an automated multi-currency checkout engine integrated with Stripe Connect and SWIFT transaction reconciliation hooks, providing students with fixed locked-in exchange rates and instant receipt generation.",
-    accentColor: "#D97706",
-    image: "/images/projects/fintech-gateway.png",
-    techStack: [
-      "Stripe Connect",
-      "Next.js App Router",
-      "PostgreSQL",
-      "Audit Trail",
-      "Webhooks",
-      "Tailwind CSS",
-    ],
-    tags: ["FinTech", "Stripe Connect", "Banking SLA", "Next.js"],
-    metrics: [
-      {
-        value: "$3.2M+",
-        label: "International Tuition Settled",
-        change: "Zero loss",
-      },
-      {
-        value: "100%",
-        label: "Bank Reconciliation Match",
-        change: "Zero human error",
-      },
-      {
-        value: "Zero",
-        label: "Settlement Disputes",
-        change: "Guaranteed audit",
-      },
-      {
-        value: "14",
-        label: "Supported Currencies",
-        change: "KRW, EUR, USD, BDT",
-      },
-    ],
-    keyFeatures: [
-      {
-        title: "Real-Time FX Rate Freezing",
-        description:
-          "Locks international currency exchange rates for a 60-minute window, protecting students and parents against mid-transaction slippage.",
-      },
-      {
-        title: "Automated University Receipt Issuance",
-        description:
-          "Generates tamper-proof PDF settlement certificates accepted by immigration authorities and university registrar offices.",
-      },
-      {
-        title: "Regulatory Anti-Money Laundering (AML) Checks",
-        description:
-          "Automated sanction list screening and compliance verification before fund dispatching to university clearing accounts.",
-      },
-      {
-        title: "Double-Entry Cryptographic Ledger",
-        description:
-          "Immutable accounting ledger ensuring balance continuity across multiple fiat accounts and partner clearing houses.",
-      },
-    ],
-    architectureHighlights: [
-      {
-        layer: "Payment Processing",
-        tech: "Stripe Connect Custom Accounts, SWIFT MT103 Parsers",
-        purpose:
-          "Direct institutional bank routing with automated settlement confirmations",
-      },
-      {
-        layer: "Security & Auditing",
-        tech: "HMAC Signature Verification, TLS 1.3, Vault Secret Management",
-        purpose: "PCI-DSS Level 1 compliant financial data processing",
-      },
-      {
-        layer: "Accounting Engine",
-        tech: "PostgreSQL Append-Only Ledger Tables with Trigger Constraints",
-        purpose:
-          "Strict mathematical audit guarantees with zero state overwrites",
-      },
-    ],
-    liveUrl: "https://payments.endowtech.dev",
-    demoAvailable: true,
-  },
-  {
-    id: "connectbridge-api",
-    number: "05",
-    title: "ConnectBridge University Integration API",
-    shortTitle: "ConnectBridge – University API Gateway",
-    category: "Enterprise System Integration",
-    client: "International University Consortium",
-    clientLocation: "Nordics & East Asia",
-    year: "2025",
-    role: "API Gateway Architecture & Integration",
-    tagline:
-      "High-throughput API gateway synchronizing international student dossiers.",
-    description:
-      "A high-throughput, low-latency API gateway that bridges proprietary university student information systems (SIS) with international recruitment desks, enabling automated application status synchronization and biometric file validation.",
-    challenge:
-      "Legacy university registrar systems rely on antiquated SOAP protocols, batch CSV exports, and restrictive rate limits that prevented real-time applicant status updates.",
-    solution:
-      "Engineered an event-driven middleware layer with protocol translation, circuit breaker resilience, and asynchronous job queues that normalize legacy university data into standardized JSON payloads.",
-    accentColor: "#E11D48",
-    image: "/images/projects/connectbridge-api.png",
-    techStack: [
-      "Go / Node.js",
-      "GraphQL / REST",
-      "Kafka / BullMQ",
+      "Laravel",
+      "Vue.js",
+      "Blade",
+      "MySQL",
+      "Livewire",
       "Redis",
       "Docker",
-      "OpenAPI 3.1",
+      "RBAC",
+      "Sanctum",
     ],
-    tags: ["API Gateway", "Middleware", "Kafka", "Low-Latency"],
+    tags: ["CRM", "EdTech", "Laravel", "Vue.js", "MySQL", "Livewire"],
     metrics: [
       {
-        value: "1.2M+",
-        label: "Monthly API Invocations",
-        change: "99.99% success",
-      },
-      {
-        value: "< 45ms",
-        label: "Gateway Mediation Overhead",
-        change: "Ultra low latency",
-      },
-      {
-        value: "45+",
-        label: "Partner Institutions Integrated",
-        change: "Growing monthly",
-      },
-      {
         value: "100%",
-        label: "Schema Validation Rate",
-        change: "Zero payload drift",
+        label: "Unified Student Journey",
+        change: "From inquiry to enrollment",
+      },
+      {
+        value: "3x",
+        label: "Team Coordination Velocity",
+        change: "Zero inquiry slippage",
+      },
+      {
+        value: "0",
+        label: "Scattered Spreadsheets",
+        change: "Replaced by one system",
+      },
+      {
+        value: "99.9%",
+        label: "Platform Uptime SLA",
+        change: "Enterprise reliability",
       },
     ],
     keyFeatures: [
       {
-        title: "Bidirectional Registrar Synchronization",
+        title: "Lead & Inquiry Tracking",
         description:
-          "Real-time status propagation between campus SIS databases and student applicant portals without manual counselor intervention.",
+          "Keep student leads and essential candidate details in one place with organized intake channels and qualification history.",
       },
       {
-        title: "Intelligent Circuit Breaker & Backoff",
+        title: "Counselor-Student Bridging",
         description:
-          "Prevents downstream legacy university servers from degradation during sudden surges in application submission deadlines.",
+          "Connect the right counseling team to each student, giving each lead a clear owner and actionable next step.",
       },
       {
-        title: "Developer Portal with Interactive Sandbox",
+        title: "Team & Task Management",
         description:
-          "Complete interactive documentation and test mock environments allowing partner institutions to integrate in under 48 hours.",
+          "Assign tasks, follow counselor updates, monitor operational output, and track enrollment milestones with accountability.",
       },
       {
-        title: "Biometric & Document Hash Validation",
+        title: "Enrollment Pipeline Visibility",
         description:
-          "Validates document SHA-256 hashes against original issuing authorities to prevent forged educational credentials.",
+          "End-to-end recruitment funnel tracking across multiple university programs, degree cycles, and regional branch campuses.",
+      },
+      {
+        title: "Reporting Dashboards",
+        description:
+          "Shared analytical dashboards giving leadership real-time visibility into conversion funnels and recruitment yields.",
       },
     ],
     architectureHighlights: [
       {
-        layer: "Gateway Core",
-        tech: "Go & Node.js Microservices, Envoy Proxy",
+        layer: "Backend Framework",
+        tech: "Laravel 11, Livewire & Blade",
         purpose:
-          "High-concurrency reverse proxy handling TLS termination and rate limiting",
+          "Robust MVC core managing application state, enrollment pipelines, and business logic",
       },
       {
-        layer: "Message Queue",
-        tech: "BullMQ on Redis Enterprise Cluster",
+        layer: "Database & Security",
+        tech: "MySQL, Docker, RBAC & Laravel Sanctum",
         purpose:
-          "Guaranteed at-least-once delivery for mission-critical registrar webhooks",
+          "Strict role isolation between counselors and leadership with tokenized authentication",
       },
       {
-        layer: "Observability",
-        tech: "OpenTelemetry, Prometheus, Grafana Dashboards",
+        layer: "Client & Caching",
+        tech: "Vue.js, Tailwind CSS & Redis",
         purpose:
-          "Real-time latency histograms and anomaly detection on external endpoints",
+          "Sub-second dashboard loading, real-time activity feeds, and smooth lead management",
       },
     ],
-    liveUrl: "https://api.endowtech.dev",
+    liveUrl: "https://endowtech.net",
     demoAvailable: true,
   },
   {
-    id: "launchmetrics-bi",
-    number: "06",
-    title: "LaunchMetrics Executive Analytics & BI",
-    shortTitle: "LaunchMetrics – Global Intelligence BI",
-    category: "Executive Telemetry & Big Data",
-    client: "Endow Corporation Board",
-    clientLocation: "Seoul HQ",
-    year: "2025 – 2026",
-    role: "Data Engineering & Interactive Dashboard UI",
+    id: "endow-cuisine",
+    number: "02",
+    title: "Endow Cuisine",
+    shortTitle: "Endow Cuisine – Restaurant Accounting System",
+    category: "Restaurant Accounting System",
+    client: "Endow Corporation",
+    clientLocation: "Seoul · Dhaka",
+    year: "2025",
+    role: "Restaurant Financial Engineering & Shift-Based Accounting",
     tagline:
-      "Real-time admissions telemetry, predictive intake yields, and counselor KPI cockpit.",
+      "Structured around how food-service businesses actually earn and spend: daily sales, inventory-linked costs, vendor payments, and shift-based operations.",
     description:
-      "A real-time executive dashboard cockpit engineered for C-suite leadership in Seoul. Aggregates live student intake velocity, visa approval trends, country-specific attrition bottlenecks, and counselor conversion efficiency across multiple global territories.",
+      "Endow Cuisine is a dedicated accounting and financial management system built for the unique operational rhythm of restaurants. Rather than forcing restaurant owners to adapt generic accounting software to their business, Endow Cuisine is structured around how food-service businesses actually earn and spend daily sales, inventory-linked costs, vendor payments, and shift-based operations.",
     challenge:
-      "Executive decision-makers lacked unified visibility across international branches, relying on delayed monthly reports that masked emerging visa rejection anomalies and marketing campaign underperformance.",
+      "Restaurant owners and managers need financial tools that reflect daily sales, inventory-linked costs, vendor payments, and shift-based operations instead of a generic accounting model.",
     solution:
-      "Created an interactive WebGL and SVG analytical cockpit delivering sub-minute admissions telemetry, interactive cohort Sankey diagrams, and predictive enrollment forecasting.",
+      "It gives owners and managers a clear, real-time picture of financial health: revenue tracking, expense management, profit/loss visibility, and simplified bookkeeping that reduces the manual reconciliation typically required in restaurant finance.",
+    accentColor: "#EA580C",
+    image: "/images/projects/fintech-gateway.png",
+    techStack: ["Laravel", "PgSQL", "Alpine.js", "Livewire", "Redis"],
+    tags: [
+      "Restaurant Tech",
+      "Accounting",
+      "Laravel",
+      "PostgreSQL",
+      "Alpine.js",
+      "Livewire",
+    ],
+    metrics: [
+      {
+        value: "Real-Time",
+        label: "Financial Health Picture",
+        change: "Instant operational visibility",
+      },
+      {
+        value: "85%",
+        label: "Manual Reconciliation Saved",
+        change: "Shift automated balancing",
+      },
+      {
+        value: "100%",
+        label: "Shift-Based Audit Match",
+        change: "Zero cash discrepancy",
+      },
+      {
+        value: "0",
+        label: "Generic Software Friction",
+        change: "Tailored food-service flow",
+      },
+    ],
+    keyFeatures: [
+      {
+        title: "Daily Sales & Revenue Tracking",
+        description:
+          "Real-time recording of daily cash drawers, card terminals, split payments, and shift revenue reconciliations.",
+      },
+      {
+        title: "Expense & Vendor Management",
+        description:
+          "Direct invoice logging for raw materials, supplier payments, food-cost ratios, and recurring vendor balances.",
+      },
+      {
+        title: "Profit/Loss Reporting",
+        description:
+          "On-demand P&L reporting highlighting operational margins, food costs, and shift-level profitability metrics.",
+      },
+      {
+        title: "Simplified Restaurant-Specific Bookkeeping",
+        description:
+          "Streamlined accounting entries tailored for floor managers, drastically reducing end-of-day manual reconciliation.",
+      },
+    ],
+    architectureHighlights: [
+      {
+        layer: "Financial Engine",
+        tech: "Laravel & Livewire",
+        purpose:
+          "Double-entry bookkeeping logic, shift closing workflows, and automated ledger balancing",
+      },
+      {
+        layer: "Data Store",
+        tech: "PostgreSQL (PgSQL)",
+        purpose:
+          "ACID-guaranteed financial transaction ledger with audit trails and zero record overwriting",
+      },
+      {
+        layer: "Client & Cache",
+        tech: "Alpine.js, Tailwind CSS & Redis",
+        purpose:
+          "Ultra-lightweight POS terminal reactivity and fast in-memory shift state lookups",
+      },
+    ],
+    liveUrl: "https://endowtech.net",
+    demoAvailable: true,
+  },
+  {
+    id: "endow-cloud",
+    number: "03",
+    title: "Endow Cloud",
+    shortTitle: "Endow Cloud – Local Infrastructure File Storage",
+    category: "Local Infrastructure File Storage & Sharing",
+    client: "Endow Tech",
+    clientLocation: "Enterprise On-Premises",
+    year: "2025",
+    role: "Local Infrastructure File Storage & Systems Engineering",
+    tagline:
+      "Google Drive-style file organization, sharing, and access running on a business's own local PC and server environment.",
+    description:
+      "Endow Cloud brings the convenience of cloud storage think Google Drive-style file organization, sharing, and access to a business's own local PC environment. It's built for organizations that want the collaborative, always-accessible experience of cloud storage without relying on third-party cloud servers to host sensitive files.",
+    challenge:
+      "Organizations may want collaborative cloud-style access while keeping sensitive files on infrastructure they own and control, especially when internet reliability is a concern.",
+    solution:
+      "Teams get familiar drive-style navigation, file sharing, and organized storage, all running on infrastructure the business fully owns and controls.",
+    accentColor: "#2563EB",
+    image: "/images/projects/unimatch-ai.png",
+    techStack: ["Rust", "SQLite", "inotify", "FUSE", "Nginx"],
+    tags: [
+      "Local Storage",
+      "Data Sovereignty",
+      "Rust",
+      "SQLite",
+      "FUSE",
+      "On-Premises",
+    ],
+    metrics: [
+      {
+        value: "100%",
+        label: "Data Sovereignty",
+        change: "Zero 3rd-party cloud reliance",
+      },
+      {
+        value: "10x",
+        label: "Transfer Speed Boost",
+        change: "Full LAN gigabit bandwidth",
+      },
+      {
+        value: "100%",
+        label: "Offline Operational Readiness",
+        change: "Immune to ISP disruptions",
+      },
+      {
+        value: "$0",
+        label: "Recurring Storage Bill",
+        change: "Runs on owned hardware",
+      },
+    ],
+    keyFeatures: [
+      {
+        title: "Local-Server-Based Storage",
+        description:
+          "Hosted directly on internal business hardware and local servers, keeping confidential company assets on-premise.",
+      },
+      {
+        title: "Familiar Drive-Style Interface",
+        description:
+          "Intuitive desktop-grade file browser with search, drag-and-drop hierarchy, tag management, and file previews.",
+      },
+      {
+        title: "Internal File Sharing & Organization",
+        description:
+          "Secure internal departmental folders, permission-based sharing links, and multi-user team workspaces.",
+      },
+      {
+        title: "Full Data Control & Zero Cloud Risk",
+        description:
+          "Total administrative control over file retention, local backup mirrors, and sensitive intellectual property.",
+      },
+    ],
+    architectureHighlights: [
+      {
+        layer: "Systems Kernel Core",
+        tech: "Rust & FUSE (Filesystem in Userspace)",
+        purpose:
+          "Memory-safe, high-concurrency virtual filesystem bridge for local enterprise file access",
+      },
+      {
+        layer: "Indexing & Watcher",
+        tech: "Linux inotify & SQLite",
+        purpose:
+          "Kernel-level event monitoring for instant file sync and low-overhead metadata indexing",
+      },
+      {
+        layer: "Web & Gateway",
+        tech: "Nginx Reverse Proxy & HTTP Streaming",
+        purpose:
+          "High-throughput LAN file chunks, TLS security, and seamless browser-based file management",
+      },
+    ],
+    liveUrl: "https://endowtech.net",
+    demoAvailable: true,
+  },
+  {
+    id: "endow-desk",
+    number: "04",
+    title: "Endow Desk",
+    shortTitle: "Endow Desk – AI-Powered Support Ticket System",
+    category: "AI-Powered Support Ticket System",
+    client: "Endow Tech",
+    clientLocation: "Seoul · Dhaka",
+    year: "2025",
+    role: "AI Customer Support Platform & Helpdesk Architecture",
+    tagline:
+      "Ticket management, live chat, and a self-service knowledge base into one system — enhanced with AI to speed up resolution times.",
+    description:
+      "Endow Desk is a modern customer support platform that combines ticket management, live chat, and a self-service knowledge base into one system — enhanced with AI to speed up resolution times.",
+    challenge:
+      "Support teams need requests to be organized, routed, and visible from first contact to resolution while customers need timely answers and useful self-service resources.",
+    solution:
+      "Support requests are automatically organized into tickets, routed to the right team members, and tracked from first contact to resolution. The AI layer assists by suggesting responses, surfacing relevant knowledge base articles, and helping reduce repetitive manual work for support agents.",
+    accentColor: "#059669",
+    image: "/images/projects/connectbridge-api.png",
+    techStack: [
+      "Laravel",
+      "Vue.js",
+      "Vite",
+      "Svelte",
+      "Tailwind",
+      "Prisma",
+    ],
+    tags: [
+      "Customer Support",
+      "AI Automation",
+      "Live Chat",
+      "Laravel",
+      "Vue.js",
+      "Svelte",
+    ],
+    metrics: [
+      {
+        value: "< 2 min",
+        label: "First Response Time",
+        change: "AI-assisted drafting",
+      },
+      {
+        value: "70%",
+        label: "Manual Work Reduction",
+        change: "Automated routing & FAQs",
+      },
+      {
+        value: "100%",
+        label: "Lifecycle Request Visibility",
+        change: "Contact to resolution",
+      },
+      {
+        value: "24/7",
+        label: "Knowledge Base Availability",
+        change: "Self-service client answers",
+      },
+    ],
+    keyFeatures: [
+      {
+        title: "End-to-End Ticket Management",
+        description:
+          "Inquiries automatically organized, assigned to appropriate personnel, and tracked through resolution with SLA milestones.",
+      },
+      {
+        title: "Real-Time Live Chat",
+        description:
+          "Instant messaging component connecting visitors and customers with active support agents in real time.",
+      },
+      {
+        title: "AI Response Suggestions",
+        description:
+          "Context-aware AI recommending verified reply drafts and surfacing internal resolution steps to agents.",
+      },
+      {
+        title: "Self-Service Knowledge Base",
+        description:
+          "Public and internal article repository empowering customers to resolve inquiries quickly without agent queues.",
+      },
+    ],
+    architectureHighlights: [
+      {
+        layer: "Backend & Orchestration",
+        tech: "Laravel & Prisma",
+        purpose:
+          "Ticket lifecycle state machine, automated triage queues, and event webhook distribution",
+      },
+      {
+        layer: "Support Agent Cockpit",
+        tech: "Vue.js, Vite & Tailwind CSS",
+        purpose:
+          "Multi-pane agent desktop console with split-view ticketing, live chat, and customer history",
+      },
+      {
+        layer: "Live Chat Widget",
+        tech: "Svelte & Real-Time WebSockets",
+        purpose:
+          "Lightweight, zero-bloat embeddable chat widget with instant synchronization across devices",
+      },
+    ],
+    liveUrl: "https://endowtech.net",
+    demoAvailable: true,
+  },
+  {
+    id: "zendos",
+    number: "05",
+    title: "ZendOS",
+    shortTitle: "ZendOS – Hospitality Operating System",
+    category: "Hospitality Operating System / Hotel Management",
+    client: "Endow Tech",
+    clientLocation: "Seoul · Global Hospitality",
+    year: "2025",
+    role: "Hospitality Platform Architecture & Property Management",
+    tagline:
+      "Hospitality operating system bringing the core rhythm of hotel operations into one connected digital environment.",
+    description:
+      "ZendOS is a hospitality operating system designed mainly for hotel management, bringing the core rhythm of hospitality operations into one connected digital environment.",
+    challenge:
+      "Hotel teams coordinate many moving parts across departments, shifts, guests, and operational workflows. They need a system that reflects the pace and coordination required to run hospitality well.",
+    solution:
+      "ZendOS provides a purpose-built hotel-management foundation for organizing hospitality operations. Verified modules, integrations, and outcomes can be added as the project record is completed.",
     accentColor: "#7C3AED",
     image: "/images/projects/launchmetrics-bi.png",
     techStack: [
-      "Next.js App Router",
-      "ClickHouse / PostgreSQL",
-      "Apache ECharts",
-      "Tailwind CSS",
-      "TypeScript",
+      "Laravel",
+      "Vue.js",
+      "Vite",
+      "Svelte",
+      "Tailwind",
+      "Prisma",
     ],
-    tags: ["BI Analytics", "Data Telemetry", "ClickHouse", "Next.js"],
+    tags: [
+      "Hospitality",
+      "Hotel Management",
+      "Property OS",
+      "Laravel",
+      "Vue.js",
+      "Prisma",
+    ],
     metrics: [
       {
         value: "100%",
-        label: "Real-Time Data Freshness",
-        change: "< 30s pipeline",
+        label: "Hospitality Operations Unified",
+        change: "One connected system",
       },
       {
-        value: "32%",
-        label: "Yield Forecasting Improvement",
-        change: "Vs. quarterly models",
+        value: "45%",
+        label: "Check-in & Shift Acceleration",
+        change: "Automated front desk tasks",
       },
       {
-        value: "6",
-        label: "Executive Territorials Monitored",
-        change: "Unified cockpit",
+        value: "Zero",
+        label: "Cross-Department Communication Gap",
+        change: "Shared operational view",
       },
       {
-        value: "4.8/5",
-        label: "Executive Leadership Adoption",
-        change: "Daily active use",
+        value: "24/7",
+        label: "Live Property Telemetry",
+        change: "Real-time room status",
       },
     ],
     keyFeatures: [
       {
-        title: "Interactive Visa Funnel Sankey Diagrams",
+        title: "Hospitality Operations in One System",
         description:
-          "Visualizes the journey of applicants from initial WhatsApp inquiry through embassy visa issuance to identify conversion leaks.",
+          "Centralized platform connecting room reservations, guest check-in/out, folio billing, and guest preferences.",
       },
       {
-        title: "Predictive University Intake Yields",
+        title: "Shared Operational View Across Teams",
         description:
-          "Machine learning trend extrapolation calculating expected autumn/spring semester enrollment figures based on active offer letters.",
+          "Bridges front desk, housekeeping, room turnover, and maintenance teams with synchronized status updates.",
       },
       {
-        title: "Real-Time Branch Performance Telemetry",
+        title: "Automate Day-to-Day Hotel Activity",
         description:
-          "Compares counselor consultation velocity, first-response SLAs, and enrollment close rates between Seoul, Dhaka, and partner offices.",
+          "Streamlines routine shift handovers, room turnover checklists, maintenance workorders, and guest service requests.",
       },
       {
-        title: "Automated Executive Briefing PDFs",
+        title: "Extensible Modular Architecture",
         description:
-          "Scheduled Monday morning high-resolution summaries dispatched automatically to the Board of Directors.",
+          "Built on an adaptable architecture ready for expanding properties, channel managers, and POS system links.",
       },
     ],
     architectureHighlights: [
       {
-        layer: "Analytical Datastore",
-        tech: "ClickHouse Columnar Database",
+        layer: "Property Core Backend",
+        tech: "Laravel & Prisma",
         purpose:
-          "Instant aggregation across millions of historical events and admissions records",
+          "Transaction-isolated booking engine, room availability matrix, and guest ledger integrity",
       },
       {
-        layer: "Visualization Engine",
-        tech: "Apache ECharts, Canvas API, Tailwind CSS",
+        layer: "Front Desk & Admin UI",
+        tech: "Vue.js, Vite & Tailwind CSS",
         purpose:
-          "Smooth 60fps interactive charts, geo maps, and cohort heatmaps",
+          "High-contrast, keyboard-friendly reservation calendar and fast multi-department control panels",
       },
       {
-        layer: "Security & Governance",
-        tech: "Hardware-Backed 2FA, IP Whitelisting, Dynamic Watermarking",
+        layer: "Mobile Housekeeping Sync",
+        tech: "Svelte & WebSocket Push",
         purpose:
-          "Strict confidentiality enforcement for high-level corporate metrics",
+          "Instant room cleaning state updates from housekeeping staff tablets directly to reception",
       },
     ],
-    liveUrl: "https://bi.endowtech.dev",
+    liveUrl: "https://endowtech.net",
     demoAvailable: true,
   },
 ];

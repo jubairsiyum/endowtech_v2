@@ -1,32 +1,89 @@
-import React from 'react'
-import { coreServices } from '@/data/services'
-import { Badge } from '@/components/ui/Badge'
-import { FadeIn } from '@/components/motion/FadeIn'
+import { FadeIn } from "@/components/motion/FadeIn";
+import { coreServices } from "@/data/services";
 
 export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="section-padding bg-surface"
+      className="relative section-padding bg-[#fafafa] overflow-hidden"
       aria-labelledby="services-heading"
     >
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Section Header */}
-        <FadeIn className="mb-16">
-          <Badge variant="code">
-            {'// Core Capabilities'}
-          </Badge>
+      {/* ── Tall Circular Ambient Red Glow Rising from Bottom (Soft & Atmospheric) ── */}
+      {/* Giant outer circular glow reaching almost to the top */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[1200px] sm:w-[1600px] lg:w-[1950px] aspect-square rounded-full bg-accent/[0.05] sm:bg-accent/[0.06] blur-[150px] sm:blur-[220px] pointer-events-none z-0"
+      />
+      {/* Mid circular glow providing smooth radial gradient */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[800px] sm:w-[1100px] lg:w-[1350px] aspect-square rounded-full bg-red-600/[0.04] sm:bg-red-600/[0.05] blur-[110px] sm:blur-[160px] pointer-events-none z-0"
+      />
+      {/* Subtle core circle at bottom anchor */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/3 w-[450px] sm:w-[650px] aspect-square rounded-full bg-accent/[0.06] blur-[90px] pointer-events-none z-0"
+      />
+
+      {/* ── Abstract Precision Ring Arcs (Concentric Circles Aligned with Glow) ── */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[1100px] sm:w-[1500px] lg:w-[2000px] aspect-square pointer-events-none select-none z-0 opacity-40 sm:opacity-50"
+      >
+        <svg className="w-full h-full" viewBox="0 0 1000 1000" fill="none">
+          <circle
+            cx="500"
+            cy="500"
+            r="470"
+            stroke="currentColor"
+            className="text-red-500/10"
+            strokeWidth="1"
+            strokeDasharray="4 8"
+          />
+          <circle
+            cx="500"
+            cy="500"
+            r="370"
+            stroke="currentColor"
+            className="text-red-500/15"
+            strokeWidth="1"
+          />
+          <circle
+            cx="500"
+            cy="500"
+            r="270"
+            stroke="currentColor"
+            className="text-red-500/20"
+            strokeWidth="1"
+            strokeDasharray="3 6"
+          />
+          <circle
+            cx="500"
+            cy="500"
+            r="170"
+            stroke="currentColor"
+            className="text-red-500/25"
+            strokeWidth="1"
+          />
+        </svg>
+      </div>
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+        {/* Section Header — matching previous section's title style */}
+        <FadeIn className="text-left md:text-center md:mx-auto max-w-2xl mb-14 sm:mb-16">
+          <span className="block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-2">
+            Core Capabilities
+          </span>
           <h2
             id="services-heading"
-            className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight"
+            className="text-[clamp(24px,2.5vw,38px)] font-bold leading-[1.14] tracking-[-0.035em] text-[#0f0000]"
           >
-            Full-stack engineering built for{' '}
-            <br />
-            <span className="gradient-text">scale, speed &amp; reliability.</span>
+            Full-stack engineering built for scale, speed &amp; reliability.
           </h2>
-          <p className="mt-4 text-text-muted max-w-2xl text-base leading-relaxed">
-            From greenfield architecture to high-concurrency production platforms,
-            we handle every layer of your software product — design, engineering, and continuous SLA delivery.
+          <p className="mt-2 text-[clamp(13px,0.95vw,15px)] leading-relaxed text-neutral-600 max-w-lg md:mx-auto">
+            From greenfield architecture to high-concurrency production
+            platforms, we handle every layer of your software product — design,
+            engineering, and continuous SLA delivery.
           </p>
         </FadeIn>
 
@@ -63,7 +120,10 @@ export default function ServicesSection() {
                   {/* Deliverables Checklist */}
                   <div className="space-y-2 mb-6">
                     {service.deliverables.map((item) => (
-                      <div key={item} className="flex items-center gap-2 text-xs text-text-muted">
+                      <div
+                        key={item}
+                        className="flex items-center gap-2 text-xs text-text-muted"
+                      >
                         <span className="w-1.5 h-1.5 rounded-full bg-accent/80 shrink-0" />
                         <span>{item}</span>
                       </div>
@@ -88,5 +148,5 @@ export default function ServicesSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

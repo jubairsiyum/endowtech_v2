@@ -7,11 +7,7 @@ import { FlowButton } from "@/components/ui/FlowButton";
 import JsonLd from "@/components/seo/JsonLd";
 import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo/schema";
 
-export function generateStaticParams() {
-  return coreServices.map((s) => ({
-    id: s.id,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
