@@ -46,6 +46,19 @@ export interface Product {
   liveUrl?: string;
 }
 
+export interface IndustryItem {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  image: string;
+  fallbackImage?: string;
+  badge?: string;
+  accentColor?: string;
+  link?: string;
+  relatedProject?: string;
+}
+
 export interface Service {
   id: string;
   title: string;

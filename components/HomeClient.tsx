@@ -12,6 +12,7 @@ import GlobalPresence from "@/components/sections/GlobalPresence";
 import HeroSection from "@/components/sections/HeroSection";
 import ProcessSection from "@/components/sections/ProcessSection";
 import ServicesSection from "@/components/sections/ServicesSection";
+import IndustriesSection from "@/components/sections/IndustriesSection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import TrustEcosystem from "@/components/sections/TrustEcosystem";
@@ -32,6 +33,7 @@ export default function HomeClient() {
         <FeaturedProjects onOpenScheduler={() => setIsSchedulerOpen(true)} />
         {/* <FlagshipProducts /> */}
         <ServicesSection />
+        <IndustriesSection onOpenScheduler={() => setIsSchedulerOpen(true)} />
         <ProcessSection />
         <TechStackSection />
         <CaseStudiesSection />
