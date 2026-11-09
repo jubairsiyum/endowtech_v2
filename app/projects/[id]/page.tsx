@@ -38,6 +38,7 @@ export async function generateMetadata({
   }
 
   const pageUrl = `${siteConfig.url}/projects/${id}`;
+  const encodedImage = encodeURI(project.image);
 
   return {
     title: `${project.title} | Featured Projects`,
@@ -52,9 +53,9 @@ export async function generateMetadata({
       type: "article",
       images: [
         {
-          url: project.image.startsWith("http")
-            ? project.image
-            : `${siteConfig.url}${project.image}`,
+          url: encodedImage.startsWith("http")
+            ? encodedImage
+            : `${siteConfig.url}${encodedImage}`,
           width: 1200,
           height: 630,
           alt: project.title,
@@ -65,7 +66,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: project.title,
       description: project.description,
-      images: [project.image],
+      images: [encodedImage],
     },
   };
 }

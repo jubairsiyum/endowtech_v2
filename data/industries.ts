@@ -8,7 +8,7 @@ export const industriesData: IndustryItem[] = [
     description:
       "Commerce & applicant technology connecting students, partner universities, and automated visa workflows.",
     image: "/images/industries/education-edtech.jpg",
-    fallbackImage: "/images/projects/endow-portal.png",
+    fallbackImage: "/images/projects/Endow Connect.jpg",
     badge: "EdTech",
     accentColor: "#DC2626",
     link: "#work",
@@ -21,7 +21,7 @@ export const industriesData: IndustryItem[] = [
     description:
       "Operational platforms for daily sales, shift reconciliation, inventory-linked food costs, and vendor settlements.",
     image: "/images/industries/restaurant-foodservice.jpg",
-    fallbackImage: "/images/projects/fintech-gateway.png",
+    fallbackImage: "/images/projects/EndowCousine.jpg",
     badge: "FoodTech",
     accentColor: "#EA580C",
     link: "#work",
@@ -34,7 +34,7 @@ export const industriesData: IndustryItem[] = [
     description:
       "Property operating systems connecting reservations, guest check-in, housekeeping, assets, and operational folios.",
     image: "/images/industries/hospitality-property.jpg",
-    fallbackImage: "/images/projects/launchmetrics-bi.png",
+    fallbackImage: "/images/projects/ZendOS.jpg",
     badge: "Hospitality",
     accentColor: "#7C3AED",
     link: "#work",
@@ -47,7 +47,7 @@ export const industriesData: IndustryItem[] = [
     description:
       "Local server infrastructure, high-throughput LAN file access, zero-cloud risk, and complete data sovereignty.",
     image: "/images/industries/data-infrastructure.jpg",
-    fallbackImage: "/images/projects/unimatch-ai.png",
+    fallbackImage: "/images/projects/Endow cloud.jpg",
     badge: "Infrastructure",
     accentColor: "#2563EB",
     link: "#work",
@@ -60,7 +60,7 @@ export const industriesData: IndustryItem[] = [
     description:
       "Context-aware AI support ticketing, multi-channel live chat, automated lead triage, and 24/7 resolution pipelines.",
     image: "/images/industries/ai-support-ops.jpg",
-    fallbackImage: "/images/projects/connectbridge-api.png",
+    fallbackImage: "/images/projects/EndowDesk.jpg",
     badge: "AI & Support",
     accentColor: "#059669",
     link: "#work",
@@ -73,7 +73,6 @@ export const industriesData: IndustryItem[] = [
     description:
       "International tuition and invoice settlements, multi-currency conversion, and audit-proof financial reconciliation.",
     image: "/images/industries/cross-border-fintech.jpg",
-    fallbackImage: "/images/projects/leadflow-crm.png",
     badge: "FinTech",
     accentColor: "#F59E0B",
     link: "#work",

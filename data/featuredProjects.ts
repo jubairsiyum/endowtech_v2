@@ -56,7 +56,7 @@ export const featuredProjects: FeaturedProject[] = [
     solution:
       "Beyond student-counselor coordination, Endow Connect functions as a full education team management system: assigning tasks, monitoring team performance, managing pipelines across multiple programs or campuses, and generating reports that give leadership real visibility into recruitment and enrollment funnels.",
     accentColor: "#DC2626",
-    image: "/images/projects/endow-portal.png",
+    image: "/images/projects/Endow Connect.jpg",
     techStack: [
       "Laravel",
       "Vue.js",
@@ -160,7 +160,7 @@ export const featuredProjects: FeaturedProject[] = [
     solution:
       "It gives owners and managers a clear, real-time picture of financial health: revenue tracking, expense management, profit/loss visibility, and simplified bookkeeping that reduces the manual reconciliation typically required in restaurant finance.",
     accentColor: "#EA580C",
-    image: "/images/projects/fintech-gateway.png",
+    image: "/images/projects/EndowCousine.jpg",
     techStack: ["Laravel", "PgSQL", "Alpine.js", "Livewire", "Redis"],
     tags: [
       "Restaurant Tech",
@@ -256,7 +256,7 @@ export const featuredProjects: FeaturedProject[] = [
     solution:
       "Teams get familiar drive-style navigation, file sharing, and organized storage, all running on infrastructure the business fully owns and controls.",
     accentColor: "#2563EB",
-    image: "/images/projects/unimatch-ai.png",
+    image: "/images/projects/Endow cloud.jpg",
     techStack: ["Rust", "SQLite", "inotify", "FUSE", "Nginx"],
     tags: [
       "Local Storage",
@@ -352,7 +352,7 @@ export const featuredProjects: FeaturedProject[] = [
     solution:
       "Support requests are automatically organized into tickets, routed to the right team members, and tracked from first contact to resolution. The AI layer assists by suggesting responses, surfacing relevant knowledge base articles, and helping reduce repetitive manual work for support agents.",
     accentColor: "#059669",
-    image: "/images/projects/connectbridge-api.png",
+    image: "/images/projects/EndowDesk.jpg",
     techStack: [
       "Laravel",
       "Vue.js",
@@ -455,7 +455,7 @@ export const featuredProjects: FeaturedProject[] = [
     solution:
       "ZendOS provides a purpose-built hotel-management foundation for organizing hospitality operations. Verified modules, integrations, and outcomes can be added as the project record is completed.",
     accentColor: "#7C3AED",
-    image: "/images/projects/launchmetrics-bi.png",
+    image: "/images/projects/ZendOS.jpg",
     techStack: [
       "Laravel",
       "Vue.js",

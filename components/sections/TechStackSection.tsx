@@ -256,7 +256,7 @@ export default function TechStackSection() {
                 {/* Large Ambient Crimson Brand Watermark Behind Stack Icons Only */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none select-none z-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] sm:w-[88%] md:w-[78%] lg:w-[66%] xl:w-[62%] max-w-[760px] opacity-[0.9] sm:opacity-[0.8] lg:opacity-[0.10]"
+                  className="pointer-events-none select-none z-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] sm:w-[88%] md:w-[78%] lg:w-[66%] xl:w-[62%] max-w-[760px] opacity-[0.05] sm:opacity-[0.08] lg:opacity-[0.10]"
                   style={{
                     maskImage:
                       "radial-gradient(ellipse 90% 84% at 50% 50%, #000 58%, rgba(0, 0, 0, 0.4) 85%, transparent 100%)",

@@ -459,7 +459,7 @@ export default function FeaturedProjects({
                     className="w-full bg-neutral-900 bg-cover bg-center"
                     style={{
                       height: "var(--h)",
-                      backgroundImage: `url(${p.image})`,
+                      backgroundImage: `url("${encodeURI(p.image)}")`,
                     }}
                   />
                   <div
