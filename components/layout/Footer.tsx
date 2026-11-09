@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
           {/* Column 1: Brand & Parent Group */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="relative h-10 w-40">
+            <div className="relative h-20 w-80 -mt-5">
               <Image
                 src="/images/logo_dark.svg"
                 alt="Endow Tech"
@@ -24,13 +24,6 @@ export default function Footer() {
               <strong>Endow Corporation</strong>. Architecting student admission
               portals, AI matching platforms, and enterprise web solutions.
             </p>
-
-            <div className="pt-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-mono text-gray-400">
-                All Production Systems Operational · 99.98% SLA
-              </span>
-            </div>
 
             {/* Social Icons */}
             <div className="flex gap-3 pt-2">
@@ -201,7 +194,6 @@ export default function Footer() {
             subsidiary of Endow Corporation.
           </div>
           <div className="flex items-center gap-6">
-            <span>Built with Next.js 16 &amp; TypeScript</span>
             <a href="#hero" className="text-accent hover:underline">
               Back to top ↑
             </a>

@@ -97,7 +97,6 @@ body {
 
 /* Selection — dark sections */
 #hero ::selection,
-#tech-stack ::selection,
 #portfolio ::selection,
 #comparison ::selection,
 #products ::selection {

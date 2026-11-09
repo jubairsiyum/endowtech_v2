@@ -81,11 +81,32 @@ export interface CaseStudy {
 }
 
 export interface TechItem {
+  id?: string;
   name: string;
   icon?: string;
+  iconKey?: string;
+  tintRed?: boolean;
+  wideIcon?: boolean;
   category?: string;
+  role?: string;
   highlight?: boolean;
+  isCore?: boolean;
+  isAiNative?: boolean;
   description?: string;
+}
+
+export interface TechSubgroup {
+  id: string;
+  label: string;
+  layout?: "grid-3" | "split-2";
+  techs: TechItem[];
+}
+
+export interface TechPillar {
+  id: string;
+  index: string;
+  title: string;
+  subgroups: TechSubgroup[];
 }
 
 export interface TechCategory {
