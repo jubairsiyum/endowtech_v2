@@ -57,7 +57,7 @@ function IndustryCard({
             alt={item.name}
             fill
             sizes="(max-width: 640px) 290px, (max-width: 768px) 330px, 380px"
-            className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out select-none pointer-events-none [-webkit-user-drag:none]"
+            className="object-cover object-[50%_38%] group-hover:scale-105 transition-transform duration-700 ease-out select-none pointer-events-none [-webkit-user-drag:none]"
             draggable={false}
             onDragStart={(e) => e.preventDefault()}
             onError={() => {
@@ -73,7 +73,7 @@ function IndustryCard({
         {/* ── Editorial Gradient (Preserves natural photo clarity while ensuring text contrast at bottom) ── */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none"
         />
 
         {/* ── White Watermark Rising from Bottom-Right Corner on Hover (Larger Scale) ── */}
