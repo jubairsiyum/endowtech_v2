@@ -18,12 +18,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, email, service, budget, message } = body;
+    const { name, email, company, service, budget, message } = body;
 
     // Log received lead details securely on server
     console.log("[New Lead Inquiry Received]:", {
       name,
       email,
+      company: company?.trim() || "Not specified",
       service: service || "Not specified",
       budget: budget || "Not specified",
       messageLength: message?.length,

@@ -146,5 +146,39 @@ export interface FAQItem {
   category: "Engineering" | "Engagement & Pricing" | "Security & SLA";
 }
 
+export interface LeadershipProfile {
+  id: string;
+  name: string;
+  role: string;
+  hub: string;
+  initials: string;
+  image?: string;
+  badge?: string;
+  variant: "ceo" | "tech-lead";
+}
+
+export interface ContactNextStep {
+  number: string;
+  title: string;
+  description: string;
+  iconName: "file-search" | "users" | "compass";
+}
+
+export interface OfficeRoute {
+  id: string;
+  city: string;
+  country: string;
+  countryCode: "KR" | "BD";
+  timeZone: "Asia/Seoul" | "Asia/Dhaka";
+  utcOffset: string;
+  hubLabel: string;
+  address: string;
+  phone: string;
+  email: string;
+  mapUrl: string;
+  workHoursStart: number;
+  workHoursEnd: number;
+}
+
 export type { FeaturedProject, FeaturedProjectMetric } from "@/data/featuredProjects";
 

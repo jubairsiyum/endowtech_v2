@@ -202,3 +202,25 @@ export function getBreadcrumbSchema(
   };
 }
 
+/**
+ * ContactPage Schema
+ * Connects Endow Tech's Seoul HQ and Dhaka Tech Hub contact routes to the Knowledge Graph.
+ */
+export function getContactPageSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": `${siteConfig.url}/contact#webpage`,
+    url: `${siteConfig.url}/contact`,
+    name: "Contact Endow Tech — Seoul & Dhaka Engineering Studio",
+    description:
+      "Speak directly with Endow Tech's executive and principal engineering leads across Seoul, South Korea and Dhaka, Bangladesh.",
+    isPartOf: {
+      "@id": `${siteConfig.url}/#website`,
+    },
+    about: {
+      "@id": `${siteConfig.url}/#organization`,
+    },
+  };
+}
+

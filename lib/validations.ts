@@ -1,6 +1,7 @@
 export interface ContactFormData {
   name: string;
   email: string;
+  company?: string;
   service?: string;
   budget?: string;
   message: string;
@@ -22,12 +23,12 @@ export function validateContactForm(
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!data.email || !emailRegex.test(data.email.trim())) {
-    errors.email = "Please provide a valid business email address.";
+    errors.email = "Please provide a valid work or business email address.";
   }
 
   if (!data.message || data.message.trim().length < 10) {
     errors.message =
-      "Please describe your project or inquiry (minimum 10 characters).";
+      "Please share a brief description of your project or goals (minimum 10 characters).";
   }
 
   return {

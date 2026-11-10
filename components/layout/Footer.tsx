@@ -1,18 +1,19 @@
 import { siteConfig } from "@/data/siteConfig";
 import Image from "next/image";
+import Link from "next/link";
 
 const PLATFORM_LINKS = [
-  { label: "Endow Student Portal (AMS)", href: "#work" },
-  { label: "UniMatch AI Recommendation", href: "#work" },
-  { label: "LeadFlow CRM & Workflow", href: "#work" },
-  { label: "Tuition Settlement Engine", href: "#work" },
+  { label: "Endow Student Portal (AMS)", href: "/#work" },
+  { label: "UniMatch AI Recommendation", href: "/#work" },
+  { label: "LeadFlow CRM & Workflow", href: "/#work" },
+  { label: "Tuition Settlement Engine", href: "/#work" },
 ];
 
 const CAPABILITY_LINKS = [
-  { label: "Next.js Web Applications", href: "#services" },
-  { label: "SaaS Multi-Tenant Engines", href: "#services" },
-  { label: "API & System Integration", href: "#services" },
-  { label: "Security & Audit Profiling", href: "#process" },
+  { label: "Next.js Web Applications", href: "/#services" },
+  { label: "SaaS Multi-Tenant Engines", href: "/#services" },
+  { label: "API & System Integration", href: "/#services" },
+  { label: "Security & Audit Profiling", href: "/#process" },
 ];
 
 export default function Footer() {
@@ -28,8 +29,8 @@ export default function Footer() {
           {/* Brand Column (Unboxed, Left Anchor) */}
           <div className="flex flex-col justify-between py-1 lg:pr-2 xl:pr-4">
             <div>
-              <a
-                href="#hero"
+              <Link
+                href="/"
                 className="inline-block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 aria-label="Endow Tech home"
               >
@@ -42,7 +43,7 @@ export default function Footer() {
                     className="max-w-none w-[230px] h-[116px] -ml-[14px] -mt-[41px]"
                   />
                 </div>
-              </a>
+              </Link>
 
               <p className="mt-4 text-sm text-gray-400 leading-relaxed max-w-[300px]">
                 The technology and product engineering wing of{" "}
@@ -208,13 +209,19 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="pt-5 mt-6 border-t border-white/[0.07]">
+            <div className="pt-5 mt-6 border-t border-white/[0.07] flex items-center justify-between gap-3 flex-wrap">
               <a
                 href={`mailto:${siteConfig.contact.email}`}
                 className="text-xs sm:text-[13px] font-mono text-accent hover:text-red-400 hover:underline transition-colors"
               >
                 {siteConfig.contact.email}
               </a>
+              <Link
+                href="/contact"
+                className="text-xs font-mono uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
+              >
+                Contact Page →
+              </Link>
             </div>
           </div>
         </div>

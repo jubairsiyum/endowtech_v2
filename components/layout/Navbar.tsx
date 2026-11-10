@@ -1,7 +1,7 @@
 "use client";
 
-import { FlowButton } from "@/components/ui/FlowButton";
 import { scrollToElement } from "@/components/SmoothScroll";
+import { FlowButton } from "@/components/ui/FlowButton";
 import { coreServices } from "@/data/services";
 import { siteConfig } from "@/data/siteConfig";
 import { AnimatePresence, motion } from "framer-motion";
@@ -13,9 +13,10 @@ import { useEffect, useRef, useState } from "react";
 const NAV_LINKS = [
   { label: "Services", href: "#services", hasChevron: true },
   { label: "Projects", href: "#featured-projects", hasChevron: false },
-  { label: "Solutions", href: "#products", hasChevron: false },
+  // { label: "Solutions", href: "#products", hasChevron: false },
   { label: "Stack", href: "#tech-stack", hasChevron: false },
   { label: "Case Studies", href: "#work", hasChevron: false },
+  { label: "Contact", href: "/contact", hasChevron: false },
 ];
 
 export default function Navbar({
@@ -60,6 +61,7 @@ export default function Navbar({
         // Scrolling down -> hide navbar smoothly
         setIsVisible(false);
         setMobileMenuOpen(false);
+        setServicesMenuOpen(false);
       } else if (diff < -8) {
         // Scrolling up a bit -> show navbar smoothly
         setIsVisible(true);
@@ -78,6 +80,17 @@ export default function Navbar({
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close Services mega menu on route change and clear hover timer on unmount
+  useEffect(() => {
+    setServicesMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, []);
 
   // Lock background scroll when scheduler modal is open
@@ -120,7 +133,7 @@ export default function Navbar({
     <>
       {/* ── Fixed Full-Width Smart Navbar ── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 w-full overflow-x-clip transition-transform duration-300 ease-out transform ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-transform duration-300 ease-out transform ${
           isVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
@@ -198,7 +211,7 @@ export default function Navbar({
 
                         {/* Services Mega Menu Dropdown */}
                         <div
-                          className={`absolute top-full -left-16 xl:-left-24 pt-2.5 w-[880px] xl:w-[940px] max-w-[92vw] transition-all duration-200 ease-out z-50 ${
+                          className={`absolute top-full -left-40 xl:-left-28 pt-2.5 w-[780px] xl:w-[940px] max-w-[90vw] transition-all duration-200 ease-out z-50 ${
                             servicesMenuOpen
                               ? "opacity-100 translate-y-0 pointer-events-auto"
                               : "opacity-0 translate-y-1 pointer-events-none group-hover/services:opacity-100 group-hover/services:translate-y-0 group-hover/services:pointer-events-auto"
@@ -253,11 +266,18 @@ export default function Navbar({
                     );
                   }
 
+                  const isActiveRoute =
+                    !link.href.startsWith("#") && pathname === link.href;
+
                   return (
                     <button
                       key={link.label}
                       onClick={() => scrollTo(link.href)}
-                      className="text-base font-medium text-white/85 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 group py-1.5"
+                      className={`text-base font-medium transition-colors cursor-pointer flex items-center gap-1.5 group py-1.5 ${
+                        isActiveRoute
+                          ? "text-white underline decoration-accent decoration-2 underline-offset-8"
+                          : "text-white/85 hover:text-white"
+                      }`}
                     >
                       <span>{link.label}</span>
                       {link.hasChevron && (
@@ -298,7 +318,11 @@ export default function Navbar({
                       ? "text-accent bg-accent/10 hover:bg-accent/20"
                       : "text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15"
                   }`}
-                  aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+                  aria-label={
+                    mobileMenuOpen
+                      ? "Close navigation menu"
+                      : "Open navigation menu"
+                  }
                   aria-expanded={mobileMenuOpen}
                 >
                   <svg
@@ -351,7 +375,9 @@ export default function Navbar({
                         className="border-b border-white/5 pb-2"
                       >
                         <button
-                          onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                          onClick={() =>
+                            setMobileServicesOpen(!mobileServicesOpen)
+                          }
                           className="w-full text-base sm:text-lg font-semibold text-white/90 hover:text-white text-left uppercase tracking-wider py-2.5 flex items-center justify-between"
                         >
                           <span>{link.label}</span>
@@ -376,7 +402,10 @@ export default function Navbar({
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: "auto", opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                              transition={{
+                                duration: 0.25,
+                                ease: [0.16, 1, 0.3, 1],
+                              }}
                               className="overflow-hidden"
                             >
                               <div className="pl-3 pr-1 py-2 flex flex-col space-y-2 border-l-2 border-accent/40 ml-1 mt-1">

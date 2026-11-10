@@ -6,13 +6,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://endowtech.net";
   const now = new Date();
 
-  // Primary Landing Page
+  // Primary Landing & Contact Pages
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
     },
   ];
 
