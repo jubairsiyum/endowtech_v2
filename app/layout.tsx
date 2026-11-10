@@ -1,3 +1,4 @@
+import ScrollToTopButton from "@/components/layout/ScrollToTopButton";
 import SmoothScroll from "@/components/SmoothScroll";
 import JsonLd from "@/components/seo/JsonLd";
 import { getOrganizationSchema, getWebSiteSchema } from "@/lib/seo/schema";
@@ -91,7 +92,10 @@ export default function RootLayout({
         className="bg-background text-text-primary antialiased"
         suppressHydrationWarning
       >
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          {children}
+          <ScrollToTopButton />
+        </SmoothScroll>
       </body>
     </html>
   );
