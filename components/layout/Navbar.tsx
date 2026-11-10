@@ -124,8 +124,8 @@ export default function Navbar({
           isVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        {/* Full-width dark container with thin bottom border */}
-        <div className="w-full bg-[#0f0000] bg-dark-red-900 backdrop-blur-md border-b border-white/[0.15]">
+        {/* Full-width dark container with thin bottom border on desktop */}
+        <div className="w-full bg-[#0f0000] bg-dark-red-900 backdrop-blur-md lg:border-b lg:border-white/[0.15]">
           {/* Outer gutter padding so left and right vertical borders are clearly visible across all viewport sizes */}
           <div className="w-full px-2.5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
             <nav
@@ -144,7 +144,7 @@ export default function Navbar({
                 className="relative flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
                 aria-label="Endow Tech homepage"
               >
-                <div className="relative h-11 w-24 min-[360px]:w-28 min-[380px]:w-32 sm:h-14 sm:w-48 lg:h-16 lg:w-56">
+                <div className="relative h-20 w-24 min-[350px]:w-[118px] min-[375px]:w-[134px] min-[410px]:w-40 sm:h-24 sm:w-52">
                   <Image
                     src="/images/logo_dark.svg"
                     alt="Endow Tech"

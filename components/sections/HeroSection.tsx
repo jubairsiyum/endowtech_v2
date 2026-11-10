@@ -1,11 +1,12 @@
 "use client";
 
 import DotGrid from "@/components/DotGrid";
+import { scrollToElement } from "@/components/SmoothScroll";
 import TechText from "@/components/TechText";
 import TextLoop from "@/components/TextLoop";
-import { FlowButton } from "@/components/ui/FlowButton";
-import { scrollToElement } from "@/components/SmoothScroll";
 import { CountUp } from "@/components/motion/CountUp";
+import { HeroGlassLogo } from "@/components/motion/HeroGlassLogo";
+import { FlowButton } from "@/components/ui/FlowButton";
 import { siteConfig } from "@/data/siteConfig";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
@@ -101,6 +102,9 @@ export default function HeroSection({
 
   const heroScale = useTransform(scrollYProgress, [0, 0.75], [1, 0.98]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.1]);
+  const logoScale = useTransform(scrollYProgress, [0, 0.75], [1, 0.92]);
+  const logoOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.08]);
+  const logoScrollY = useTransform(scrollYProgress, [0, 0.75], [0, -28]);
 
   // Direct DOM style updates for cursor glow: cached rect avoids layout thrashing
   useEffect(() => {
@@ -190,142 +194,160 @@ export default function HeroSection({
           }}
         />
 
-        {/* ── MAIN CONTENT (HERO TEXT SCALES DOWN & OPACITY DECREASES TO 50%, POSITION PRESERVED) ── */}
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 pt-4 pb-6 sm:py-6 mt-20">
-          <motion.div
-            style={{
-              scale: heroScale,
-              opacity: heroOpacity,
-              transformOrigin: "left center",
-            }}
-            className="max-w-5xl"
-          >
-            {/* Eyebrow badge */}
+        {/* ── MAIN CONTENT (RESPONSIVE: GLASS LOGO BEHIND TEXT | DESKTOP: TWO-COLUMN RIGHT SIDE) ── */}
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 pt-4 pb-10 sm:pt-6 sm:pb-12 lg:py-10 mt-6 sm:mt-10 lg:mt-14 xl:mt-16">
+          <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-8 xl:gap-12">
+            {/* Left / Foreground Column: Hero Copy & CTAs */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE }}
-              className="mb-3 sm:mb-4 flex flex-wrap items-center gap-3"
+              style={{
+                scale: heroScale,
+                opacity: heroOpacity,
+                transformOrigin: "left center",
+              }}
+              className="relative z-10 w-full lg:flex-1 lg:min-w-0 max-w-4xl"
             >
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/30 text-accent font-mono text-xs font-semibold uppercase tracking-wider">
-                {siteConfig.parentCompany.name} Venture
-              </span>
-              <span className="text-gray-400 text-xs font-medium hidden sm:inline">
-                Seoul HQ · Dhaka Tech Hub
-              </span>
+              {/* Eyebrow badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: EASE }}
+                className="mb-3 sm:mb-4 flex flex-wrap items-center gap-3"
+              >
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/30 text-accent font-mono text-xs font-semibold uppercase tracking-wider">
+                  {siteConfig.parentCompany.name} Venture
+                </span>
+                <span className="text-gray-400 text-xs font-medium hidden sm:inline">
+                  Seoul HQ · Dhaka Tech Hub
+                </span>
+              </motion.div>
+
+              {/* Headline - Interactive TechText Blueprint Canvas */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.85, ease: EASE, delay: 0.15 }}
+                className="mb-3 sm:mb-4 w-full select-none"
+              >
+                <h1 className="sr-only">
+                  Building Software That Scales Real Impact.
+                </h1>
+                <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2 max-w-2xl">
+                  <div className="relative z-10 hover:z-20 h-11 sm:h-14 md:h-16 lg:h-[58px] xl:h-[68px] 2xl:h-[76px] w-full">
+                    <TechText
+                      text="BUILDING SOFTWARE"
+                      fontWeight={700}
+                      fontSize={150}
+                      reveal="letter"
+                      dashLength={4}
+                      dashGap={2}
+                      specks={15}
+                      intro="assemble"
+                      introDuration={2}
+                      clickKick
+                      guides={false}
+                      fontFamily=""
+                      letterSpacing={0}
+                      accentColor="#ef4444"
+                      reach={200}
+                      softness={0.7}
+                      lineStyle="dashed"
+                      strokeWidth={1.5}
+                      speed={1}
+                      bounce={0.4}
+                      selection
+                      labels
+                      color="#ffff"
+                      align="left"
+                      draggable
+                      sweep={false}
+                    />
+                  </div>
+                  <div className="relative z-10 hover:z-20 h-11 sm:h-14 md:h-16 lg:h-[58px] xl:h-[68px] 2xl:h-[76px] w-full">
+                    <TechText
+                      text="THAT SCALES REAL IMPACT."
+                      fontWeight={700}
+                      fontSize={150}
+                      reveal="letter"
+                      dashLength={4}
+                      dashGap={2}
+                      specks={15}
+                      intro="metrics"
+                      introDuration={2}
+                      clickKick
+                      guides={false}
+                      fontFamily=""
+                      letterSpacing={0}
+                      accentColor="#fff"
+                      reach={200}
+                      softness={0.7}
+                      lineStyle="dashed"
+                      strokeWidth={1.5}
+                      speed={1}
+                      bounce={0.4}
+                      selection
+                      labels
+                      color="#ef4444"
+                      align="left"
+                      draggable
+                      sweep={false}
+                    />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: EASE, delay: 0.35 }}
+                className="text-base sm:text-md text-gray-300 max-w-2xl leading-relaxed mb-6 sm:mb-8"
+              >
+                We are the software and product engineering studio behind global
+                academic portals, automated admissions pipelines, and
+                mission-critical SaaS architectures. Engineered with modern
+                Next.js, TypeScript, and clean cloud systems.
+              </motion.p>
+
+              {/* Action CTAs */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: EASE, delay: 0.45 }}
+                className="flex flex-wrap items-center gap-4 mb-2 sm:mb-4 lg:mb-0"
+              >
+                <FlowButton
+                  variant="primary"
+                  size="lg"
+                  onClick={() => scroll("#contact")}
+                >
+                  Start a Project
+                </FlowButton>
+
+                <FlowButton
+                  variant="secondary"
+                  size="lg"
+                  onClick={() => scroll("#products")}
+                >
+                  Explore Products
+                </FlowButton>
+              </motion.div>
             </motion.div>
 
-            {/* Headline - Interactive TechText Blueprint Canvas */}
+            {/* Glass Logo: Behind hero texts on responsive (< lg), right side centerpiece on desktop (lg+) */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, ease: EASE, delay: 0.15 }}
-              className="mb-3 sm:mb-4 max-w-5xl select-none"
+              style={{
+                scale: logoScale,
+                opacity: logoOpacity,
+                y: logoScrollY,
+                transformOrigin: "center center",
+              }}
+              className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none lg:static lg:inset-auto lg:z-10 lg:pointer-events-auto lg:w-[320px] xl:w-[390px] 2xl:w-[440px] lg:shrink-0"
             >
-              <h1 className="sr-only">
-                Building Software That Scales Real Impact.
-              </h1>
-              <div className="flex flex-col gap-1.5 sm:gap-2 md:gap-2.5">
-                <div className="relative z-10 hover:z-20 h-14 sm:h-18 md:h-20 lg:h-[78px] w-full">
-                  <TechText
-                    text="BUILDING SOFTWARE"
-                    fontWeight={700}
-                    fontSize={150}
-                    reveal="letter"
-                    dashLength={4}
-                    dashGap={2}
-                    specks={15}
-                    intro="assemble"
-                    introDuration={2}
-                    clickKick
-                    guides={false}
-                    fontFamily=""
-                    letterSpacing={0}
-                    accentColor="#ef4444"
-                    reach={200}
-                    softness={0.7}
-                    lineStyle="dashed"
-                    strokeWidth={1.5}
-                    speed={1}
-                    bounce={0.4}
-                    selection
-                    labels
-                    color="#ffff"
-                    align="left"
-                    draggable
-                    sweep={false}
-                  />
-                </div>
-                <div className="relative z-10 hover:z-20 h-14 sm:h-18 md:h-20 lg:h-[78px] w-full">
-                  <TechText
-                    text="THAT SCALES REAL IMPACT."
-                    fontWeight={700}
-                    fontSize={150}
-                    reveal="letter"
-                    dashLength={4}
-                    dashGap={2}
-                    specks={15}
-                    intro="metrics"
-                    introDuration={2}
-                    clickKick
-                    guides={false}
-                    fontFamily=""
-                    letterSpacing={0}
-                    accentColor="#fff"
-                    reach={200}
-                    softness={0.7}
-                    lineStyle="dashed"
-                    strokeWidth={1.5}
-                    speed={1}
-                    bounce={0.4}
-                    selection
-                    labels
-                    color="#ef4444"
-                    align="left"
-                    draggable
-                    sweep={false}
-                  />
-                </div>
+              <div className="w-full max-w-[270px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-none opacity-[0.38] sm:opacity-[0.42] lg:opacity-100">
+                <HeroGlassLogo trackingContainerRef={stickyRef} />
               </div>
             </motion.div>
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: EASE, delay: 0.35 }}
-              className="text-base sm:text-lg text-gray-300 max-w-2xl leading-relaxed mb-6 sm:mb-8"
-            >
-              We are the software and product engineering studio behind global
-              academic portals, automated admissions pipelines, and
-              mission-critical SaaS architectures. Engineered with modern
-              Next.js, TypeScript, and clean cloud systems.
-            </motion.p>
-
-            {/* Action CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: EASE, delay: 0.45 }}
-              className="flex flex-wrap items-center gap-4 mb-4 sm:mb-6"
-            >
-              <FlowButton
-                variant="primary"
-                size="lg"
-                onClick={() => scroll("#contact")}
-              >
-                Start a Project
-              </FlowButton>
-
-              <FlowButton
-                variant="secondary"
-                size="lg"
-                onClick={() => scroll("#products")}
-              >
-                Explore Products
-              </FlowButton>
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -391,7 +413,11 @@ export default function HeroSection({
                   className="flex flex-col items-center justify-center text-center px-2 sm:px-6 py-2 lg:py-2"
                 >
                   <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-none">
-                    <CountUp value={stat.value} delay={idx * 0.12} duration={2} />
+                    <CountUp
+                      value={stat.value}
+                      delay={idx * 0.12}
+                      duration={2}
+                    />
                   </div>
                   <div className="text-xs sm:text-base font-semibold text-white tracking-wide mt-2 sm:mt-3">
                     {stat.label}
