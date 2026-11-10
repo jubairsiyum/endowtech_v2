@@ -4,14 +4,14 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <footer
-      className="bg-theme-footer border-t border-white/10 text-gray-400"
+      className="bg-theme-footer border-t border-white/10 text-gray-400 overflow-hidden"
       aria-label="Site footer"
     >
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 pt-16 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
           {/* Column 1: Brand & Parent Group */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="relative h-20 w-80 -mt-5">
+            <div className="relative h-16 w-56 sm:h-20 sm:w-80 max-w-full -mt-4 sm:-mt-5">
               <Image
                 src="/images/logo_dark.svg"
                 alt="Endow Tech"

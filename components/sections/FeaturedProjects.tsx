@@ -5,17 +5,15 @@
  * Same motion model as index.html, which was checked frame-by-frame against the reference video.
  * No framer-motion needed: one rAF loop writes transforms straight to the DOM (no React re-renders while scrolling).
  */
+import FeaturedWorkCta from "@/components/sections/FeaturedWorkCta";
 import { featuredProjects } from "@/data/featuredProjects"; // { id, title, image, category, client }
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import FeaturedWorkCta from "@/components/sections/FeaturedWorkCta";
 
 const REF_W = 874;
 const ASPECT = 16 / 9;
 const BG = "#ffff";
-const STRIPS = 32; // more strips = smoother bend
-const SW_REF = REF_W / STRIPS;
 
 /* ---------- Catmull-Rom Spline Helper ---------- */
 function catmullRom(
@@ -39,17 +37,16 @@ function catmullRom(
 
 // Knots along the incoming circular path (u = -1 to 4):
 // u = 0: Center active card (formed, flat, full scale 1.0)
-// u = 1: Next card sweeping wide (sweeps slightly outside right screen edge, scale 0.76)
-// u = 2: 4th card waiting at the mark position (behind in circular arc, scale 0.46)
-// u = 3: Deep queue fading in from behind (scale 0.28)
+// u = 1: Next card sweeping wide (sweeps outside right edge of active card, scale 0.76)
+// u = 2: 4th card waiting cleanly behind active card (scale 0.44)
+// u = 3: Deep queue fading in from behind (scale 0.26)
 const KNOTS = {
   // u:   -1,   0,   1,    2,    3,    4
-  x:    [-900, 0,  920,  250,  40,   0],
-  y:    [20,   0,  -20,  -28,  -22, -10],
-  s:    [1.25, 1.0, 0.76, 0.46, 0.28, 0.18],
-  ry:   [18,   0,  -23,  -20,  -14, -8],
-  rz:   [-6.0, 0,  6.5,  4.0,  2.0, 0],
-  bend: [-95,  0,  95,   65,   35,  15],
+  x: [-900, 0, 920, 40, 0, 0],
+  y: [20, 0, -20, -24, -16, -8],
+  s: [1.25, 1.0, 0.76, 0.44, 0.26, 0.16],
+  ry: [18, 0, -23, -18, -12, -6],
+  rz: [-6.0, 0, 6.5, 3.5, 1.5, 0],
 };
 
 function spline(arr: number[], u: number): number {
@@ -69,7 +66,6 @@ interface CardPose {
   rz: number;
   ry: number;
   s: number;
-  bend: number;
   txt: number;
   op: number;
   visible: boolean;
@@ -88,7 +84,6 @@ function poseFor(u: number): CardPose {
       ry: Math.min(24, 0.01 * Math.abs(x) + 0.000015 * x * x) * -1,
       s: Math.min(1.25, 1 + 0.00012 * Math.abs(x)),
       txt: Math.max(0, 1 - Math.pow(Math.abs(x) / 700, 1.3)),
-      bend: -Math.min(75, 0.05 * Math.abs(x)),
       op: 1,
       visible: Math.abs(x) <= 2600,
     };
@@ -102,7 +97,6 @@ function poseFor(u: number): CardPose {
       rz: 0,
       ry: 0,
       s: 0,
-      bend: 0,
       txt: 0,
       op: 0,
       visible: false,
@@ -114,7 +108,6 @@ function poseFor(u: number): CardPose {
   const s = spline(KNOTS.s, u);
   const ry = spline(KNOTS.ry, u);
   const rz = spline(KNOTS.rz, u);
-  const bend = spline(KNOTS.bend, u);
   // Text fades out when moving away from center, invisible when coming from behind
   const txt = Math.max(0, 1 - Math.pow(u / 0.35, 1.4));
   // Smoothly fade in cards coming into the background (u: 2.2 to 3.0)
@@ -126,44 +119,10 @@ function poseFor(u: number): CardPose {
     rz,
     ry,
     s,
-    bend,
     txt,
     op,
     visible: op > 0.005,
   };
-}
-
-/** Lay the strips out along a circular arc so the card behaves like a bent sheet of paper. */
-function bendCard(strips: HTMLElement[], b: number, F: number) {
-  if (Math.abs(b) < 0.05) {
-    for (let i = 0; i < STRIPS; i++) {
-      if (strips[i]) strips[i].style.transform = 'translate3d(0,0,0) rotateY(0rad)';
-    }
-    return;
-  }
-  const kappa = (8 * b) / (REF_W * REF_W);
-  const out: [number, number, number][] = new Array(STRIPS);
-  for (let dir = -1; dir <= 1; dir += 2) {
-    let X = 0,
-      Z = 0,
-      sPrev = 0;
-    const start = dir > 0 ? Math.floor(STRIPS / 2) : Math.ceil(STRIPS / 2) - 1;
-    for (let i = start; i >= 0 && i < STRIPS; i += dir) {
-      const sC = (i + 0.5) * SW_REF - REF_W / 2;
-      const ds = sC - sPrev;
-      const phiMid = (kappa * (sC + sPrev)) / 2;
-      X += ds * Math.cos(phiMid);
-      Z -= ds * Math.sin(phiMid);
-      out[i] = [X - sC, Z, kappa * sC];
-      sPrev = sC;
-    }
-  }
-  for (let i = 0; i < STRIPS; i++) {
-    const o = out[i];
-    if (!o || !strips[i]) continue;
-    strips[i].style.transform =
-      `translate3d(${(o[0] * F).toFixed(2)}px,0,${(o[1] * F).toFixed(2)}px) rotateY(${o[2].toFixed(4)}rad)`;
-  }
 }
 
 export default function FeaturedProjects({
@@ -173,6 +132,7 @@ export default function FeaturedProjects({
 } = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const curRef = useRef<HTMLSpanElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
@@ -192,21 +152,19 @@ export default function FeaturedProjects({
     let raf = 0;
     let isVisible = false;
     let isRunning = false;
-    const cachedStrips: HTMLElement[][] = [];
-
-    const getStrips = (i: number, el: HTMLAnchorElement) => {
-      if (!cachedStrips[i] || cachedStrips[i].length === 0) {
-        cachedStrips[i] = Array.from(el.children) as HTMLElement[];
-      }
-      return cachedStrips[i];
-    };
 
     const resize = () => {
-      const vw = window.innerWidth;
+      const vw = stage.clientWidth || window.innerWidth;
       const vh = window.innerHeight;
       const isMobile = vw < 768;
-      const aspect = isMobile ? 1.36 : ASPECT;
-      const maxWFromHeight = Math.max(280, (vh - 270) * aspect);
+      const aspect = isMobile ? 1.6 : ASPECT;
+      const headerH =
+        isMobile && headerRef.current ? headerRef.current.offsetHeight : 225;
+      const footerGap = isMobile ? 86 : 0;
+      const textBlockH = isMobile ? 76 : 0;
+      const maxWFromHeight = isMobile
+        ? Math.max(240, (vh - headerH - footerGap - textBlockH) * aspect)
+        : Math.max(280, (vh - 270) * aspect);
       const W = Math.min(
         maxWFromHeight,
         isMobile
@@ -218,10 +176,9 @@ export default function FeaturedProjects({
       const H = W / aspect;
       stage.style.setProperty("--w", `${W}px`);
       stage.style.setProperty("--h", `${H}px`);
-      stage.style.setProperty("--sw", `${W / STRIPS}px`);
       // On mobile: vertically balance the card and text between header and footer
       const cardTop = isMobile
-        ? `${Math.max(195, Math.round((vh + 130 - (H + 75)) / 2))}px`
+        ? `${Math.max(headerH + 12, Math.round(headerH + (vh - headerH - footerGap - (H + textBlockH)) / 2))}px`
         : `calc(51% - ${H / 2}px)`;
       stage.style.setProperty("--card-top", cardTop);
       F = W / REF_W;
@@ -231,6 +188,9 @@ export default function FeaturedProjects({
     };
     resize();
     window.addEventListener("resize", resize, { passive: true });
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(resize).catch(() => {});
+    }
 
     const render = () => {
       const t = current * (N - 1);
@@ -249,7 +209,6 @@ export default function FeaturedProjects({
           `translate3d(${(P.x * F).toFixed(2)}px, ${(P.y * F).toFixed(2)}px, 0) ` +
           `rotateZ(${P.rz.toFixed(3)}deg) rotateY(${P.ry.toFixed(3)}deg) scale(${P.s.toFixed(4)})`;
         el.style.setProperty("--txt", P.txt.toFixed(3));
-        bendCard(getStrips(i, el), P.bend, F);
         el.style.zIndex = String(
           u < 0 ? 60 + Math.round(u * 10) : 50 - Math.round(u * 10),
         );
@@ -323,7 +282,7 @@ export default function FeaturedProjects({
           stopLoop();
         }
       },
-      { rootMargin: "200px 0px 200px 0px" }
+      { rootMargin: "200px 0px 200px 0px" },
     );
     observer.observe(section);
 
@@ -354,200 +313,198 @@ export default function FeaturedProjects({
           }}
         >
           {/* Ambient Red Watermark Branding in Middle of Section */}
-        <div
-          aria-hidden="true"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none w-[240px] sm:w-[380px] md:w-[520px] lg:w-[680px] xl:w-[780px] max-w-[85vw] opacity-[0.12] sm:opacity-[0.14] transition-opacity duration-300"
-        >
-          <Image
-            src="/images/watermark_red.webp"
-            alt=""
-            width={640}
-            height={748}
-            className="w-full h-auto object-contain"
-            priority
-          />
-        </div>
-
-        {/* header */}
-        <header className="absolute inset-x-0 top-0 z-[200] px-5 sm:px-8 lg:px-12 pt-7 sm:pt-8 lg:pt-10 pointer-events-none">
-          {/* Mobile Top Bar */}
-          <div className="flex md:hidden items-center justify-between w-full mb-3 pointer-events-auto">
-            <span className="font-mono text-[12px] uppercase tracking-[0.2em] text-accent font-semibold">
-              Featured Work
-            </span>
-            <a
-              href="#products"
-              className="inline-flex items-center gap-1.5 font-mono text-[12px] text-neutral-600 hover:text-black transition-colors"
-            >
-              <span className="text-[#0f0000]">Beyond the projects</span>
-              <span className="text-[16px] leading-none">↘</span>
-            </a>
+          <div
+            aria-hidden="true"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none w-[240px] sm:w-[380px] md:w-[520px] lg:w-[680px] xl:w-[780px] max-w-[85vw] opacity-[0.12] sm:opacity-[0.14] transition-opacity duration-300"
+          >
+            <Image
+              src="/images/watermark_red.webp"
+              alt=""
+              width={640}
+              height={748}
+              className="w-full h-auto object-contain"
+              priority
+            />
           </div>
 
-          {/* Title & Copy: Left-aligned on mobile, centered on desktop */}
-          <div className="relative flex items-start justify-between w-full">
-            {/* Left balance spacer (desktop only) */}
-            <div className="hidden md:block w-[180px]" />
-
-            {/* Title & Text */}
-            <div className="text-left md:text-center md:mx-auto max-w-2xl pointer-events-auto">
-              <span className="hidden md:block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-2">
+          {/* header */}
+          <header
+            ref={headerRef}
+            className="absolute inset-x-0 top-0 z-[200] px-5 sm:px-8 lg:px-12 pt-7 sm:pt-8 lg:pt-10 pointer-events-none"
+          >
+            {/* Mobile Top Bar */}
+            <div className="flex md:hidden items-center justify-between w-full mb-3 pointer-events-auto">
+              <span className="font-mono text-[12px] uppercase tracking-[0.2em] text-accent font-semibold">
                 Featured Work
               </span>
-              <h2 className="text-[clamp(24px,2.5vw,38px)] font-bold leading-[1.14] tracking-[-0.035em] text-[#0f0000]">
-                Built for scale. Proven in production.
-              </h2>
-              <p className="mt-2 text-[clamp(13px,0.95vw,15px)] leading-relaxed text-neutral-600 max-w-lg md:mx-auto">
-                We measure enterprise engineering by what the system has to
-                handle, how critical it becomes, and what changes for the
-                business after it ships.
-              </p>
-            </div>
-
-            {/* Right: Beyond the projects link (desktop only) */}
-            <div className="hidden md:flex w-[180px] justify-end">
               <a
                 href="#products"
-                className="pointer-events-auto inline-flex items-center gap-2 font-mono text-[13px] sm:text-[14px] text-neutral-600 hover:text-black transition-colors whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 font-mono text-[12px] text-neutral-600 hover:text-black transition-colors"
               >
-                <span>Beyond the projects</span>
-                <span className="text-[20px] leading-none">↘</span>
+                <span className="text-[#0f0000]">Beyond the projects</span>
+                <span className="text-[16px] leading-none">↘</span>
               </a>
             </div>
-          </div>
-        </header>
 
-        {/* cards */}
-        {featuredProjects.map((p, i) => (
-          <Link
-            key={p.id}
-            href={`/projects/${p.id}`}
-            draggable={false}
-            aria-label={p.title}
-            ref={(el) => {
-              cardRefs.current[i] = el;
-            }}
-            className="absolute block select-none"
-            style={{
-              left: "50%",
-              width: "var(--w)",
-              height: "var(--h)",
-              transformStyle: "preserve-3d",
-              marginLeft: "calc(var(--w) / -2)",
-              top: "var(--card-top, calc(51% - var(--h) / 2))",
-              transformOrigin: "50% calc(var(--h) / 2)",
-            }}
-          >
-            {Array.from({ length: STRIPS }, (_, k) => (
+            {/* Title & Copy: Left-aligned on mobile, centered on desktop */}
+            <div className="relative flex items-start justify-between w-full">
+              {/* Left balance spacer (desktop only) */}
+              <div className="hidden md:block w-[180px]" />
+
+              {/* Title & Text */}
+              <div className="text-left md:text-center md:mx-auto max-w-2xl pointer-events-auto">
+                <span className="hidden md:block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-2">
+                  Featured Work
+                </span>
+                <h2 className="text-[clamp(24px,2.5vw,38px)] font-bold leading-[1.14] tracking-[-0.035em] text-[#0f0000]">
+                  Built for scale. Proven in production.
+                </h2>
+                <p className="mt-2 text-[clamp(13px,0.95vw,15px)] leading-relaxed text-neutral-600 max-w-lg md:mx-auto">
+                  We measure enterprise engineering by what the system has to
+                  handle, how critical it becomes, and what changes for the
+                  business after it ships.
+                </p>
+              </div>
+
+              {/* Right: Beyond the projects link (desktop only) */}
+              <div className="hidden md:flex w-[180px] justify-end">
+                <a
+                  href="#products"
+                  className="pointer-events-auto inline-flex items-center gap-2 font-mono text-[13px] sm:text-[14px] text-neutral-600 hover:text-black transition-colors whitespace-nowrap"
+                >
+                  <span>Beyond the projects</span>
+                  <span className="text-[20px] leading-none">↘</span>
+                </a>
+              </div>
+            </div>
+          </header>
+
+          {/* cards */}
+          {featuredProjects.map((p, i) => (
+            <Link
+              key={p.id}
+              href={`/projects/${p.id}`}
+              draggable={false}
+              aria-label={p.title}
+              ref={(el) => {
+                cardRefs.current[i] = el;
+              }}
+              className="group/card absolute block select-none will-change-transform"
+              style={{
+                left: "50%",
+                width: "var(--w)",
+                transformStyle: "preserve-3d",
+                marginLeft: "calc(var(--w) / -2)",
+                top: "var(--card-top, calc(51% - var(--h) / 2))",
+                transformOrigin: "50% calc(var(--h) / 2)",
+                backfaceVisibility: "hidden",
+              }}
+            >
               <div
-                key={k}
-                aria-hidden="true"
-                className="absolute top-0 overflow-hidden"
+                className="relative w-full overflow-hidden  bg-neutral-900  shadow-[0_18px_45px_-16px_rgba(0,0,0,0.22)]"
                 style={{
-                  left: `calc(var(--sw) * ${k})`,
-                  width: "calc(var(--sw) + 3px)",
-                  height: "calc(var(--h) + var(--w) * .24)",
-                  transformOrigin: "50% 50%",
+                  height: "var(--h)",
+                  outline: "1px solid transparent",
                   backfaceVisibility: "hidden",
                 }}
               >
-                <div
-                  className="absolute top-0 h-full"
-                  style={{ left: `calc(var(--sw) * ${-k})`, width: "var(--w)" }}
-                >
-                  <div
-                    className="w-full bg-neutral-900 bg-cover bg-center"
+                <Image
+                  src={p.image}
+                  alt={p.title}
+                  fill
+                  quality={95}
+                  sizes="(max-width: 767px) 92vw, (max-width: 1100px) 52vw, 780px"
+                  priority={i < 2}
+                  draggable={false}
+                  className="object-cover object-center transition-transform duration-500 ease-out group-hover/card:scale-[1.02]"
+                />
+              </div>
+
+              <div
+                className="relative"
+                style={{
+                  marginTop: "max(10px, calc(var(--w) * .02))",
+                  opacity: "var(--txt, 1)",
+                }}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <h3
+                    className="font-medium leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                    style={{ fontSize: "max(18px, calc(var(--w) * .042))" }}
+                  >
+                    {p.title}
+                  </h3>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.9}
+                    strokeLinecap="square"
+                    className="shrink-0 text-[#222] transition-transform duration-300 group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5"
                     style={{
-                      height: "var(--h)",
-                      backgroundImage: `url("${encodeURI(p.image)}")`,
-                    }}
-                  />
-                  <div
-                    className="relative"
-                    style={{
-                      marginTop: "calc(var(--w) * .018)",
-                      opacity: "var(--txt, 1)",
+                      marginTop: "calc(var(--w) * .004)",
+                      width: "max(20px, calc(var(--w) * .027))",
                     }}
                   >
-                    <h3
-                      className="font-medium leading-[1.1] tracking-[-0.04em] pr-[12%]"
-                      style={{ fontSize: "max(18px, calc(var(--w) * .042))" }}
+                    <path d="M6 18 18 6M8 6h10v10" />
+                  </svg>
+                </div>
+                <div
+                  className="flex items-center flex-wrap font-mono leading-none"
+                  style={{
+                    gap: "max(5px, calc(var(--w) * .01))",
+                    marginTop: "max(6px, calc(var(--w) * .014))",
+                  }}
+                >
+                  {p.techStack.slice(0, 4).map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className="inline-flex items-center text-[11px] sm:text-xs px-2 py-0.5 rounded bg-neutral-100 text-neutral-700 font-medium border border-neutral-200/80"
                     >
-                      {p.title}
-                    </h3>
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={1.9}
-                      strokeLinecap="square"
-                      className="absolute text-[#222]"
-                      style={{
-                        right: "calc(var(--w) * .014)",
-                        top: "calc(var(--w) * .004)",
-                        width: "max(20px, calc(var(--w) * .027))",
-                      }}
-                    >
-                      <path d="M6 18 18 6M8 6h10v10" />
-                    </svg>
-                    <div
-                      className="flex items-center flex-wrap font-mono leading-none"
-                      style={{
-                        gap: "calc(var(--w) * .01)",
-                        marginTop: "calc(var(--w) * .016)",
-                        fontSize: "max(9px, calc(var(--w) * .012))",
-                      }}
-                    >
-                      {p.techStack.slice(0, 4).map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="inline-flex items-center text-xs px-2 py-0.5 rounded bg-neutral-100 text-neutral-700 font-medium border border-neutral-200/80"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                      {tech}
+                    </span>
+                  ))}
                 </div>
               </div>
-            ))}
-          </Link>
-        ))}
+            </Link>
+          ))}
 
-        {/* footer */}
-        <footer className="absolute inset-x-0 bottom-0 z-[200] grid grid-cols-[1fr_auto_1fr] items-end px-4 sm:px-6 lg:px-12 pb-5 sm:pb-7 lg:pb-8 pointer-events-none">
-          <div className="flex items-center gap-3 sm:gap-4">
-            <span
-              ref={curRef}
-              className="w-[30px] sm:w-[34px] font-light leading-none tracking-[-0.02em] tabular-nums text-[clamp(20px,1.4vw,28px)]"
-            >
-              01
-            </span>
-            <div className="relative h-px w-[70px] sm:w-[140px] bg-[#dcdcd8]">
-              <div
-                ref={fillRef}
-                className="absolute left-0 -top-[0.5px] h-[2px] bg-[#111]"
-                style={{ width: 0 }}
-              />
+          {/* footer */}
+          <footer className="absolute inset-x-0 bottom-0 z-[200] grid grid-cols-[1fr_auto_1fr] items-end px-4 sm:px-6 lg:px-12 pb-5 sm:pb-7 lg:pb-8 pointer-events-none">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <span
+                ref={curRef}
+                className="w-[30px] sm:w-[34px] font-light leading-none tracking-[-0.02em] tabular-nums text-[clamp(20px,1.4vw,28px)]"
+              >
+                01
+              </span>
+              <div className="relative h-px w-[70px] sm:w-[140px] bg-[#dcdcd8]">
+                <div
+                  ref={fillRef}
+                  className="absolute left-0 -top-[0.5px] h-[2px] bg-[#111]"
+                  style={{ width: 0 }}
+                />
+              </div>
+              <span className="font-mono text-[11px] sm:text-[12px] leading-none text-neutral-500">
+                {String(N).padStart(2, "0")}
+              </span>
             </div>
-            <span className="font-mono text-[11px] sm:text-[12px] leading-none text-neutral-500">
-              {String(N).padStart(2, "0")}
-            </span>
-          </div>
 
-          <div className="hidden sm:flex items-center gap-3 font-mono text-[12px] sm:text-[13px] text-neutral-600 whitespace-nowrap">
-            <span>Scroll to see the projects</span>
-            <span className="text-[13px] leading-none text-neutral-800">↓</span>
-            <i className="block h-3.5 w-px bg-neutral-300" />
-          </div>
+            <div className="hidden sm:flex items-center gap-3 font-mono text-[12px] sm:text-[13px] text-neutral-600 whitespace-nowrap">
+              <span>Scroll to see the projects</span>
+              <span className="text-[13px] leading-none text-neutral-800">
+                ↓
+              </span>
+              <i className="block h-3.5 w-px bg-neutral-300" />
+            </div>
 
-          <div />
-        </footer>
-      </div>
-    </section>
+            <div />
+          </footer>
+        </div>
+      </section>
 
-    {/* ── BOTTOM OF FEATURED WORK SECTION: ENGINEERING CHALLENGE BANNER ── */}
-    <FeaturedWorkCta onOpenScheduler={onOpenScheduler} />
-  </>
+      {/* ── BOTTOM OF FEATURED WORK SECTION: ENGINEERING CHALLENGE BANNER ── */}
+      <FeaturedWorkCta onOpenScheduler={onOpenScheduler} />
+    </>
   );
 }

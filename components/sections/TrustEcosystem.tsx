@@ -34,7 +34,7 @@ export default function TrustEcosystem() {
 
   return (
     <section className="relative bg-white pt-12 sm:pt-16 pb-0 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 mb-6 sm:mb-8">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 mb-3 sm:mb-8">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12 lg:gap-16">
           {/* Left description */}
           <div className="max-w-2xl">
@@ -125,7 +125,7 @@ export default function TrustEcosystem() {
                   Specializations
                 </div>
                 <div className="text-xl font-bold text-gray-900 mt-1.5">
-                  South Korea &amp; Finland
+                  South Korea
                 </div>
                 <div className="text-xs sm:text-sm text-gray-500 mt-1">
                   Cross-Border Higher Education &amp; Visa Automation
@@ -154,8 +154,8 @@ export default function TrustEcosystem() {
       </div>
 
       {/* ── TEXTLOOP: WAVE SEPARATOR WITH CORPORATE ECOSYSTEM TEXT ── */}
-      <div className="relative z-30 w-full pointer-events-none overflow-hidden -my-2 sm:-my-3">
-        <div className="pointer-events-auto w-full">
+      <div className="relative z-30 w-full pointer-events-none overflow-hidden mt-3 -mb-4 sm:-my-3">
+        <div className="pointer-events-auto w-full mb-9">
           <TextLoop
             text={ECOSYSTEM_TICKER}
             separator="✦"
@@ -177,7 +177,7 @@ export default function TrustEcosystem() {
             draggable={true}
             scrollBoost={0}
             pauseOnHover={true}
-            expandOnScroll={true}
+            expandOnScroll={!isMobile}
             expandDirection="right-to-left"
             expandFinishTopRatio={0.3}
           />

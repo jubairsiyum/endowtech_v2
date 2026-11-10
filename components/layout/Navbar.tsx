@@ -120,16 +120,16 @@ export default function Navbar({
     <>
       {/* ── Fixed Full-Width Smart Navbar ── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-transform duration-300 ease-out transform ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full overflow-x-clip transition-transform duration-300 ease-out transform ${
           isVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
         {/* Full-width dark container with thin bottom border */}
         <div className="w-full bg-[#0f0000] bg-dark-red-900 backdrop-blur-md border-b border-white/[0.15]">
           {/* Outer gutter padding so left and right vertical borders are clearly visible across all viewport sizes */}
-          <div className="w-full px-3 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+          <div className="w-full px-2.5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
             <nav
-              className="max-w-[1380px] mx-auto h-20 sm:h-24 flex items-center justify-between border-l border-r border-white/20 px-4 sm:px-6 lg:px-8"
+              className="max-w-[1380px] mx-auto h-20 sm:h-24 flex items-center justify-between gap-2 border-l border-r border-white/20 px-3 sm:px-6 lg:px-8"
               aria-label="Main navigation"
             >
               {/* ── Brand Logo ── */}
@@ -144,7 +144,7 @@ export default function Navbar({
                 className="relative flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
                 aria-label="Endow Tech homepage"
               >
-                <div className="relative h-10 w-32 sm:h-14 sm:w-48 lg:h-16 lg:w-56">
+                <div className="relative h-11 w-24 min-[360px]:w-28 min-[380px]:w-32 sm:h-14 sm:w-48 lg:h-16 lg:w-56">
                   <Image
                     src="/images/logo_dark.svg"
                     alt="Endow Tech"
@@ -280,7 +280,7 @@ export default function Navbar({
               </div>
 
               {/* ── Right Action Section: Schedule Pill Button + Mobile Toggle ── */}
-              <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
                 <FlowButton
                   text="Schedule Call"
                   variant="white"
@@ -293,7 +293,7 @@ export default function Navbar({
                 {/* Mobile Menu Toggle Button */}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className={`lg:hidden p-2 rounded-lg transition-colors cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent flex items-center justify-center ${
+                  className={`lg:hidden p-1.5 sm:p-2 rounded-lg transition-colors cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent flex items-center justify-center ${
                     mobileMenuOpen
                       ? "text-accent bg-accent/10 hover:bg-accent/20"
                       : "text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15"
