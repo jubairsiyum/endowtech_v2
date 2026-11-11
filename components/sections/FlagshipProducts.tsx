@@ -60,7 +60,7 @@ export default function FlagshipProducts() {
                       >
                         {product.badge}
                       </span>
-                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">
+                      <span className="text-xs font-sans font-semibold text-gray-400 uppercase tracking-[0.12em]">
                         Category: {product.category}
                       </span>
                     </div>
@@ -101,7 +101,7 @@ export default function FlagshipProducts() {
                       {product.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2.5 py-1 text-xs rounded-md bg-white/5 border border-white/10 text-gray-400 font-mono"
+                          className="px-2.5 py-1 text-xs rounded-md bg-white/5 border border-white/10 text-gray-400 font-sans font-medium"
                         >
                           {tag}
                         </span>
@@ -112,7 +112,7 @@ export default function FlagshipProducts() {
                   {/* Right Column: Key Metrics & Stats Box */}
                   <div className="lg:w-80 shrink-0 flex flex-col justify-between p-6 sm:p-7 rounded-xl bg-white/[0.03] border border-white/10">
                     <div>
-                      <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-4">
+                      <div className="text-xs font-sans font-semibold text-gray-400 uppercase tracking-[0.16em] mb-4">
                         Verified Impact Metrics
                       </div>
                       <div className="space-y-4">

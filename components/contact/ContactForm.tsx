@@ -295,7 +295,7 @@ export function ContactForm({
           <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200/80 text-emerald-600 flex items-center justify-center mb-5 shadow-sm">
             <Check className="w-7 h-7 stroke-[2.5]" />
           </div>
-          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-emerald-700 font-semibold mb-2">
+          <span className="font-sans text-[11px] uppercase tracking-[0.16em] text-emerald-700 font-semibold mb-2 tabular-nums">
             Brief Received{submittedRefId ? ` · ${submittedRefId}` : ""}
           </span>
           <h3 className="text-2xl font-bold text-[#0f0000] tracking-tight mb-2">
@@ -319,7 +319,7 @@ export function ContactForm({
             <button
               type="button"
               onClick={handleReset}
-              className="text-xs font-mono text-accent uppercase font-bold hover:underline cursor-pointer"
+              className="text-xs font-sans text-accent uppercase font-bold tracking-[0.1em] hover:underline cursor-pointer"
             >
               Send another brief →
             </button>
@@ -327,7 +327,7 @@ export function ContactForm({
               href={siteConfig.contact.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono text-neutral-500 hover:text-[#0f0000] transition-colors"
+              className="text-xs font-sans font-medium text-neutral-500 hover:text-[#0f0000] transition-colors"
             >
               Need faster response? WhatsApp →
             </a>
@@ -657,7 +657,7 @@ export function ContactForm({
                       <p className="text-xs font-semibold text-[#0f0000] truncate">
                         {attachedFile.name}
                       </p>
-                      <p className="text-[11px] text-neutral-500 font-mono">
+                      <p className="text-[11px] text-neutral-500 font-sans font-medium tabular-nums">
                         {formatFileSize(attachedFile.size)} · Ready to send
                       </p>
                     </div>

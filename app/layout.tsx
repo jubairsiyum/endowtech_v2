@@ -3,7 +3,15 @@ import SmoothScroll from "@/components/SmoothScroll";
 import JsonLd from "@/components/seo/JsonLd";
 import { getOrganizationSchema, getWebSiteSchema } from "@/lib/seo/schema";
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  preload: true,
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://endowtech.net"),
@@ -84,12 +92,12 @@ export default function RootLayout({
   const websiteSchema = getWebSiteSchema();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
         <JsonLd schema={[organizationSchema, websiteSchema]} />
       </head>
       <body
-        className="bg-background text-text-primary antialiased"
+        className="bg-background text-text-primary font-sans antialiased"
         suppressHydrationWarning
       >
         <SmoothScroll>

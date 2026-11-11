@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-[#0A0A0B] flex flex-col items-center justify-center px-6 text-center">
-      <div className="inline-block px-3 py-1 rounded bg-accent/10 border border-accent/25 text-accent font-mono text-xs font-semibold uppercase tracking-wider mb-6">
+      <div className="inline-block px-3 py-1 rounded bg-accent/10 border border-accent/25 text-accent font-sans text-xs font-semibold uppercase tracking-[0.14em] mb-6">
         404 · Page Not Found
       </div>
       <h1 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight mb-4">

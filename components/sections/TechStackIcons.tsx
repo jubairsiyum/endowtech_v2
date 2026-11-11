@@ -26,7 +26,7 @@ export function TechIcon({
     return (
       <div
         aria-hidden="true"
-        className="w-9 h-9 rounded-lg bg-accent/10 text-accent font-bold text-base flex items-center justify-center font-mono"
+        className="w-9 h-9 rounded-lg bg-accent/10 text-accent font-bold text-base flex items-center justify-center font-sans"
       >
         {name.charAt(0)}
       </div>

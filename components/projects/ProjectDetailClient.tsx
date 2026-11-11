@@ -263,7 +263,7 @@ export default function ProjectDetailClient({
             >
               <nav
                 aria-label="Breadcrumb"
-                className="flex flex-wrap items-center gap-2 text-xs font-mono text-neutral-500 mb-6"
+                className="flex flex-wrap items-center gap-2 text-xs font-sans font-medium text-neutral-500 mb-6"
               >
                 <Link
                   href="/"
@@ -359,7 +359,7 @@ export default function ProjectDetailClient({
                     {project.techStack.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 rounded-full bg-black/65 backdrop-blur-md border border-white/15 text-xs font-mono text-white/95"
+                        className="px-3 py-1 rounded-full bg-black/65 backdrop-blur-md border border-white/15 text-xs font-sans font-medium text-white/95"
                       >
                         {tech}
                       </span>
@@ -379,14 +379,14 @@ export default function ProjectDetailClient({
                       <span className="text-white/40" aria-hidden="true">
                         /
                       </span>
-                      <span className="font-mono text-gray-300">
+                      <span className="font-sans font-medium tabular-nums text-gray-300">
                         {project.year}
                       </span>
                     </div>
 
                     <Link
                       href="/case-studies"
-                      className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-black/70 hover:bg-black/85 backdrop-blur-md border border-white/15 text-xs font-mono text-white transition-colors"
+                      className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-black/70 hover:bg-black/85 backdrop-blur-md border border-white/15 text-xs font-sans font-medium text-white transition-colors"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
                       <span>All Case Studies</span>
@@ -442,7 +442,7 @@ export default function ProjectDetailClient({
 
                   <div className="mt-8 bg-neutral-200/80 p-px rounded-2xl overflow-hidden grid grid-cols-1 sm:grid-cols-2 gap-px shadow-xs">
                     <div className="bg-[#fafafa] p-5 sm:p-6">
-                      <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-neutral-500">
+                      <div className="flex items-center gap-2 text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-neutral-500">
                         <Building2
                           className="w-3.5 h-3.5 text-accent"
                           aria-hidden="true"
@@ -455,7 +455,7 @@ export default function ProjectDetailClient({
                     </div>
 
                     <div className="bg-[#fafafa] p-5 sm:p-6">
-                      <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-neutral-500">
+                      <div className="flex items-center gap-2 text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-neutral-500">
                         <MapPin
                           className="w-3.5 h-3.5 text-accent"
                           aria-hidden="true"
@@ -468,7 +468,7 @@ export default function ProjectDetailClient({
                     </div>
 
                     <div className="bg-[#fafafa] p-5 sm:p-6">
-                      <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-neutral-500">
+                      <div className="flex items-center gap-2 text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-neutral-500">
                         <Layers
                           className="w-3.5 h-3.5 text-accent"
                           aria-hidden="true"
@@ -481,7 +481,7 @@ export default function ProjectDetailClient({
                     </div>
 
                     <div className="bg-[#fafafa] p-5 sm:p-6">
-                      <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-neutral-500">
+                      <div className="flex items-center gap-2 text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-neutral-500">
                         <Calendar
                           className="w-3.5 h-3.5 text-accent"
                           aria-hidden="true"
@@ -556,7 +556,7 @@ export default function ProjectDetailClient({
                   </div>
 
                   <div className="mt-7 rounded-2xl bg-black/35 border border-white/10 p-5 sm:p-6">
-                    <div className="text-[11px] font-mono uppercase tracking-wider text-gray-400 mb-4">
+                    <div className="text-[11px] font-sans font-semibold uppercase tracking-[0.14em] text-gray-400 mb-4">
                       Key Bottlenecks Addressed
                     </div>
                     <ul className="space-y-3">
@@ -676,7 +676,7 @@ export default function ProjectDetailClient({
                   </div>
 
                   <div className="mt-7 rounded-2xl bg-emerald-500/[0.09] border border-emerald-400/25 p-5 sm:p-6">
-                    <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-300 mb-4">
+                    <div className="text-[11px] font-sans font-semibold uppercase tracking-[0.14em] text-emerald-300 mb-4">
                       Verified Architectural Outcomes
                     </div>
                     <ul className="space-y-3">
@@ -830,7 +830,7 @@ export default function ProjectDetailClient({
                         {metric.label}
                       </div>
                       {metric.change && (
-                        <div className="mt-1 text-[11px] sm:text-xs font-mono text-gray-300">
+                        <div className="mt-1 text-[11px] sm:text-xs font-sans font-medium text-gray-300">
                           {metric.change}
                         </div>
                       )}
@@ -847,7 +847,7 @@ export default function ProjectDetailClient({
                   <div className="h-full rounded-2xl sm:rounded-3xl bg-white border border-neutral-200/90 hover:border-red-200 hover:shadow-[0_20px_50px_-20px_rgba(220,38,38,0.14)] p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between">
                     <div>
                       <div className="h-1 w-12 rounded-full bg-accent mb-5" />
-                      <div className="text-xs font-mono font-bold uppercase tracking-wider text-accent">
+                      <div className="text-xs font-sans font-bold uppercase tracking-[0.14em] text-accent">
                         {arch.layer}
                       </div>
                       <h3 className="mt-2 text-lg sm:text-xl font-bold text-[#0f0000] tracking-tight leading-snug">
@@ -926,7 +926,7 @@ export default function ProjectDetailClient({
                             <h3 className="text-base sm:text-lg font-bold text-[#0f0000] tracking-tight">
                               {decision.title}
                             </h3>
-                            <span className="px-2.5 py-0.5 rounded-full bg-neutral-100 text-[11px] font-mono text-neutral-600 whitespace-nowrap">
+                            <span className="px-2.5 py-0.5 rounded-full bg-neutral-100 text-[11px] font-sans font-medium text-neutral-600 whitespace-nowrap">
                               {decision.tag}
                             </span>
                           </div>
@@ -988,7 +988,7 @@ export default function ProjectDetailClient({
                     >
                       <span
                         className={cn(
-                          "block text-[11px] font-mono uppercase tracking-wider",
+                          "block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] tabular-nums",
                           isActive ? "text-red-100" : "text-neutral-500",
                         )}
                       >
@@ -1045,7 +1045,7 @@ export default function ProjectDetailClient({
 
             {/* 6-Column Production Standards Bar */}
             <FadeIn delay={0.1} className="mt-10 sm:mt-12">
-              <div className="text-xs font-mono font-semibold uppercase tracking-[0.18em] text-neutral-500 mb-4">
+              <div className="text-xs font-sans font-semibold uppercase tracking-[0.18em] text-neutral-500 mb-4">
                 System Benchmarks &amp; Engineering Guarantees
               </div>
 
@@ -1061,7 +1061,7 @@ export default function ProjectDetailClient({
                         <Icon className="w-4 h-4" aria-hidden="true" />
                       </div>
                       <div>
-                        <div className="text-[11px] font-mono uppercase tracking-wider text-neutral-500">
+                        <div className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-neutral-500">
                           {std.label}
                         </div>
                         <div className="mt-1 text-sm font-bold text-[#0f0000] leading-snug">
@@ -1135,7 +1135,7 @@ export default function ProjectDetailClient({
 
                       <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 rounded-2xl bg-black/75 backdrop-blur-md border border-white/15 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div>
-                          <div className="text-[11px] font-mono uppercase tracking-wider text-accent font-semibold">
+                          <div className="text-[11px] font-sans uppercase tracking-[0.12em] text-accent font-semibold">
                             Joint Delivery Studio
                           </div>
                           <div className="mt-0.5 text-sm sm:text-base font-bold text-white">
@@ -1143,7 +1143,7 @@ export default function ProjectDetailClient({
                             {siteConfig.offices[1]?.city} Tech Hub
                           </div>
                         </div>
-                        <div className="text-xs font-mono text-gray-300">
+                        <div className="text-xs font-sans font-medium tabular-nums text-gray-300">
                           99.98% Production SLA Standard
                         </div>
                       </div>
@@ -1217,7 +1217,7 @@ export default function ProjectDetailClient({
 
               <Link
                 href="/case-studies"
-                className="group inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-neutral-600 hover:text-accent transition-colors"
+                className="group inline-flex items-center gap-2 text-xs font-sans font-semibold uppercase tracking-[0.12em] text-neutral-600 hover:text-accent transition-colors"
               >
                 <span>View All 5 Case Studies</span>
                 <ArrowRight
@@ -1247,7 +1247,7 @@ export default function ProjectDetailClient({
                   <ArrowLeft className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">
+                  <div className="text-[11px] font-sans font-semibold text-neutral-500 uppercase tracking-[0.12em]">
                     Previous Case Study
                   </div>
                   <div className="text-sm font-bold text-[#0f0000] group-hover:text-accent transition-colors truncate">
@@ -1258,7 +1258,7 @@ export default function ProjectDetailClient({
 
               <Link
                 href="/case-studies"
-                className="hidden md:inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-mono font-semibold text-neutral-600 hover:text-accent border border-neutral-200 hover:border-red-200 transition-colors whitespace-nowrap"
+                className="hidden md:inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-sans font-semibold text-neutral-600 hover:text-accent border border-neutral-200 hover:border-red-200 transition-colors whitespace-nowrap"
               >
                 All Case Studies
               </Link>
@@ -1268,7 +1268,7 @@ export default function ProjectDetailClient({
                 className="group flex items-center justify-between sm:justify-end gap-4 text-right p-4 rounded-2xl bg-[#fafafa] hover:bg-white border border-neutral-200/80 hover:border-red-200 transition-all sm:min-w-[260px]"
               >
                 <div className="min-w-0">
-                  <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">
+                  <div className="text-[11px] font-sans font-semibold text-neutral-500 uppercase tracking-[0.12em]">
                     Next Case Study
                   </div>
                   <div className="text-sm font-bold text-[#0f0000] group-hover:text-accent transition-colors truncate">
@@ -1305,7 +1305,7 @@ export default function ProjectDetailClient({
 
           <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 text-center">
             <FadeIn className="max-w-2xl mx-auto">
-              <div className="text-xs font-mono uppercase tracking-[0.16em] text-white/85 font-semibold mb-3">
+              <div className="text-xs font-sans uppercase tracking-[0.18em] text-white/85 font-semibold mb-3">
                 Ready to build a similar platform?
               </div>
               <h2
@@ -1384,7 +1384,7 @@ export default function ProjectDetailClient({
                         <Mail className="w-4 h-4" aria-hidden="true" />
                       </div>
                       <div className="min-w-0">
-                        <div className="text-[11px] font-mono uppercase tracking-wider text-neutral-500">
+                        <div className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-neutral-500">
                           Direct Email
                         </div>
                         <div className="text-sm font-bold text-[#0f0000] group-hover:text-accent transition-colors truncate">
@@ -1403,7 +1403,7 @@ export default function ProjectDetailClient({
                         <MessageSquare className="w-4 h-4" aria-hidden="true" />
                       </div>
                       <div className="min-w-0">
-                        <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-800">
+                        <div className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-emerald-800">
                           WhatsApp Direct
                         </div>
                         <div className="text-sm font-bold text-emerald-950 truncate">
@@ -1415,7 +1415,7 @@ export default function ProjectDetailClient({
 
                   <Link
                     href="/contact"
-                    className="group inline-flex items-center gap-2 mt-6 text-xs font-mono font-semibold uppercase tracking-wider text-neutral-600 hover:text-accent transition-colors"
+                    className="group inline-flex items-center gap-2 mt-6 text-xs font-sans font-semibold uppercase tracking-[0.12em] text-neutral-600 hover:text-accent transition-colors"
                   >
                     <span>View full Contact Hub &amp; Seoul/Dhaka hours</span>
                     <ArrowRight

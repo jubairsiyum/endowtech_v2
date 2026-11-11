@@ -46,7 +46,7 @@ export default function CaseStudiesSection() {
                 <div>
                   {/* Category & Client Header */}
                   <div className="flex items-center justify-between gap-4 mb-4">
-                    <span className="text-xs font-mono font-semibold uppercase tracking-wider text-accent">
+                    <span className="text-xs font-sans font-semibold uppercase tracking-[0.14em] text-accent">
                       {caseStudy.category}
                     </span>
                     <span className="text-xs font-medium text-text-muted bg-gray-100 px-2.5 py-1 rounded-md">
@@ -63,7 +63,7 @@ export default function CaseStudiesSection() {
 
                   {/* Impact Summary Quote */}
                   <div className="p-4 rounded-xl bg-accent/[0.04] border border-accent/15 mb-6">
-                    <div className="text-xs font-mono font-semibold text-accent uppercase tracking-wider mb-1">
+                    <div className="text-xs font-sans font-semibold text-accent uppercase tracking-[0.12em] mb-1">
                       Business Outcome:
                     </div>
                     <div className="text-sm font-medium text-text-primary">
@@ -91,7 +91,7 @@ export default function CaseStudiesSection() {
                   {caseStudy.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 text-xs rounded bg-gray-50 border border-gray-200 text-text-muted font-mono"
+                      className="px-2 py-0.5 text-xs rounded bg-gray-50 border border-gray-200 text-text-muted font-sans font-medium"
                     >
                       {tag}
                     </span>

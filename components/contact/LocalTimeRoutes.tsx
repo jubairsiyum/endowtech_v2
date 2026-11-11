@@ -183,7 +183,7 @@ export function LocalTimeRoutes() {
                           </div>
                           <div
                             className={cn(
-                              "mt-1 text-[10px] font-mono uppercase tracking-wider",
+                              "mt-1 text-[10px] font-sans font-semibold uppercase tracking-[0.12em] tabular-nums",
                               isNight ? "text-gray-400" : "text-neutral-500",
                             )}
                           >
@@ -215,7 +215,7 @@ export function LocalTimeRoutes() {
                           </span>
                           <span
                             className={cn(
-                              "px-2 py-0.5 rounded-md font-mono text-[10px] uppercase tracking-wider",
+                              "px-2 py-0.5 rounded-md font-sans font-semibold text-[10px] uppercase tracking-[0.12em]",
                               isNight
                                 ? "bg-white/10 text-gray-200"
                                 : "bg-neutral-100 text-neutral-600",

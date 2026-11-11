@@ -319,10 +319,10 @@ export default function ProcessSection() {
                         <div className="flex items-center gap-2.5 shrink-0">
                           <span
                             className={cn(
-                              "hidden md:inline-block font-mono text-[11px] uppercase tracking-wider transition-colors duration-300",
+                              "hidden md:inline-block font-sans text-[11px] uppercase tracking-[0.12em] tabular-nums transition-colors duration-300",
                               isActive
                                 ? "text-accent font-semibold"
-                                : "text-neutral-400",
+                                : "text-neutral-400 font-medium",
                             )}
                           >
                             Phase 0{idx + 1}
@@ -358,7 +358,7 @@ export default function ProcessSection() {
 
                               <div className="flex items-center gap-2 mb-2">
                                 <StepIcon className="w-3.5 h-3.5 text-accent shrink-0" />
-                                <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.14em] text-accent">
+                                <span className="text-[11px] sm:text-xs font-sans font-bold uppercase tracking-[0.14em] text-accent">
                                   {step.phase}
                                 </span>
                               </div>
@@ -369,7 +369,7 @@ export default function ProcessSection() {
 
                               {/* Inline Key Outputs for Mobile & Tablet (< lg) */}
                               <div className="lg:hidden mt-5 pt-4 border-t border-neutral-100">
-                                <div className="text-[11px] font-mono font-bold uppercase tracking-[0.15em] text-neutral-500 mb-3">
+                                <div className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-neutral-500 mb-3">
                                   Key Outputs
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -411,7 +411,7 @@ export default function ProcessSection() {
                 {/* Panel Header */}
                 <div className="relative px-7 pt-7 pb-5 border-b border-neutral-100">
                   <div className="flex items-center justify-between gap-3 mb-4">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200/80 text-accent font-mono text-[11px] font-bold uppercase tracking-wider">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200/80 text-accent font-sans text-[11px] font-bold uppercase tracking-[0.12em] tabular-nums">
                       <ActiveIcon className="w-3.5 h-3.5" />
                       <span>
                         Step 0{activeIndex + 1} · {activeStep.phase}
@@ -459,7 +459,7 @@ export default function ProcessSection() {
 
                 {/* Key Outputs List */}
                 <div className="relative p-7">
-                  <div className="flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-neutral-500 mb-4">
+                  <div className="flex items-center gap-2 text-[11px] font-sans font-bold uppercase tracking-[0.16em] text-neutral-500 mb-4">
                     <span className="w-2 h-2 rounded-md bg-accent" />
                     <span>Key Outputs:</span>
                   </div>
@@ -499,7 +499,7 @@ export default function ProcessSection() {
 
                 {/* Panel Footer with Step Controls */}
                 <div className="px-7 py-4 bg-[#fafafa] border-t border-neutral-100 flex items-center justify-between gap-4">
-                  <span className="text-xs font-mono text-neutral-500">
+                  <span className="text-xs font-sans font-medium tabular-nums text-neutral-500">
                     Stage{" "}
                     <strong className="text-[#0f0000]">
                       0{activeIndex + 1}

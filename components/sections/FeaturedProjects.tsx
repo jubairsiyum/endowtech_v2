@@ -334,12 +334,12 @@ export default function FeaturedProjects({
           >
             {/* Mobile Top Bar */}
             <div className="flex md:hidden items-center justify-between w-full mb-3 pointer-events-auto">
-              <span className="font-mono text-[12px] uppercase tracking-[0.2em] text-accent font-semibold">
+              <span className="font-sans text-[12px] uppercase tracking-[0.2em] text-accent font-semibold">
                 Featured Work
               </span>
               <a
                 href="#products"
-                className="inline-flex items-center gap-1.5 font-mono text-[12px] text-neutral-600 hover:text-black transition-colors"
+                className="inline-flex items-center gap-1.5 font-sans font-medium text-[12px] text-neutral-600 hover:text-black transition-colors"
               >
                 <span className="text-[#0f0000]">Beyond the projects</span>
                 <span className="text-[16px] leading-none">↘</span>
@@ -370,7 +370,7 @@ export default function FeaturedProjects({
               <div className="hidden md:flex w-[180px] justify-end">
                 <a
                   href="#products"
-                  className="pointer-events-auto inline-flex items-center gap-2 font-mono text-[13px] sm:text-[14px] text-neutral-600 hover:text-black transition-colors whitespace-nowrap"
+                  className="pointer-events-auto inline-flex items-center gap-2 font-sans font-medium text-[13px] sm:text-[14px] text-neutral-600 hover:text-black transition-colors whitespace-nowrap"
                 >
                   <span>Beyond the projects</span>
                   <span className="text-[20px] leading-none">↘</span>
@@ -450,7 +450,7 @@ export default function FeaturedProjects({
                   </svg>
                 </div>
                 <div
-                  className="flex items-center flex-wrap font-mono leading-none"
+                  className="flex items-center flex-wrap font-sans leading-none"
                   style={{
                     gap: "max(5px, calc(var(--w) * .01))",
                     marginTop: "max(6px, calc(var(--w) * .014))",
@@ -485,12 +485,12 @@ export default function FeaturedProjects({
                   style={{ width: 0 }}
                 />
               </div>
-              <span className="font-mono text-[11px] sm:text-[12px] leading-none text-neutral-500">
+              <span className="font-sans font-medium tabular-nums text-[11px] sm:text-[12px] leading-none text-neutral-500">
                 {String(N).padStart(2, "0")}
               </span>
             </div>
 
-            <div className="hidden sm:flex items-center gap-3 font-mono text-[12px] sm:text-[13px] text-neutral-600 whitespace-nowrap">
+            <div className="hidden sm:flex items-center gap-3 font-sans font-medium text-[12px] sm:text-[13px] text-neutral-600 whitespace-nowrap">
               <span>Scroll to see the projects</span>
               <span className="text-[13px] leading-none text-neutral-800">
                 ↓

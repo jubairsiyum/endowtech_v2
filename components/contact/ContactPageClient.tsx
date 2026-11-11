@@ -246,7 +246,7 @@ export function ContactPageClient({
                     <Mail className="w-6 h-6" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-mono uppercase tracking-wider text-gray-300">
+                    <div className="text-xs font-sans font-semibold uppercase tracking-[0.12em] text-gray-300">
                       {contactPageContent.directStrip.emailLabel}
                     </div>
                     <div className="text-base sm:text-lg font-bold text-white truncate mt-1">
@@ -280,7 +280,7 @@ export function ContactPageClient({
                   <MessageSquare className="w-6 h-6" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-xs font-mono uppercase tracking-wider text-gray-300">
+                  <div className="text-xs font-sans font-semibold uppercase tracking-[0.12em] text-gray-300">
                     {contactPageContent.directStrip.whatsappLabel}
                   </div>
                   <div className="text-base sm:text-lg font-bold text-white tabular-nums truncate mt-1">
@@ -299,7 +299,7 @@ export function ContactPageClient({
                   <Calendar className="w-6 h-6" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-xs font-mono uppercase tracking-wider text-gray-300">
+                  <div className="text-xs font-sans font-semibold uppercase tracking-[0.12em] text-gray-300">
                     {contactPageContent.directStrip.schedulerLabel}
                   </div>
                   <div className="text-base sm:text-lg font-bold text-white truncate mt-1">
@@ -364,7 +364,7 @@ export function ContactPageClient({
                   className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 pointer-events-none"
                 />
                 <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 flex flex-wrap items-center justify-between gap-3 pointer-events-none">
-                  <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/15 text-xs font-mono text-white">
+                  <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/15 text-xs font-sans font-medium text-white">
                     {contactPageContent.whatHappensNext.imageCaption}
                   </span>
                 </div>
@@ -400,7 +400,7 @@ export function ContactPageClient({
                         <div className="w-10 h-10 rounded-xl bg-white border border-neutral-200/90 text-accent flex items-center justify-center shadow-xs group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-colors duration-200">
                           <Icon className="w-4.5 h-4.5" />
                         </div>
-                        <span className="font-mono text-xs font-bold text-neutral-400 group-hover:text-accent transition-colors">
+                        <span className="font-sans text-xs font-bold tabular-nums text-neutral-400 group-hover:text-accent transition-colors">
                           {step.number}
                         </span>
                       </div>
@@ -455,7 +455,7 @@ export function ContactPageClient({
               ease="power2.out"
               className="max-w-2xl"
             >
-              <div className="text-xs font-mono uppercase tracking-[0.16em] text-white/80 font-semibold mb-3">
+              <div className="text-xs font-sans uppercase tracking-[0.18em] text-white/80 font-semibold mb-3">
                 {contactPageContent.bottomCta.eyebrow}
               </div>
               <h2

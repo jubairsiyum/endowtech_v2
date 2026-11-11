@@ -12,7 +12,7 @@ export const Badge: React.FC<BadgeProps> = ({
   ...props
 }) => {
   const variantStyles = {
-    code: "inline-block px-3 py-1 bg-accent/[0.08] border border-accent/25 rounded-md text-accent font-semibold font-mono text-[11px] tracking-[0.1em] uppercase",
+    code: "inline-block px-3 py-1 bg-accent/[0.08] border border-accent/25 rounded-md text-accent font-semibold font-sans text-[11px] tracking-[0.14em] uppercase",
     subtle:
       "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-gray-300",
     outline:

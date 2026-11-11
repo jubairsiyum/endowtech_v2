@@ -65,7 +65,6 @@ export interface TechTextProps {
 
 type Settings = Required<Omit<TechTextProps, 'className' | 'style'>>;
 
-const LABEL_FONT = '10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
 const FALLOFF_STEPS = 8;
 const SPRING = 320;
 const INHERIT = /^(currentcolor|inherit)$/i;
@@ -573,7 +572,7 @@ const TechText = ({
       if (s.specks > 0) drawSpecks(s, a, accent);
 
       if (!s.labels) return;
-      ctx.font = LABEL_FONT;
+      ctx.font = `600 10px ${family(s)}`;
       ctx.textAlign = 'left';
       ctx.fillStyle = accent;
       ctx.globalAlpha = 0.62 * a;
@@ -602,7 +601,7 @@ const TechText = ({
       ctx.strokeStyle = accent;
       ctx.fillStyle = accent;
       ctx.lineWidth = 1;
-      ctx.font = LABEL_FONT;
+      ctx.font = `600 10px ${family(s)}`;
       ctx.textBaseline = 'middle';
       ctx.textAlign = room ? 'left' : 'right';
       view.lines.forEach((line, k) => {

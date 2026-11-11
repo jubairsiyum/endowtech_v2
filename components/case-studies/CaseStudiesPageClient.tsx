@@ -411,7 +411,7 @@ export default function CaseStudiesPageClient() {
                         <Layers className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-accent">
+                        <div className="text-[11px] font-sans font-bold uppercase tracking-[0.14em] text-accent">
                           {featuredProject.category}
                         </div>
                         <div className="text-xs text-neutral-500 font-medium">
@@ -433,7 +433,7 @@ export default function CaseStudiesPageClient() {
                     <div className="mt-7 pt-6 border-t border-neutral-100 grid grid-cols-1 sm:grid-cols-2 gap-6">
                       {caseStudiesPageContent.featured.pillars.map((pillar) => (
                         <div key={pillar.heading}>
-                          <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#0f0000]">
+                          <div className="text-xs font-sans font-bold uppercase tracking-[0.12em] text-[#0f0000]">
                             {pillar.heading}
                           </div>
                           <p className="mt-1.5 text-xs text-neutral-500 leading-relaxed">
@@ -462,7 +462,7 @@ export default function CaseStudiesPageClient() {
                         {featuredProject.techStack.slice(0, 4).map((tech) => (
                           <span
                             key={tech}
-                            className="px-2.5 py-1 rounded-lg bg-[#fafafa] border border-neutral-200/80 font-mono text-[11px] text-neutral-600"
+                            className="px-2.5 py-1 rounded-lg bg-[#fafafa] border border-neutral-200/80 font-sans font-medium text-[11px] text-neutral-600"
                           >
                             {tech}
                           </span>
@@ -631,7 +631,7 @@ export default function CaseStudiesPageClient() {
                 })}
               </div>
 
-              <div className="flex items-center gap-4 text-xs font-mono text-neutral-500">
+              <div className="flex items-center gap-4 text-xs font-sans font-medium text-neutral-500 tabular-nums">
                 <span>
                   Showing{" "}
                   <strong className="text-[#0f0000]">
@@ -732,7 +732,7 @@ export default function CaseStudiesPageClient() {
 
           <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 text-center">
             <FadeIn className="max-w-2xl mx-auto">
-              <div className="text-xs font-mono uppercase tracking-[0.16em] text-white/85 font-semibold mb-3">
+              <div className="text-xs font-sans uppercase tracking-[0.18em] text-white/85 font-semibold mb-3">
                 {caseStudiesPageContent.ctaBanner.eyebrow}
               </div>
               <h2
@@ -813,7 +813,7 @@ export default function CaseStudiesPageClient() {
                         <Mail className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <div className="text-[11px] font-mono uppercase tracking-wider text-neutral-500">
+                        <div className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-neutral-500">
                           Direct Email
                         </div>
                         <div className="text-sm font-bold text-[#0f0000] group-hover:text-accent transition-colors truncate">
@@ -832,7 +832,7 @@ export default function CaseStudiesPageClient() {
                         <MessageSquare className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-800">
+                        <div className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-emerald-800">
                           WhatsApp Direct
                         </div>
                         <div className="text-sm font-bold text-emerald-950 truncate">
@@ -844,7 +844,7 @@ export default function CaseStudiesPageClient() {
 
                   <Link
                     href="/contact"
-                    className="group inline-flex items-center gap-2 mt-6 text-xs font-mono font-semibold uppercase tracking-wider text-neutral-600 hover:text-accent transition-colors"
+                    className="group inline-flex items-center gap-2 mt-6 text-xs font-sans font-semibold uppercase tracking-[0.12em] text-neutral-600 hover:text-accent transition-colors"
                   >
                     <span>View full Contact Hub &amp; Seoul/Dhaka hours</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />

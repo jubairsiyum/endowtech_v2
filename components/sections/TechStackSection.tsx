@@ -306,7 +306,7 @@ export default function TechStackSection() {
                           <h3 className="text-lg sm:text-xl font-bold tracking-tight text-[#0f0000]">
                             {pillar.title}
                           </h3>
-                          <span className="font-mono text-[11px] font-semibold text-neutral-400 tracking-wider">
+                          <span className="font-sans text-[11px] font-semibold tabular-nums text-neutral-400 tracking-[0.1em]">
                             {pillar.index}
                           </span>
                         </div>
@@ -397,7 +397,7 @@ export default function TechStackSection() {
                     <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#0f0000]">
                       Data, Cloud &amp; DevOps Infrastructure
                     </h3>
-                    <span className="font-mono text-[11px] font-semibold text-neutral-400">
+                    <span className="font-sans text-[11px] font-semibold tabular-nums text-neutral-400 tracking-[0.1em]">
                       04
                     </span>
                   </div>
@@ -434,7 +434,7 @@ export default function TechStackSection() {
                       >
                         <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap sm:items-center gap-1.5 sm:gap-2.5 min-w-0">
                           <div className="inline-flex items-center gap-2 shrink-0">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-red-50 border border-red-200/80 text-accent font-mono text-[11px] font-bold uppercase tracking-wider shrink-0">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-red-50 border border-red-200/80 text-accent font-sans text-[11px] font-bold uppercase tracking-[0.12em] shrink-0">
                               <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                               {activeItem.role ||
                                 activeItem.category ||
@@ -451,7 +451,7 @@ export default function TechStackSection() {
 
                         <div className="flex items-center gap-2 shrink-0 self-end lg:self-center">
                           {activeItem.isCore && (
-                            <span className="px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-700 font-mono text-[10px] font-semibold uppercase tracking-wider">
+                            <span className="px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-700 font-sans text-[10px] font-semibold uppercase tracking-[0.1em]">
                               Endow Core
                             </span>
                           )}
@@ -462,7 +462,7 @@ export default function TechStackSection() {
                                 setSelectedItem(null);
                                 setHoveredItem(null);
                               }}
-                              className="text-xs font-mono text-neutral-400 hover:text-accent transition-colors cursor-pointer"
+                              className="text-xs font-sans font-medium text-neutral-400 hover:text-accent transition-colors cursor-pointer"
                             >
                               Reset
                             </button>
@@ -489,7 +489,7 @@ export default function TechStackSection() {
                           </span>
                         </div>
 
-                        <span className="font-mono text-[11px] text-neutral-400 shrink-0">
+                        <span className="font-sans font-medium tabular-nums text-[11px] text-neutral-400 shrink-0">
                           {totalCount} Verified Tools
                         </span>
                       </motion.div>

@@ -39,7 +39,7 @@ export default function TrustEcosystem() {
           {/* Left description */}
           <div className="max-w-2xl">
             <FadeIn>
-              {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/25 text-accent font-mono text-xs font-semibold uppercase tracking-wider mb-5">
+              {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/25 text-accent font-sans text-xs font-semibold uppercase tracking-[0.14em] mb-5">
                 {"// Corporate Ecosystem"}
               </div> */}
               <span className="hidden md:block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-5">
@@ -87,7 +87,7 @@ export default function TrustEcosystem() {
                 <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
                   <Building2 className="w-5 h-5" />
                 </div>
-                <div className="text-xs font-mono uppercase text-accent font-semibold tracking-wider">
+                <div className="text-xs font-sans uppercase text-accent font-semibold tracking-[0.12em]">
                   Corporate HQ
                 </div>
                 <div className="text-xl font-bold text-gray-900 mt-1.5">
@@ -104,7 +104,7 @@ export default function TrustEcosystem() {
                 <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
                   <Cpu className="w-5 h-5" />
                 </div>
-                <div className="text-xs font-mono uppercase text-accent font-semibold tracking-wider">
+                <div className="text-xs font-sans uppercase text-accent font-semibold tracking-[0.12em]">
                   Tech &amp; Ops Hub
                 </div>
                 <div className="text-xl font-bold text-gray-900 mt-1.5">
@@ -121,7 +121,7 @@ export default function TrustEcosystem() {
                 <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
                   <Globe2 className="w-5 h-5" />
                 </div>
-                <div className="text-xs font-mono uppercase text-accent font-semibold tracking-wider">
+                <div className="text-xs font-sans uppercase text-accent font-semibold tracking-[0.12em]">
                   Specializations
                 </div>
                 <div className="text-xl font-bold text-gray-900 mt-1.5">
@@ -138,7 +138,7 @@ export default function TrustEcosystem() {
                 <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
-                <div className="text-xs font-mono uppercase text-accent font-semibold tracking-wider">
+                <div className="text-xs font-sans uppercase text-accent font-semibold tracking-[0.12em]">
                   Engineering SLA
                 </div>
                 <div className="text-xl font-bold text-gray-900 mt-1.5">

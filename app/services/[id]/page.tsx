@@ -92,7 +92,7 @@ export default async function ServiceDetailPage({
 
         {/* Hero Section */}
         <div className="max-w-3xl mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/30 text-accent font-mono text-xs uppercase tracking-wider mb-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/30 text-accent font-sans font-semibold text-xs uppercase tracking-[0.14em] mb-5">
             <span>Enterprise Service</span>
           </div>
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
@@ -159,7 +159,7 @@ export default async function ServiceDetailPage({
                 {service.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-200 font-mono text-xs sm:text-sm"
+                    className="px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-200 font-sans font-medium text-xs sm:text-sm"
                   >
                     {tag}
                   </span>

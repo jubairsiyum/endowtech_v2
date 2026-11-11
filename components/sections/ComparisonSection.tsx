@@ -37,13 +37,13 @@ export default function ComparisonSection() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-white/10 bg-white/[0.04]">
-                    <th className="py-4 px-6 text-xs font-mono font-bold uppercase tracking-wider text-gray-300">
+                    <th className="py-4 px-6 text-xs font-sans font-bold uppercase tracking-[0.12em] text-gray-300">
                       Evaluation Criteria
                     </th>
-                    <th className="py-4 px-6 text-xs font-mono font-bold uppercase tracking-wider text-gray-400">
+                    <th className="py-4 px-6 text-xs font-sans font-bold uppercase tracking-[0.12em] text-gray-400">
                       Standard Freelancer / Agency
                     </th>
-                    <th className="py-4 px-6 text-xs font-mono font-bold uppercase tracking-wider text-accent bg-accent/[0.06]">
+                    <th className="py-4 px-6 text-xs font-sans font-bold uppercase tracking-[0.12em] text-accent bg-accent/[0.06]">
                       Endow Tech Standard
                     </th>
                   </tr>
@@ -60,7 +60,7 @@ export default function ComparisonSection() {
                         <div className="font-semibold text-sm text-white flex items-center gap-2">
                           <span>{row.feature}</span>
                           {row.highlight && (
-                            <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-accent/20 text-accent border border-accent/30">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-sans font-semibold uppercase tracking-[0.1em] bg-accent/20 text-accent border border-accent/30">
                               Crucial
                             </span>
                           )}

@@ -71,7 +71,7 @@ export default function ContactSection({
                   </svg>
                 </div>
                 <div>
-                  <div className="text-xs font-mono uppercase text-text-muted">
+                  <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-text-muted">
                     Direct Email
                   </div>
                   <div className="text-sm font-bold text-text-primary group-hover:text-accent transition-colors">
@@ -97,7 +97,7 @@ export default function ContactSection({
                   </svg>
                 </div>
                 <div>
-                  <div className="text-xs font-mono uppercase text-emerald-800">
+                  <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-emerald-800">
                     WhatsApp Instant Connect
                   </div>
                   <div className="text-sm font-bold text-emerald-900">
@@ -128,7 +128,7 @@ export default function ContactSection({
                     </svg>
                   </div>
                   <div>
-                    <div className="text-xs font-mono uppercase text-text-muted">
+                    <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-text-muted">
                       Calendar Booking
                     </div>
                     <div className="text-sm font-bold text-text-primary group-hover:text-accent transition-colors">
@@ -140,7 +140,7 @@ export default function ContactSection({
 
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-neutral-600 hover:text-accent transition-colors mt-2 w-fit"
+                className="group inline-flex items-center gap-2 text-xs font-sans font-semibold uppercase tracking-[0.12em] text-neutral-600 hover:text-accent transition-colors mt-2 w-fit"
               >
                 <span>View full Contact Hub, leadership &amp; Seoul/Dhaka office hours</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />

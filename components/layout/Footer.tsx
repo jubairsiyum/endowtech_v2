@@ -113,7 +113,7 @@ export default function Footer() {
 
           {/* Card 1: Flagship Platforms */}
           <div className="rounded-3xl bg-white/[0.02] border border-white/[0.06] p-7 lg:p-6 xl:p-7 flex flex-col transition-colors duration-300 hover:bg-white/[0.04] hover:border-white/[0.12]">
-            <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-white mb-5">
+            <h3 className="text-xs sm:text-[13px] font-sans font-bold uppercase tracking-[0.14em] text-white mb-5">
               Flagship Platforms
             </h3>
             <nav aria-label="Flagship platforms">
@@ -149,7 +149,7 @@ export default function Footer() {
 
           {/* Card 2: Capabilities */}
           <div className="rounded-3xl bg-white/[0.02] border border-white/[0.06] p-7 lg:p-6 xl:p-7 flex flex-col transition-colors duration-300 hover:bg-white/[0.04] hover:border-white/[0.12]">
-            <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-white mb-5">
+            <h3 className="text-xs sm:text-[13px] font-sans font-bold uppercase tracking-[0.14em] text-white mb-5">
               Capabilities
             </h3>
             <nav aria-label="Capabilities">
@@ -186,7 +186,7 @@ export default function Footer() {
           {/* Card 3: Global Offices */}
           <div className="rounded-3xl bg-white/[0.02] border border-white/[0.06] p-7 lg:p-6 xl:p-7 flex flex-col justify-between transition-colors duration-300 hover:bg-white/[0.04] hover:border-white/[0.12]">
             <div>
-              <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-white mb-5">
+              <h3 className="text-xs sm:text-[13px] font-sans font-bold uppercase tracking-[0.14em] text-white mb-5">
                 Global Offices
               </h3>
               <div className="space-y-4">
@@ -212,13 +212,13 @@ export default function Footer() {
             <div className="pt-5 mt-6 border-t border-white/[0.07] flex items-center justify-between gap-3 flex-wrap">
               <a
                 href={`mailto:${siteConfig.contact.email}`}
-                className="text-xs sm:text-[13px] font-mono text-accent hover:text-red-400 hover:underline transition-colors"
+                className="text-xs sm:text-[13px] font-sans font-medium text-accent hover:text-red-400 hover:underline transition-colors"
               >
                 {siteConfig.contact.email}
               </a>
               <Link
                 href="/contact"
-                className="text-xs font-mono uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
+                className="text-xs font-sans font-semibold uppercase tracking-[0.12em] text-gray-300 hover:text-white transition-colors"
               >
                 Contact Page →
               </Link>

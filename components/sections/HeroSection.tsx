@@ -208,7 +208,7 @@ export default function HeroSection({
                 transition={{ duration: 0.6, ease: EASE }}
                 className="mb-3 sm:mb-4 flex flex-wrap items-center gap-3"
               >
-                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/30 text-accent font-mono text-xs font-semibold uppercase tracking-wider">
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/30 text-accent font-sans text-xs font-semibold uppercase tracking-[0.14em]">
                   {siteConfig.parentCompany.name} Venture
                 </span>
                 <span className="text-gray-400 text-xs font-medium hidden sm:inline">
