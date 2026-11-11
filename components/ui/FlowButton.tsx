@@ -52,7 +52,7 @@ export function FlowButton({
 
   // Base styling: isolated with group/flow, rounded-2xl initial, smooth hover:rounded-lg
   const baseClasses =
-    'group/flow relative inline-flex items-center justify-center overflow-hidden rounded-2xl cursor-pointer select-none transition-all duration-700 ease-flow-smooth hover:rounded-lg active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed';
+    'group/flow relative inline-flex items-center justify-center overflow-hidden rounded-2xl cursor-pointer select-none transition-all duration-1000 ease-flow-smooth hover:rounded-lg active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed';
 
   // Size specifications with built-in responsive scaling and generous gap between text & arrows
   const sizeConfig = {
@@ -62,7 +62,6 @@ export function FlowButton({
       leftArrow: '-left-8 sm:-left-10 group-hover/flow:left-2.5 sm:group-hover/flow:left-3.5',
       rightArrow: 'right-2.5 sm:right-3.5 group-hover/flow:-right-8 sm:group-hover/flow:-right-10',
       textShift: '-translate-x-2 sm:-translate-x-2.5 group-hover/flow:translate-x-2 sm:group-hover/flow:translate-x-2.5',
-      circleSize: 'w-[280px] h-[280px] sm:w-[320px] h-[320px]',
     },
     md: {
       padding: 'px-5 py-2 text-xs sm:px-7 sm:py-2.5 sm:text-sm lg:px-9 lg:py-3 font-semibold',
@@ -70,7 +69,6 @@ export function FlowButton({
       leftArrow: '-left-10 sm:-left-12 group-hover/flow:left-3.5 sm:group-hover/flow:left-5',
       rightArrow: 'right-3.5 sm:right-5 group-hover/flow:-right-10 sm:group-hover/flow:-right-12',
       textShift: '-translate-x-2.5 sm:-translate-x-3.5 group-hover/flow:translate-x-2.5 sm:group-hover/flow:translate-x-3.5',
-      circleSize: 'w-[320px] h-[320px] sm:w-[440px] h-[440px]',
     },
     lg: {
       padding: 'px-5 py-2 text-xs sm:px-8 sm:py-2.5 sm:text-sm lg:px-11 lg:py-3.5 lg:text-base font-semibold',
@@ -78,7 +76,6 @@ export function FlowButton({
       leftArrow: '-left-10 sm:-left-12 lg:-left-14 group-hover/flow:left-3.5 sm:group-hover/flow:left-5 lg:group-hover/flow:left-6',
       rightArrow: 'right-3.5 sm:right-5 lg:right-6 group-hover/flow:-right-10 sm:group-hover/flow:-right-12 lg:group-hover/flow:-right-14',
       textShift: '-translate-x-2.5 sm:-translate-x-3.5 lg:-translate-x-4 group-hover/flow:translate-x-2.5 sm:group-hover/flow:translate-x-3.5 lg:group-hover/flow:translate-x-4',
-      circleSize: 'w-[340px] h-[340px] sm:w-[440px] h-[440px] lg:w-[560px] h-[560px]',
     },
   }[size];
 
@@ -166,7 +163,7 @@ export function FlowButton({
       {showArrow && (
         <ArrowComponent
           className={cn(
-            'absolute top-1/2 -translate-y-1/2 stroke-[2.2] fill-none z-[9] pointer-events-none transition-all duration-700 ease-flow-smooth',
+            'absolute top-1/2 -translate-y-1/2 stroke-[2.2] fill-none z-[9] pointer-events-none transition-all duration-1000 ease-flow-smooth',
             sizeConfig.iconClass,
             sizeConfig.leftArrow,
             variantConfig.arrow
@@ -178,7 +175,7 @@ export function FlowButton({
       {/* Button Text (shifts smoothly to compensate for entering arrow) */}
       <span
         className={cn(
-          'relative z-[2] whitespace-nowrap transition-all duration-700 ease-flow-smooth',
+          'relative z-[2] whitespace-nowrap transition-all duration-1000 ease-flow-smooth',
           showArrow ? sizeConfig.textShift : '',
           variantConfig.hoverText
         )}
@@ -186,13 +183,13 @@ export function FlowButton({
         {content}
       </span>
 
-      {/* Expanding Circular Fill on Hover — silky smooth, 100% solid, fully visible blooming */}
+      {/* Expanding Circular Fill on Hover — dynamically sized beyond diagonal so even fullWidth buttons fill 100% */}
       <span
+        style={{ width: 'max(155%, 240px)' }}
         className={cn(
-          'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none z-[1]',
-          'scale-0 group-hover/flow:scale-100 transition-transform duration-1000 ease-flow-bloom origin-center',
-          variantConfig.circle,
-          sizeConfig.circleSize
+          'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square rounded-full pointer-events-none z-[1]',
+          'scale-0 group-hover/flow:scale-100 transition-transform duration-1000 ease-flow-smooth origin-center',
+          variantConfig.circle
         )}
         aria-hidden="true"
       />
@@ -201,7 +198,7 @@ export function FlowButton({
       {showArrow && (
         <ArrowComponent
           className={cn(
-            'absolute top-1/2 -translate-y-1/2 stroke-[2.2] fill-none z-[9] pointer-events-none transition-all duration-700 ease-flow-smooth',
+            'absolute top-1/2 -translate-y-1/2 stroke-[2.2] fill-none z-[9] pointer-events-none transition-all duration-1000 ease-flow-smooth',
             sizeConfig.iconClass,
             sizeConfig.rightArrow,
             variantConfig.arrow

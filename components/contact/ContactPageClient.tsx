@@ -169,7 +169,7 @@ export function ContactPageClient({
                     idPrefix="contact-page"
                     defaultService={resolvedDefaultService}
                     showCompanyField
-                    showBudgetField={false}
+                    showBudgetField
                     nameInputRef={nameInputRef}
                     className="w-full"
                   />

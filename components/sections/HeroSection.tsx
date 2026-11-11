@@ -1,7 +1,6 @@
 "use client";
 
 import DotGrid from "@/components/DotGrid";
-import { scrollToElement } from "@/components/SmoothScroll";
 import TechText from "@/components/TechText";
 import TextLoop from "@/components/TextLoop";
 import { CountUp } from "@/components/motion/CountUp";
@@ -140,10 +139,6 @@ export default function HeroSection({
       window.removeEventListener("scroll", updateRect);
     };
   }, []);
-
-  const scroll = (id: string) => {
-    scrollToElement(id, -40, 0.75);
-  };
 
   return (
     <section
@@ -318,17 +313,17 @@ export default function HeroSection({
                 <FlowButton
                   variant="primary"
                   size="lg"
-                  onClick={() => scroll("#contact")}
+                  onClick={() => onOpenScheduler?.()}
                 >
-                  Start a Project
+                  Schedule Call
                 </FlowButton>
 
                 <FlowButton
                   variant="secondary"
                   size="lg"
-                  onClick={() => scroll("#products")}
+                  href="/case-studies"
                 >
-                  Explore Products
+                  Explore Work
                 </FlowButton>
               </motion.div>
             </motion.div>

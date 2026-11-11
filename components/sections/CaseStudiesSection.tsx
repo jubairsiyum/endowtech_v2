@@ -1,6 +1,7 @@
 import React from 'react'
 import { caseStudies } from '@/data/caseStudies'
 import { Badge } from '@/components/ui/Badge'
+import { FlowButton } from '@/components/ui/FlowButton'
 import { FadeIn } from '@/components/motion/FadeIn'
 import { CountUp } from '@/components/motion/CountUp'
 
@@ -13,21 +14,28 @@ export default function CaseStudiesSection() {
     >
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
-        <FadeIn className="mb-16">
-          <Badge variant="code">
-            {'// Case Studies & Impact'}
-          </Badge>
-          <h2
-            id="case-studies-heading"
-            className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight"
-          >
-            Engineering that delivers{' '}
-            <span className="gradient-text">measurable ROI.</span>
-          </h2>
-          <p className="mt-4 text-text-muted max-w-2xl text-base leading-relaxed">
-            Explore how our bespoke software solutions and automated platforms have modernized
-            operations, reduced processing time, and accelerated business growth.
-          </p>
+        <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
+          <div>
+            <Badge variant="code">
+              {'// Case Studies & Impact'}
+            </Badge>
+            <h2
+              id="case-studies-heading"
+              className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight"
+            >
+              Engineering that delivers{' '}
+              <span className="gradient-text">measurable ROI.</span>
+            </h2>
+            <p className="mt-4 text-text-muted max-w-2xl text-base leading-relaxed">
+              Explore how our bespoke software solutions and automated platforms have modernized
+              operations, reduced processing time, and accelerated business growth.
+            </p>
+          </div>
+          <div className="shrink-0">
+            <FlowButton href="/case-studies" variant="primary" size="md">
+              Explore All 5 Case Studies
+            </FlowButton>
+          </div>
         </FadeIn>
 
         {/* Case Studies Grid */}

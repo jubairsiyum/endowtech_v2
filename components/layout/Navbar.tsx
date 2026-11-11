@@ -15,7 +15,7 @@ const NAV_LINKS = [
   { label: "Projects", href: "#featured-projects", hasChevron: false },
   // { label: "Solutions", href: "#products", hasChevron: false },
   { label: "Stack", href: "#tech-stack", hasChevron: false },
-  { label: "Case Studies", href: "#work", hasChevron: false },
+  { label: "Case Studies", href: "/case-studies", hasChevron: false },
   { label: "Contact", href: "/contact", hasChevron: false },
 ];
 
@@ -299,14 +299,23 @@ export default function Navbar({
                 })}
               </div>
 
-              {/* ── Right Action Section: Schedule Pill Button + Mobile Toggle ── */}
+              {/* ── Right Action Section: Start a Project Pill Button + Mobile Toggle ── */}
               <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
                 <FlowButton
-                  text="Schedule Call"
+                  text="Start a Project"
                   variant="white"
                   size="lg"
-                  onClick={() => setIsSchedulerOpen(true)}
-                  aria-label="Schedule consultation call"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (pathname === "/" || pathname === "") {
+                      scrollToElement("#contact", -40, 0.75);
+                    } else if (pathname === "/contact") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    } else {
+                      router.push("/contact");
+                    }
+                  }}
+                  aria-label="Start a project"
                   className="shrink-0"
                 />
 

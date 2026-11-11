@@ -224,3 +224,37 @@ export function getContactPageSchema() {
   };
 }
 
+/**
+ * CollectionPage Schema for Case Studies
+ * Connects Endow Tech's 5 production case studies to the Knowledge Graph.
+ */
+export function getCaseStudiesPageSchema(
+  projects: Array<{ id: string; title: string; description: string }>
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${siteConfig.url}/case-studies#webpage`,
+    url: `${siteConfig.url}/case-studies`,
+    name: "Case Studies — Production Software & Enterprise Platforms | Endow Tech",
+    description:
+      "Explore five production software case studies built by Endow Tech across EdTech CRM, restaurant accounting, local infrastructure storage, AI support ticketing, and hospitality OS.",
+    isPartOf: {
+      "@id": `${siteConfig.url}/#website`,
+    },
+    about: {
+      "@id": `${siteConfig.url}/#organization`,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: projects.map((project, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteConfig.url}/projects/${project.id}`,
+        name: project.title,
+        description: project.description,
+      })),
+    },
+  };
+}
+
