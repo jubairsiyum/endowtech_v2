@@ -410,37 +410,7 @@ export default function ProcessSection() {
 
                 {/* Panel Header */}
                 <div className="relative px-7 pt-7 pb-5 border-b border-neutral-100">
-                  <div className="flex items-center justify-between gap-3 mb-4">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200/80 text-accent font-sans text-[11px] font-bold uppercase tracking-[0.12em] tabular-nums">
-                      <ActiveIcon className="w-3.5 h-3.5" />
-                      <span>
-                        Step 0{activeIndex + 1} · {activeStep.phase}
-                      </span>
-                    </div>
-
-                    {/* Interactive Step Progress Pills */}
-                    <div
-                      className="flex items-center gap-1.5"
-                      aria-label="Process stage progress"
-                    >
-                      {engineeringProcess.map((s, i) => (
-                        <button
-                          key={s.number}
-                          type="button"
-                          onClick={() => setActiveIndex(i)}
-                          aria-label={`Inspect step ${i + 1}: ${s.title}`}
-                          className={cn(
-                            "h-1.5 rounded-full transition-all duration-300 cursor-pointer",
-                            i === activeIndex
-                              ? "w-6 bg-accent"
-                              : i < activeIndex
-                                ? "w-2.5 bg-red-200 hover:bg-red-300"
-                                : "w-2 bg-neutral-200 hover:bg-neutral-300",
-                          )}
-                        />
-                      ))}
-                    </div>
-                  </div>
+                  <div className="flex items-center justify-between gap-3 mb-4"></div>
 
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -506,6 +476,29 @@ export default function ProcessSection() {
                     </strong>{" "}
                     / 0{engineeringProcess.length}
                   </span>
+
+                  {/* Interactive Step Progress Pills */}
+                  <div
+                    className="flex items-center gap-1.5"
+                    aria-label="Process stage progress"
+                  >
+                    {engineeringProcess.map((s, i) => (
+                      <button
+                        key={s.number}
+                        type="button"
+                        onClick={() => setActiveIndex(i)}
+                        aria-label={`Inspect step ${i + 1}: ${s.title}`}
+                        className={cn(
+                          "h-1.5 rounded-full transition-all duration-300 cursor-pointer",
+                          i === activeIndex
+                            ? "w-6 bg-accent"
+                            : i < activeIndex
+                              ? "w-2.5 bg-red-200 hover:bg-red-300"
+                              : "w-2 bg-neutral-200 hover:bg-neutral-300",
+                        )}
+                      />
+                    ))}
+                  </div>
 
                   <div className="flex items-center gap-2">
                     <button

@@ -16,7 +16,7 @@
   --primary-glow: rgba(220, 38, 38, 0.15);
   --primary-border: rgba(220, 38, 38, 0.25);
 
-  /* ── 2. DARK SECTIONS (Hero, Flagship Products, Process, Tech Stack, Comparison) ── */
+  /* ── 2. DARK SECTIONS (Hero, Flagship Products) ── */
   --dark-bg: #0f0000; /* Deep Dark Red Background (Try: #180000, #2A0505, #450A0A) */
   --dark-bg-card: rgba(255, 255, 255, 0.04); /* Frosted card surface on dark */
   --dark-border: rgba(255, 255, 255, 0.1); /* Card borders on dark */
@@ -27,7 +27,7 @@
   /* ── 3. FOOTER (Deepest dark tone) ── */
   --footer-bg: #100000; /* Footer background */
 
-  /* ── 4. LIGHT SECTIONS (Trust, Services, Case Studies, Global, Testimonials, FAQ, Contact) ── */
+  /* ── 4. LIGHT SECTIONS (Trust, Services, Process, Tech Stack, Comparison, Case Studies, Global, Testimonials, FAQ, Contact) ── */
   --light-bg: #ffffff; /* Pure White background */
   --light-surface: #f8f9fa; /* Off-white surface background */
   --light-surface-alt: #f1f2f5; /* Slightly deeper light surface */
@@ -97,7 +97,6 @@ body {
 /* Selection — dark sections */
 #hero ::selection,
 #portfolio ::selection,
-#comparison ::selection,
 #products ::selection {
   background: var(--primary-color);
   color: #ffffff;

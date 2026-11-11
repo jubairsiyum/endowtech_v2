@@ -3,16 +3,15 @@
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
-import CaseStudiesSection from "@/components/sections/CaseStudiesSection";
 import ComparisonSection from "@/components/sections/ComparisonSection";
 import ContactSection from "@/components/sections/ContactSection";
 import FAQSection from "@/components/sections/FAQSection";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import GlobalPresence from "@/components/sections/GlobalPresence";
 import HeroSection from "@/components/sections/HeroSection";
+import IndustriesSection from "@/components/sections/IndustriesSection";
 import ProcessSection from "@/components/sections/ProcessSection";
 import ServicesSection from "@/components/sections/ServicesSection";
-import IndustriesSection from "@/components/sections/IndustriesSection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import TrustEcosystem from "@/components/sections/TrustEcosystem";
@@ -36,7 +35,7 @@ export default function HomeClient() {
         <IndustriesSection onOpenScheduler={() => setIsSchedulerOpen(true)} />
         <ProcessSection />
         <TechStackSection />
-        <CaseStudiesSection />
+        {/* <CaseStudiesSection /> */}
         <ComparisonSection />
         <GlobalPresence />
         <TestimonialsSection />

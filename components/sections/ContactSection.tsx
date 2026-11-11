@@ -1,13 +1,11 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { siteConfig } from "@/data/siteConfig";
 import AnimatedContent from "@/components/AnimatedContent";
-import { Badge } from "@/components/ui/Badge";
-import DotGridLight from "@/components/DotGridLight";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { Badge } from "@/components/ui/Badge";
+import { siteConfig } from "@/data/siteConfig";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function ContactSection({
   onOpenScheduler,
@@ -20,11 +18,6 @@ export default function ContactSection({
       className="section-padding relative overflow-hidden bg-white"
       aria-labelledby="contact-heading"
     >
-      {/* Optimized pause-on-scroll background dot grid */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <DotGridLight />
-      </div>
-
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left Column: Direct Outreach & Offices */}
@@ -142,7 +135,10 @@ export default function ContactSection({
                 href="/contact"
                 className="group inline-flex items-center gap-2 text-xs font-sans font-semibold uppercase tracking-[0.12em] text-neutral-600 hover:text-accent transition-colors mt-2 w-fit"
               >
-                <span>View full Contact Hub, leadership &amp; Seoul/Dhaka office hours</span>
+                <span>
+                  View full Contact Hub, leadership &amp; Seoul/Dhaka office
+                  hours
+                </span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
