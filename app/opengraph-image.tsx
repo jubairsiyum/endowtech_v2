@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = "Endow Tech — Enterprise Software & Digital Product Studio";
 export const size = {
   width: 1200,
