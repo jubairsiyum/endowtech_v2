@@ -24,6 +24,7 @@ import {
   AlertCircle,
   ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   Building2,
   Calendar,
   CheckCircle2,
@@ -48,7 +49,13 @@ import { useState } from "react";
 
 const EASE_SMOOTH = [0.22, 1, 0.36, 1] as const;
 
-const CAPABILITY_ICONS = [Layers, Workflow, ShieldCheck, Activity, Database] as const;
+const CAPABILITY_ICONS = [
+  Layers,
+  Workflow,
+  ShieldCheck,
+  Activity,
+  Database,
+] as const;
 
 const DECISION_ICONS = {
   shield: Shield,
@@ -317,13 +324,26 @@ export default function ProjectDetailClient({
                   >
                     Request Walkthrough
                   </FlowButton>
-                  <FlowButton
-                    variant="outline"
-                    size="lg"
-                    onClick={() => handleScrollTo("#project-architecture")}
-                  >
-                    System Architecture
-                  </FlowButton>
+                  {project.liveUrl ? (
+                    <FlowButton
+                      variant="outline"
+                      size="lg"
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      arrowIcon={ArrowUpRight}
+                    >
+                      Live Preview
+                    </FlowButton>
+                  ) : (
+                    <FlowButton
+                      variant="outline"
+                      size="lg"
+                      onClick={() => handleScrollTo("#project-architecture")}
+                    >
+                      System Architecture
+                    </FlowButton>
+                  )}
                 </div>
               </div>
             </AnimatedContent>
@@ -337,8 +357,8 @@ export default function ProjectDetailClient({
               duration={0.68}
               ease="power3.out"
             >
-              <div className="mt-10 sm:mt-14 rounded-3xl bg-[#0f0000] p-2 sm:p-3.5 shadow-[0_32px_90px_-30px_rgba(15,0,0,0.28)] border border-neutral-200/80">
-                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-[#120303]">
+              <div className="mt-10 sm:mt-14 rounded-3xl bg-[#0f000010] p-2 sm:p-3  border  border-neutral-200/50">
+                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl ] ">
                   <Image
                     src={project.image}
                     alt={project.shortTitle}
@@ -346,13 +366,13 @@ export default function ProjectDetailClient({
                     priority
                     quality={95}
                     sizes="(max-width: 1400px) 100vw, 1320px"
-                    className="object-cover object-center"
+                    className="object-cover object-center border-3  border-neutral-200/90"
                   />
 
-                  <div
+                  {/* <div
                     aria-hidden="true"
                     className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/20 pointer-events-none"
-                  />
+                  /> */}
 
                   {/* Top-Right Stack Summary Pills */}
                   <div className="hidden sm:flex absolute top-4 right-4 flex-wrap justify-end gap-1.5 max-w-[65%]">
@@ -595,7 +615,11 @@ export default function ProjectDetailClient({
                         y2="0%"
                       >
                         <stop offset="0%" stopColor="#ef4444" />
-                        <stop offset="50%" stopColor="#f59e0b" stopOpacity="0.85" />
+                        <stop
+                          offset="50%"
+                          stopColor="#f59e0b"
+                          stopOpacity="0.85"
+                        />
                         <stop offset="100%" stopColor="#34d399" />
                       </linearGradient>
                       <marker
@@ -959,7 +983,8 @@ export default function ProjectDetailClient({
                 id="delivery-blueprint-heading"
                 className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
               >
-                The workflow stayed structured, transparent &amp; production-driven.
+                The workflow stayed structured, transparent &amp;
+                production-driven.
               </h2>
             </FadeIn>
 
@@ -1229,11 +1254,7 @@ export default function ProjectDetailClient({
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-7">
               {relatedProjects.map((rel, idx) => (
-                <RelatedCaseStudyCard
-                  key={rel.id}
-                  project={rel}
-                  index={idx}
-                />
+                <RelatedCaseStudyCard key={rel.id} project={rel} index={idx} />
               ))}
             </div>
 

@@ -338,7 +338,7 @@ export default function FeaturedProjects({
                 Featured Work
               </span>
               <a
-                href="#products"
+                href="#services"
                 className="inline-flex items-center gap-1.5 font-sans font-medium text-[12px] text-neutral-600 hover:text-black transition-colors"
               >
                 <span className="text-[#0f0000]">Beyond the projects</span>

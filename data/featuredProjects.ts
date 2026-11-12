@@ -138,12 +138,124 @@ export const featuredProjects: FeaturedProject[] = [
           "Sub-second dashboard loading, real-time activity feeds, and smooth lead management",
       },
     ],
-    liveUrl: "https://endowtech.net",
+    liveUrl: "https://ec.endowglobaledu.com",
+    demoAvailable: true,
+  },
+  {
+    id: "endow-global",
+    number: "02",
+    title: "Endow Global Education",
+    shortTitle: "Endow Global – Study Abroad & Admissions Platform",
+    category: "EdTech & Global Admissions Platform",
+    client: "Endow Global Education",
+    clientLocation: "Dhaka · Seoul",
+    year: "2026",
+    role: "Full-Stack Next.js, tRPC & Admissions Platform Engineering",
+    tagline:
+      "From course discovery to visa arrival: an AI-powered, multi-portal platform connecting international students, counselors, and universities.",
+    description:
+      "Endow Global Education is a full-stack Turborepo monorepo powering end-to-end international student recruitment—from interactive South Korea & global university discovery to admissions processing. It unifies public course search, multi-step applications, marketing campaign lead funnels, a real-time student portal, a counselor workspace, and a 25-module RBAC admin command center, while syncing live admissions data with Endow Connect.",
+    challenge:
+      "Prospective students struggled with fragmented university intake deadlines, rigid document checklists, and disconnected inquiry forms that left student dashboards empty after registration. Meanwhile, counselors and marketing teams needed unified lead deduplication, budget-aware course matching, and granular role isolation across public, student, counselor, and super-admin workflows.",
+    solution:
+      "Built a unified Next.js 14 + tRPC + Drizzle ORM platform backed by 48 MySQL tables and 4 role-isolated portals. Engineered an automated 1:1 inquiry-to-application sync engine, dynamic degree-based document checklists, Typesense search, OpenAI & Pinecone vector course matching, a Bangladesh phone-normalized campaign funnel, Socket.io real-time messaging, and Bearer-secured REST sync feeds for Endow Connect.",
+    accentColor: "#C41E3A",
+    image: "/images/projects/Endow Global.jpg",
+    techStack: [
+      "Next.js 14",
+      "TypeScript",
+      "tRPC",
+      "Drizzle ORM",
+      "MySQL",
+      "Better Auth",
+      "Tailwind CSS",
+      "Socket.io",
+      "OpenAI & Pinecone",
+      "Typesense",
+      "Upstash Redis",
+      "Turborepo",
+    ],
+    tags: ["EdTech", "Next.js", "TypeScript", "tRPC", "Drizzle ORM", "MySQL"],
+    metrics: [
+      {
+        value: "73",
+        label: "App Routes & Portals",
+        change: "Public, Student, Counselor & Admin",
+      },
+      {
+        value: "48",
+        label: "Relational DB Tables",
+        change: "Normalized MySQL + Drizzle schema",
+      },
+      {
+        value: "25",
+        label: "RBAC Permission Modules",
+        change: "Middleware, Layout & tRPC guards",
+      },
+      {
+        value: "100%",
+        label: "Inquiry-to-App Auto-Sync",
+        change: "Zero orphaned student inquiries",
+      },
+    ],
+    keyFeatures: [
+      {
+        title: "Interactive University & Intake Discovery",
+        description:
+          "Interactive Korea Journey Hero with live admission notices, intake-aware filtering (Spring, Fall, Summer, Winter), Typesense full-text search, and course-level application status badges.",
+      },
+      {
+        title: "Inquiry-to-Application Auto-Sync Pipeline",
+        description:
+          "Multi-step guest and authenticated application flows with academic GPA/CGPA validation, photo uploads, withdrawal/re-apply support, and automatic 1:1 conversion of inquiries into student applications.",
+      },
+      {
+        title: "Dynamic Student Portal & Document Engine",
+        description:
+          "Student dashboard with academic readiness analytics, budget-aligned program discovery, and context-aware mandatory/optional document checklists supporting IELTS, TOEFL, PTE, Duolingo, SAT, and GRE.",
+      },
+      {
+        title: "Campaign Lead Funnel & CRM Deduplication",
+        description:
+          "High-converting mobile campaign funnel featuring +880/01X phone normalization, duplicate prevention, counselor assignment, and print-ready executive lead reporting.",
+      },
+      {
+        title: "4-Portal RBAC Admin Command Center",
+        description:
+          "Role-isolated Student, Counselor, Admin, and Super Admin portals with Better Auth (Email/OTP + Google OAuth), 25 permission modules, global quick-create shortcuts, and live admissions pipeline funnels.",
+      },
+      {
+        title: "AI Course Matching & External CRM Sync",
+        description:
+          "GPT-4o conversational RAG assistant and Pinecone profile-to-course embeddings alongside Bearer-authenticated external REST APIs syncing students, applications, and meetings to Endow Connect.",
+      },
+    ],
+    architectureHighlights: [
+      {
+        layer: "Monorepo & Frontend",
+        tech: "Next.js 14 (App Router), TypeScript, Tailwind CSS & Turborepo",
+        purpose:
+          "73 routes across public SEO pages, interactive Korea Journey Hero, student portal, counselor hub, and dark-ops admin console",
+      },
+      {
+        layer: "API, Auth & Access Control",
+        tech: "tRPC v11, Better Auth (OAuth & OTP), 25-Module RBAC & Upstash Redis",
+        purpose:
+          "End-to-end type-safe APIs (18 tRPC routers + 18 REST routes), three-layer RBAC enforcement, rate limiting, and external CRM sync feeds",
+      },
+      {
+        layer: "Data, Search, Real-Time & AI",
+        tech: "MySQL, Drizzle ORM, Typesense, Socket.io, OpenAI & Pinecone",
+        purpose:
+          "48 normalized database tables, sub-second course search, dedicated WebSocket notification/chat server, and AI student-course matching",
+      },
+    ],
+    liveUrl: "https://endowglobaledu.com",
     demoAvailable: true,
   },
   {
     id: "endow-cuisine",
-    number: "02",
+    number: "03",
     title: "Endow Cuisine",
     shortTitle: "Endow Cuisine – Restaurant Accounting System",
     category: "Restaurant Accounting System",
@@ -239,7 +351,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     id: "endow-cloud",
-    number: "03",
+    number: "04",
     title: "Endow Cloud",
     shortTitle: "Endow Cloud – Local Infrastructure File Storage",
     category: "Local Infrastructure File Storage & Sharing",
@@ -335,7 +447,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     id: "endow-desk",
-    number: "04",
+    number: "05",
     title: "Endow Desk",
     shortTitle: "Endow Desk – AI-Powered Support Ticket System",
     category: "AI-Powered Support Ticket System",
@@ -353,14 +465,7 @@ export const featuredProjects: FeaturedProject[] = [
       "Support requests are automatically organized into tickets, routed to the right team members, and tracked from first contact to resolution. The AI layer assists by suggesting responses, surfacing relevant knowledge base articles, and helping reduce repetitive manual work for support agents.",
     accentColor: "#059669",
     image: "/images/projects/EndowDesk.jpg",
-    techStack: [
-      "Laravel",
-      "Vue.js",
-      "Vite",
-      "Svelte",
-      "Tailwind",
-      "Prisma",
-    ],
+    techStack: ["Laravel", "Vue.js", "Vite", "Svelte", "Tailwind", "Prisma"],
     tags: [
       "Customer Support",
       "AI Automation",
@@ -438,7 +543,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     id: "zendos",
-    number: "05",
+    number: "06",
     title: "ZendOS",
     shortTitle: "ZendOS – Hospitality Operating System",
     category: "Hospitality Operating System / Hotel Management",
@@ -456,14 +561,7 @@ export const featuredProjects: FeaturedProject[] = [
       "ZendOS provides a purpose-built hotel-management foundation for organizing hospitality operations. Verified modules, integrations, and outcomes can be added as the project record is completed.",
     accentColor: "#7C3AED",
     image: "/images/projects/ZendOS.jpg",
-    techStack: [
-      "Laravel",
-      "Vue.js",
-      "Vite",
-      "Svelte",
-      "Tailwind",
-      "Prisma",
-    ],
+    techStack: ["Laravel", "Vue.js", "Vite", "Svelte", "Tailwind", "Prisma"],
     tags: [
       "Hospitality",
       "Hotel Management",
