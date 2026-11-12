@@ -369,7 +369,7 @@ export default function FeaturedProjects({
               {/* Right: Beyond the projects link (desktop only) */}
               <div className="hidden md:flex w-[180px] justify-end">
                 <a
-                  href="#products"
+                  href="#services"
                   className="pointer-events-auto inline-flex items-center gap-2 font-sans font-medium text-[13px] sm:text-[14px] text-neutral-600 hover:text-black transition-colors whitespace-nowrap"
                 >
                   <span>Beyond the projects</span>

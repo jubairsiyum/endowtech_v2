@@ -39,7 +39,7 @@ export default function HomeClient() {
         <ComparisonSection />
         <GlobalPresence />
         <TestimonialsSection />
-        <FAQSection />
+        <FAQSection onOpenScheduler={() => setIsSchedulerOpen(true)} />
         <ContactSection onOpenScheduler={() => setIsSchedulerOpen(true)} />
       </main>
       <WhatsAppButton />

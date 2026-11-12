@@ -1,45 +1,203 @@
-import React from 'react'
-import { siteConfig } from '@/data/siteConfig'
-import { Badge } from '@/components/ui/Badge'
-import { FadeIn } from '@/components/motion/FadeIn'
-import { FlowButton } from '@/components/ui/FlowButton'
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { ArrowUpRight, Globe2, MapPin, Phone, ShieldCheck } from "lucide-react";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { FlowButton } from "@/components/ui/FlowButton";
+import { siteConfig } from "@/data/siteConfig";
+import { cn } from "@/lib/utils";
+
+interface HubMeta {
+  countryCode: "KR" | "BD";
+  timeZone: "Asia/Seoul" | "Asia/Dhaka";
+  utcOffset: string;
+  focus: string;
+  mapUrl: string;
+}
+
+const HUB_META: Record<string, HubMeta> = {
+  Seoul: {
+    countryCode: "KR",
+    timeZone: "Asia/Seoul",
+    utcOffset: "KST · UTC+9",
+    focus: "Corporate Strategy, Governance & Global Client Partnerships",
+    mapUrl:
+      "https://maps.google.com/?q=Gangnam-daero,+Seocho-gu,+Seoul,+South+Korea",
+  },
+  Dhaka: {
+    countryCode: "BD",
+    timeZone: "Asia/Dhaka",
+    utcOffset: "BST · UTC+6",
+    focus: "Full-Stack Product Engineering, AI Systems & Cloud Operations",
+    mapUrl:
+      "https://maps.google.com/?q=Shyamoli+Square,+Mirpur+Road,+Dhaka+1207,+Bangladesh",
+  },
+};
+
+function CountryFlag({ code }: { code: "KR" | "BD" }) {
+  if (code === "KR") {
+    return (
+      <svg
+        width="22"
+        height="15"
+        viewBox="0 0 24 16"
+        aria-label="South Korea flag"
+        className="rounded-[3px] border border-neutral-200 shrink-0 shadow-xs"
+      >
+        <rect width="24" height="16" fill="#FFFFFF" />
+        <g transform="translate(12,8)">
+          <circle r="3.6" fill="#CD2E3A" />
+          <path
+            d="M -3.6 0 A 3.6 3.6 0 0 0 3.6 0 A 1.8 1.8 0 0 1 0 0 A 1.8 1.8 0 0 0 -3.6 0 Z"
+            fill="#0047A0"
+          />
+        </g>
+        <g stroke="#111827" strokeWidth="0.9" strokeLinecap="butt">
+          <line x1="4.2" y1="3.4" x2="6.6" y2="5.2" />
+          <line x1="3.4" y1="4.5" x2="5.8" y2="6.3" />
+          <line x1="17.4" y1="5.2" x2="19.8" y2="3.4" />
+          <line x1="18.2" y1="6.3" x2="20.6" y2="4.5" />
+          <line x1="4.2" y1="12.6" x2="6.6" y2="10.8" />
+          <line x1="3.4" y1="11.5" x2="5.8" y2="9.7" />
+          <line x1="17.4" y1="10.8" x2="19.8" y2="12.6" />
+          <line x1="18.2" y1="9.7" x2="20.6" y2="11.5" />
+        </g>
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      width="22"
+      height="15"
+      viewBox="0 0 24 16"
+      aria-label="Bangladesh flag"
+      className="rounded-[3px] border border-neutral-200 shrink-0 shadow-xs"
+    >
+      <rect width="24" height="16" fill="#006A4E" />
+      <circle cx="10.8" cy="8" r="4.6" fill="#F42A41" />
+    </svg>
+  );
+}
+
+function formatHubTime(timeZone: "Asia/Seoul" | "Asia/Dhaka", now: Date): string {
+  return new Intl.DateTimeFormat("en-GB", {
+    timeZone,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(now);
+}
 
 export default function GlobalPresence() {
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setNow(new Date());
+    const timer = setInterval(() => setNow(new Date()), 30_000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section
       id="about"
-      className="section-padding bg-surface"
+      className="relative section-padding bg-white overflow-hidden"
       aria-labelledby="about-heading"
     >
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Story & Philosophy */}
-          <div>
+      {/* ── Clean Soft Radial Crimson Glows (Zero Grid) ── */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-32 right-0 translate-x-1/4 w-[620px] sm:w-[780px] aspect-square rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, rgba(239, 68, 68, 0.03) 42%, transparent 72%)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-36 -left-24 w-[520px] aspect-square rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(220, 38, 38, 0.055) 0%, rgba(239, 68, 68, 0.02) 45%, transparent 72%)",
+        }}
+      />
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* ── Left Column: Editorial Story & Philosophy ── */}
+          <div className="lg:col-span-6">
             <FadeIn>
-              <Badge variant="code">
-                {'// Global Footprint & Identity'}
-              </Badge>
+              <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-3">
+                Global Footprint &amp; Identity
+              </span>
+
               <h2
                 id="about-heading"
-                className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight leading-tight"
+                className="text-[clamp(28px,3.1vw,46px)] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.1]"
               >
-                Built in Dhaka.{' '}
+                Built in Dhaka.{" "}
                 <br />
                 <span className="gradient-text">Headquartered in Seoul.</span>
               </h2>
-              <p className="mt-6 text-text-muted text-base leading-relaxed">
-                Endow Tech bridges global strategy with top-tier engineering talent.
-                As the technological foundation of <strong>Endow Corporation</strong>, our systems
-                serve international education pipelines connecting students with premier academic
-                institutions in South Korea, Finland, and beyond.
-              </p>
-              <p className="mt-4 text-text-muted text-base leading-relaxed">
-                We believe in <strong>purposeful engineering</strong>: no bloatware, no cutting corners on
-                security, and no fragile hacks. Whether we are building internal platforms for our parent
-                company or launching MVPs for startup founders, we build with long-term durability in mind.
+
+              <p className="mt-5 text-neutral-600 text-sm sm:text-base leading-relaxed max-w-xl">
+                Endow Tech bridges global strategy with top-tier engineering
+                talent. As the technological foundation of{" "}
+                <strong className="font-semibold text-[#0f0000]">
+                  Endow Corporation
+                </strong>
+                , our systems serve international education pipelines connecting
+                students with premier academic institutions in South Korea,
+                Finland, and beyond.
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-4">
+              <p className="mt-4 text-neutral-600 text-sm sm:text-base leading-relaxed max-w-xl">
+                We believe in{" "}
+                <strong className="font-semibold text-[#0f0000]">
+                  purposeful engineering
+                </strong>
+                : no bloatware, no cutting corners on security, and no fragile
+                hacks. Whether we are building internal platforms for our parent
+                company or launching MVPs for startup founders, we engineer for
+                long-term durability.
+              </p>
+
+              {/* Architectural Corridor Strip */}
+              <div className="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl">
+                <div className="rounded-2xl bg-[#fafafa] border border-neutral-200/80 px-4 py-3">
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-accent">
+                    <Globe2 className="w-3.5 h-3.5" aria-hidden="true" />
+                    <span>Corridor</span>
+                  </div>
+                  <div className="mt-1 text-sm font-bold text-[#0f0000]">
+                    Seoul ↔ Dhaka
+                  </div>
+                </div>
+
+                <div className="rounded-2xl bg-[#fafafa] border border-neutral-200/80 px-4 py-3">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-500">
+                    Sync Window
+                  </div>
+                  <div className="mt-1 text-sm font-bold text-[#0f0000] tabular-nums">
+                    KST · BST (+3h)
+                  </div>
+                </div>
+
+                <div className="rounded-2xl bg-[#fafafa] border border-neutral-200/80 px-4 py-3">
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-500">
+                    <ShieldCheck
+                      className="w-3.5 h-3.5 text-accent"
+                      aria-hidden="true"
+                    />
+                    <span>Standard</span>
+                  </div>
+                  <div className="mt-1 text-sm font-bold text-[#0f0000]">
+                    100% IP Ownership
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-3.5">
                 <FlowButton
                   text="Work With Our Engineers"
                   href="#contact"
@@ -48,7 +206,7 @@ export default function GlobalPresence() {
                 />
                 <FlowButton
                   text="Explore Our Work"
-                  href="#products"
+                  href="#featured-projects"
                   variant="outline"
                   size="md"
                 />
@@ -56,40 +214,170 @@ export default function GlobalPresence() {
             </FadeIn>
           </div>
 
-          {/* Right Column: Office Hubs */}
-          <div className="space-y-6">
-            {siteConfig.offices.map((office, idx) => (
-              <FadeIn key={office.city} delay={idx * 0.15}>
-                <div className="p-7 rounded-2xl bg-white border border-gray-200/90 shadow-sm hover:shadow-md transition-all">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-sans font-bold uppercase tracking-[0.12em] text-accent">
-                      {office.type}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      {office.status}
-                    </span>
-                  </div>
+          {/* ── Right Column: Connected Dual Hub Architectural Cards ── */}
+          <div className="lg:col-span-6 relative">
+            {/* Subtle Vertical Bridge Line Connecting Seoul HQ & Dhaka Tech Hub */}
+            <div
+              aria-hidden="true"
+              className="hidden sm:block absolute left-9 top-16 bottom-16 w-px bg-gradient-to-b from-accent/40 via-red-200 to-accent/40 pointer-events-none"
+            />
 
-                  <h3 className="text-xl font-bold text-text-primary mb-1">
-                    {office.city}, {office.country}
-                  </h3>
-                  <p className="text-sm text-text-muted mb-4">
-                    {office.address}
-                  </p>
+            <div className="space-y-5 relative">
+              {siteConfig.offices.map((office, idx) => {
+                const meta = HUB_META[office.city] ?? HUB_META.Seoul;
+                const liveTime = now
+                  ? formatHubTime(meta.timeZone, now)
+                  : "--:--";
+                const isHQ = office.type === "Corporate HQ";
 
-                  <div className="flex items-center gap-3 pt-3 border-t border-gray-100 text-xs font-sans font-medium tabular-nums text-text-muted">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                    </svg>
-                    <span>{office.phone}</span>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
+                return (
+                  <FadeIn key={office.city} delay={idx * 0.12}>
+                    <article
+                      className={cn(
+                        "group relative rounded-2xl sm:rounded-3xl border p-6 sm:p-7 transition-all duration-300",
+                        isHQ
+                          ? "bg-[#0f0000] border-white/10 text-white shadow-[0_24px_55px_-20px_rgba(15,0,0,0.45)] hover:border-accent/60"
+                          : "bg-[#fafafa] border-neutral-200/90 text-[#0f0000] shadow-[0_14px_38px_-20px_rgba(15,0,0,0.08)] hover:bg-white hover:border-accent/45 hover:shadow-[0_20px_48px_-20px_rgba(220,38,38,0.14)]",
+                      )}
+                    >
+                      {/* Subtle Left Crimson Edge Bar on Hover */}
+                      <div
+                        aria-hidden="true"
+                        className="absolute left-0 top-6 bottom-6 w-[3px] rounded-r-full bg-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      />
+
+                      {/* Top Row: Hub Type Badge + Live Local Time & Active Status */}
+                      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                        <div className="inline-flex items-center gap-2.5">
+                          <CountryFlag code={meta.countryCode} />
+                          <span
+                            className={cn(
+                              "text-[11px] font-sans font-bold uppercase tracking-[0.14em]",
+                              isHQ ? "text-red-400" : "text-accent",
+                            )}
+                          >
+                            {office.type}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <span
+                            className={cn(
+                              "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold tabular-nums border",
+                              isHQ
+                                ? "bg-white/[0.06] border-white/10 text-gray-200"
+                                : "bg-white border-neutral-200/90 text-neutral-700",
+                            )}
+                          >
+                            <span>{liveTime}</span>
+                            <span
+                              className={cn(
+                                "text-[10px]",
+                                isHQ ? "text-gray-400" : "text-neutral-400",
+                              )}
+                            >
+                              {meta.utcOffset}
+                            </span>
+                          </span>
+
+                          <span
+                            className={cn(
+                              "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium border",
+                              isHQ
+                                ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/25"
+                                : "bg-emerald-50 text-emerald-700 border-emerald-200",
+                            )}
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            {office.status}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* City & Country */}
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <h3
+                            className={cn(
+                              "text-xl sm:text-2xl font-bold tracking-tight",
+                              isHQ ? "text-white" : "text-[#0f0000]",
+                            )}
+                          >
+                            {office.city}, {office.country}
+                          </h3>
+                          <p
+                            className={cn(
+                              "mt-1 text-xs sm:text-sm font-medium",
+                              isHQ ? "text-red-200/80" : "text-neutral-600",
+                            )}
+                          >
+                            {meta.focus}
+                          </p>
+                        </div>
+
+                        <a
+                          href={meta.mapUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Open ${office.city} office on Google Maps`}
+                          className={cn(
+                            "shrink-0 w-9 h-9 rounded-xl border flex items-center justify-center transition-all duration-200",
+                            isHQ
+                              ? "bg-white/[0.07] border-white/15 text-white hover:bg-accent hover:border-accent"
+                              : "bg-white border-neutral-200 text-neutral-700 hover:bg-accent hover:text-white hover:border-accent",
+                          )}
+                        >
+                          <ArrowUpRight className="w-4 h-4" />
+                        </a>
+                      </div>
+
+                      {/* Address & Phone Footer */}
+                      <div
+                        className={cn(
+                          "mt-5 pt-4 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs",
+                          isHQ
+                            ? "border-white/10 text-gray-300"
+                            : "border-neutral-200/80 text-neutral-600",
+                        )}
+                      >
+                        <div className="flex items-start sm:items-center gap-2 min-w-0">
+                          <MapPin
+                            className={cn(
+                              "w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0",
+                              isHQ ? "text-red-400" : "text-accent",
+                            )}
+                            aria-hidden="true"
+                          />
+                          <span className="leading-snug">{office.address}</span>
+                        </div>
+
+                        <a
+                          href={`tel:${office.phone.replace(/[^+\d]/g, "")}`}
+                          className={cn(
+                            "inline-flex items-center gap-1.5 font-semibold tabular-nums shrink-0 transition-colors",
+                            isHQ
+                              ? "text-white hover:text-red-300"
+                              : "text-[#0f0000] hover:text-accent",
+                          )}
+                        >
+                          <Phone
+                            className={cn(
+                              "w-3.5 h-3.5 shrink-0",
+                              isHQ ? "text-red-400" : "text-accent",
+                            )}
+                            aria-hidden="true"
+                          />
+                          <span>{office.phone}</span>
+                        </a>
+                      </div>
+                    </article>
+                  </FadeIn>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

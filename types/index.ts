@@ -132,11 +132,17 @@ export interface ComparisonItem {
 }
 
 export interface Testimonial {
+  id?: string;
+  headline?: string;
   quote: string;
   author: string;
   role: string;
   organization: string;
+  orgShort?: string;
+  initials?: string;
   badge?: string;
+  caseStudyHref?: string;
+  logoKey?: "endow-global" | "launchmetrics" | "horizon" | "cuisine" | "desk";
 }
 
 export interface FAQItem {
