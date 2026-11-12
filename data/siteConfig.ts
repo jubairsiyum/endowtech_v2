@@ -5,14 +5,14 @@ export const siteConfig: SiteConfig = {
   tagline: "Enterprise Software & Digital Product Studio",
   description:
     "Endow Tech is the technology and product engineering wing of Endow Corporation. We build high-performance web applications, student portal systems, and scalable SaaS platforms.",
-  url: "https://endowtech.dev",
+  url: "https://endowtech.net",
   parentCompany: {
     name: "Endow Corporation",
     url: "https://endowglobaledu.com",
     hq: "Seoul, South Korea",
   },
   contact: {
-    email: "hello@endowtech.dev",
+    email: "hello@endowtech.net",
     phoneDhaka: "+880 1901-463209",
     whatsapp: "https://wa.me/8801901463209",
     whatsappDisplay: "+880 1901-463209",

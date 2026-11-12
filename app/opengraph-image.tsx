@@ -1,3 +1,4 @@
+import { siteConfig } from "@/data/siteConfig";
 import { ImageResponse } from "next/og";
 
 export const alt = "Endow Tech — Enterprise Software & Digital Product Studio";
@@ -153,7 +154,7 @@ export default function Image() {
             color: "#A1A1AA",
           }}
         >
-          endowtech.dev
+          {new URL(siteConfig.url).hostname}
         </div>
       </div>
     </div>,

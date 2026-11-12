@@ -1,9 +1,10 @@
 import { featuredProjects } from "@/data/featuredProjects";
 import { coreServices } from "@/data/services";
+import { siteConfig } from "@/data/siteConfig";
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://endowtech.net";
+  const baseUrl = siteConfig.url;
   const now = new Date();
 
   // Primary Landing & Contact Pages

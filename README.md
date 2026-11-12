@@ -129,15 +129,15 @@ node server.js
 
 ```env
 # .env.local (never commit this)
-NEXT_PUBLIC_SITE_URL=https://endowtech.dev
-CONTACT_EMAIL=hello@endowtech.dev
+NEXT_PUBLIC_SITE_URL=https://endowtech.net
+CONTACT_EMAIL=hello@endowtech.net
 ```
 
 ---
 
 ## Customisation Checklist
 
-- [ ] Replace `hello@endowtech.dev` in `Contact.tsx` and `Footer.tsx`
+- [ ] Replace `hello@endowtech.net` in `Contact.tsx` and `Footer.tsx`
 - [ ] Update WhatsApp number in `Contact.tsx` (`+1234567890`)
 - [ ] Add real portfolio images to `/public/` and update `Portfolio.tsx`
 - [ ] Add `/public/og-image.png` (1200×630) for social sharing

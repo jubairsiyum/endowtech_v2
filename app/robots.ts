@@ -1,7 +1,8 @@
+import { siteConfig } from "@/data/siteConfig";
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://endowtech.net";
+  const baseUrl = siteConfig.url;
 
   return {
     rules: [

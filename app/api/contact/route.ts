@@ -212,7 +212,7 @@ export async function POST(request: Request) {
     });
 
     // If an external email provider or CRM webhook is configured, dispatch here with attachment buffer/path:
-    // e.g. await sendEmail({ to: 'hello@endowtech.dev', from: email, attachments: [...] })
+    // e.g. await sendEmail({ to: 'hello@endowtech.net', from: email, attachments: [...] })
 
     return NextResponse.json({
       success: true,
