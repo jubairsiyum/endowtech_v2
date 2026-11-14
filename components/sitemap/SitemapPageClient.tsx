@@ -22,7 +22,7 @@ import { useState } from "react";
 export const SITEMAP_TYPOGRAPHY = {
   // 1. Black Category Section Header (e.g. "Engineering Services", "Flagship Systems")
   categoryTitle:
-    "text-2xl sm:text-3xl lg:text-[30px] font-bold text-[#0f0000] tracking-tight leading-tight",
+    "text-2xl sm:text-3xl lg:text-[30px] font-bold text-[#0f0000] ",
   categoryTitleMargin: "mb-7 sm:mb-9",
 
   // 2. Red Uppercase Subheading (e.g. "CORE CAPABILITIES", "PRODUCTION PLATFORMS")
@@ -295,11 +295,7 @@ export default function SitemapPageClient() {
                 >
                   Schedule Consultation
                 </FlowButton>
-                <FlowButton
-                  href="/contact"
-                  variant="secondary"
-                  size="lg"
-                >
+                <FlowButton href="/contact" variant="secondary" size="lg">
                   Start a Project Brief
                 </FlowButton>
               </div>
