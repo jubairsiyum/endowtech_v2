@@ -215,6 +215,41 @@ body {
   }
 }
 
+/* ── Testimonials Horizontal Carousel ── */
+.testimonials-track {
+  --carousel-pl: 1.5rem;
+  --carousel-gap: 1.5rem;
+  --carousel-card-w: min(84vw, 400px);
+  padding-left: var(--carousel-pl);
+  scroll-padding-left: var(--carousel-pl);
+  padding-right: 1.5rem;
+  gap: var(--carousel-gap);
+}
+
+@media (min-width: 640px) {
+  .testimonials-track {
+    --carousel-pl: 2rem;
+    --carousel-gap: 1.75rem;
+    --carousel-card-w: min(72vw, 520px);
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonials-track {
+    --carousel-pl: max(3rem, calc((100vw - 1400px) / 2 + 3rem));
+    --carousel-gap: 2rem;
+    --carousel-card-w: calc((100vw - var(--carousel-pl) - (2 * var(--carousel-gap))) / 2.3);
+    padding-right: 3rem;
+  }
+}
+
+.testimonials-card {
+  width: var(--carousel-card-w);
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

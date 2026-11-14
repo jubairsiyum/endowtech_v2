@@ -4,7 +4,15 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { FlowButton } from "@/components/ui/FlowButton";
 import { siteConfig } from "@/data/siteConfig";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, Globe2, MapPin, Phone, ShieldCheck } from "lucide-react";
+import {
+  ArrowUpRight,
+  Globe2,
+  MapPin,
+  Moon,
+  Phone,
+  ShieldCheck,
+  Sun,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface HubMeta {
@@ -80,16 +88,32 @@ function CountryFlag({ code }: { code: "KR" | "BD" }) {
   );
 }
 
-function formatHubTime(
+interface TimeSnapshot {
+  timeStr: string;
+  isDaytime: boolean;
+}
+
+function getTimeSnapshot(
   timeZone: "Asia/Seoul" | "Asia/Dhaka",
   now: Date,
-): string {
-  return new Intl.DateTimeFormat("en-GB", {
+): TimeSnapshot {
+  const formatter = new Intl.DateTimeFormat("en-GB", {
     timeZone,
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-  }).format(now);
+  });
+
+  const parts = formatter.formatToParts(now);
+  const hourStr = parts.find((p) => p.type === "hour")?.value ?? "00";
+  const minuteStr = parts.find((p) => p.type === "minute")?.value ?? "00";
+  const hour24 = Number.parseInt(hourStr, 10) % 24;
+  const isDaytime = hour24 >= 6 && hour24 < 19;
+
+  return {
+    timeStr: `${String(hour24).padStart(2, "0")}:${minuteStr}`,
+    isDaytime,
+  };
 }
 
 export default function GlobalPresence() {
@@ -97,7 +121,7 @@ export default function GlobalPresence() {
 
   useEffect(() => {
     setNow(new Date());
-    const timer = setInterval(() => setNow(new Date()), 30_000);
+    const timer = setInterval(() => setNow(new Date()), 15_000);
     return () => clearInterval(timer);
   }, []);
 
@@ -227,17 +251,17 @@ export default function GlobalPresence() {
             <div className="space-y-5 relative">
               {siteConfig.offices.map((office, idx) => {
                 const meta = HUB_META[office.city] ?? HUB_META.Seoul;
-                const liveTime = now
-                  ? formatHubTime(meta.timeZone, now)
-                  : "--:--";
-                const isHQ = office.type === "Corporate HQ";
+                const snap = now ? getTimeSnapshot(meta.timeZone, now) : null;
+                const isDay = snap ? snap.isDaytime : true;
+                const isNight = snap ? !snap.isDaytime : false;
+                const liveTime = snap ? snap.timeStr : "--:--";
 
                 return (
                   <FadeIn key={office.city} delay={idx * 0.12}>
                     <article
                       className={cn(
                         "group relative rounded-2xl sm:rounded-3xl border p-6 sm:p-7 transition-all duration-300",
-                        isHQ
+                        isNight
                           ? "bg-[#0f0000] border-white/10 text-white shadow-[0_24px_55px_-20px_rgba(15,0,0,0.45)] hover:border-accent/60"
                           : "bg-[#fafafa] border-neutral-200/90 text-[#0f0000] shadow-[0_14px_38px_-20px_rgba(15,0,0,0.08)] hover:bg-white hover:border-accent/45 hover:shadow-[0_20px_48px_-20px_rgba(220,38,38,0.14)]",
                       )}
@@ -255,7 +279,7 @@ export default function GlobalPresence() {
                           <span
                             className={cn(
                               "text-[11px] font-sans font-bold uppercase tracking-[0.14em]",
-                              isHQ ? "text-red-400" : "text-accent",
+                              isNight ? "text-red-400" : "text-accent",
                             )}
                           >
                             {office.type}
@@ -266,16 +290,32 @@ export default function GlobalPresence() {
                           <span
                             className={cn(
                               "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold tabular-nums border",
-                              isHQ
+                              isNight
                                 ? "bg-white/[0.06] border-white/10 text-gray-200"
                                 : "bg-white border-neutral-200/90 text-neutral-700",
                             )}
+                            title={
+                              isDay
+                                ? `${office.city}: Daytime locally`
+                                : `${office.city}: Evening / Night locally`
+                            }
                           >
+                            {isDay ? (
+                              <Sun
+                                className="w-3.5 h-3.5 text-amber-500 shrink-0"
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <Moon
+                                className="w-3.5 h-3.5 text-red-400 shrink-0"
+                                aria-hidden="true"
+                              />
+                            )}
                             <span>{liveTime}</span>
                             <span
                               className={cn(
                                 "text-[10px]",
-                                isHQ ? "text-gray-400" : "text-neutral-400",
+                                isNight ? "text-gray-400" : "text-neutral-400",
                               )}
                             >
                               {meta.utcOffset}
@@ -285,7 +325,7 @@ export default function GlobalPresence() {
                           <span
                             className={cn(
                               "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium border",
-                              isHQ
+                              isNight
                                 ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/25"
                                 : "bg-emerald-50 text-emerald-700 border-emerald-200",
                             )}
@@ -302,7 +342,7 @@ export default function GlobalPresence() {
                           <h3
                             className={cn(
                               "text-xl sm:text-2xl font-bold tracking-tight",
-                              isHQ ? "text-white" : "text-[#0f0000]",
+                              isNight ? "text-white" : "text-[#0f0000]",
                             )}
                           >
                             {office.city}, {office.country}
@@ -310,7 +350,7 @@ export default function GlobalPresence() {
                           <p
                             className={cn(
                               "mt-1 text-xs sm:text-sm font-medium",
-                              isHQ ? "text-red-200/80" : "text-neutral-600",
+                              isNight ? "text-red-200/80" : "text-neutral-600",
                             )}
                           >
                             {meta.focus}
@@ -324,7 +364,7 @@ export default function GlobalPresence() {
                           aria-label={`Open ${office.city} office on Google Maps`}
                           className={cn(
                             "shrink-0 w-9 h-9 rounded-xl border flex items-center justify-center transition-all duration-200",
-                            isHQ
+                            isNight
                               ? "bg-white/[0.07] border-white/15 text-white hover:bg-accent hover:border-accent"
                               : "bg-white border-neutral-200 text-neutral-700 hover:bg-accent hover:text-white hover:border-accent",
                           )}
@@ -337,7 +377,7 @@ export default function GlobalPresence() {
                       <div
                         className={cn(
                           "mt-5 pt-4 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs",
-                          isHQ
+                          isNight
                             ? "border-white/10 text-gray-300"
                             : "border-neutral-200/80 text-neutral-600",
                         )}
@@ -346,7 +386,7 @@ export default function GlobalPresence() {
                           <MapPin
                             className={cn(
                               "w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0",
-                              isHQ ? "text-red-400" : "text-accent",
+                              isNight ? "text-red-400" : "text-accent",
                             )}
                             aria-hidden="true"
                           />
@@ -357,7 +397,7 @@ export default function GlobalPresence() {
                           href={`tel:${office.phone.replace(/[^+\d]/g, "")}`}
                           className={cn(
                             "inline-flex items-center gap-1.5 font-semibold tabular-nums shrink-0 transition-colors",
-                            isHQ
+                            isNight
                               ? "text-white hover:text-red-300"
                               : "text-[#0f0000] hover:text-accent",
                           )}
@@ -365,7 +405,7 @@ export default function GlobalPresence() {
                           <Phone
                             className={cn(
                               "w-3.5 h-3.5 shrink-0",
-                              isHQ ? "text-red-400" : "text-accent",
+                              isNight ? "text-red-400" : "text-accent",
                             )}
                             aria-hidden="true"
                           />

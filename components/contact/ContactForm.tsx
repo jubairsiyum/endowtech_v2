@@ -276,14 +276,14 @@ export function ContactForm({
 
   const containerStyles = {
     elevated:
-      "rounded-3xl bg-white border border-neutral-200/90 shadow-[0_24px_70px_-18px_rgba(15,0,0,0.12),0_0_0_1px_rgba(220,38,38,0.05)] p-6 sm:p-8 lg:p-9",
+      "rounded-3xl bg-white border border-neutral-200/90 shadow-[0_24px_70px_-18px_rgba(15,0,0,0.1),0_0_0_1px_rgba(220,38,38,0.04)] p-6 sm:p-8 lg:p-10",
     bordered:
-      "rounded-2xl bg-white border border-gray-200/90 shadow-xl p-7 sm:p-9",
+      "rounded-2xl sm:rounded-3xl bg-white border border-neutral-200/90 shadow-xl p-6 sm:p-8 lg:p-10",
     minimal: "bg-transparent p-0",
   }[variant];
 
   const inputBaseClass =
-    "w-full px-3.5 py-2.5 rounded-xl bg-[#f7f7f9] border border-neutral-200/90 text-sm text-[#0f0000] placeholder:text-neutral-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all duration-200";
+    "w-full px-4 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#f7f7f9] border border-neutral-200/90 text-sm sm:text-[15px] text-[#0f0000] placeholder:text-neutral-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all duration-200";
 
   const showRow2TwoCols = showPhoneField && showCompanyField;
   const showRow2Any = showPhoneField || showCompanyField;
@@ -334,7 +334,7 @@ export function ContactForm({
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} noValidate className="space-y-4">
+        <form onSubmit={handleSubmit} noValidate className="space-y-5 sm:space-y-6">
           {showHeader && (
             <div className="pb-1">
               <h2 className="text-xl sm:text-2xl font-bold text-[#0f0000] tracking-tight">
@@ -358,11 +358,11 @@ export function ContactForm({
           )}
 
           {/* Row 1: Full Name & Work Email */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             <div>
               <label
                 htmlFor={`${idPrefix}-name`}
-                className="block text-xs font-semibold text-[#0f0000] mb-1.5"
+                className="block text-base font-semibold text-[#0f0000] mb-2"
               >
                 Full name <span className="text-accent">*</span>
               </label>
@@ -389,7 +389,7 @@ export function ContactForm({
               {errors.name && (
                 <p
                   id={`${idPrefix}-name-error`}
-                  className="text-[11px] text-red-600 mt-1 font-medium"
+                  className="text-xs text-red-600 mt-1.5 font-medium"
                 >
                   {errors.name}
                 </p>
@@ -399,7 +399,7 @@ export function ContactForm({
             <div>
               <label
                 htmlFor={`${idPrefix}-email`}
-                className="block text-xs font-semibold text-[#0f0000] mb-1.5"
+                className="block text-base font-semibold text-[#0f0000] mb-2"
               >
                 Work email <span className="text-accent">*</span>
               </label>
@@ -425,7 +425,7 @@ export function ContactForm({
               {errors.email && (
                 <p
                   id={`${idPrefix}-email-error`}
-                  className="text-[11px] text-red-600 mt-1 font-medium"
+                  className="text-xs text-red-600 mt-1.5 font-medium"
                 >
                   {errors.email}
                 </p>
@@ -437,26 +437,19 @@ export function ContactForm({
           {showRow2Any && (
             <div
               className={cn(
-                "grid grid-cols-1 gap-4",
+                "grid grid-cols-1 gap-4 sm:gap-5",
                 showRow2TwoCols ? "sm:grid-cols-2" : "sm:grid-cols-1",
               )}
             >
               {showPhoneField && (
                 <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label
-                      htmlFor={`${idPrefix}-phone`}
-                      className="block text-xs font-semibold text-[#0f0000]"
-                    >
-                      Phone number{" "}
-                      {phoneRequired && <span className="text-accent">*</span>}
-                    </label>
-                    {!phoneRequired && (
-                      <span className="text-[11px] text-neutral-400">
-                        Optional
-                      </span>
-                    )}
-                  </div>
+                  <label
+                    htmlFor={`${idPrefix}-phone`}
+                    className="block text-base font-semibold text-[#0f0000] mb-2"
+                  >
+                    Phone number{" "}
+                    {phoneRequired && <span className="text-accent">*</span>}
+                  </label>
                   <input
                     id={`${idPrefix}-phone`}
                     name="phone"
@@ -480,7 +473,7 @@ export function ContactForm({
                   {errors.phone && (
                     <p
                       id={`${idPrefix}-phone-error`}
-                      className="text-[11px] text-red-600 mt-1 font-medium"
+                      className="text-xs text-red-600 mt-1.5 font-medium"
                     >
                       {errors.phone}
                     </p>
@@ -490,17 +483,12 @@ export function ContactForm({
 
               {showCompanyField && (
                 <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label
-                      htmlFor={`${idPrefix}-company`}
-                      className="block text-xs font-semibold text-[#0f0000]"
-                    >
-                      Company
-                    </label>
-                    <span className="text-[11px] text-neutral-400">
-                      Optional
-                    </span>
-                  </div>
+                  <label
+                    htmlFor={`${idPrefix}-company`}
+                    className="block text-base font-semibold text-[#0f0000] mb-2"
+                  >
+                    Company
+                  </label>
                   <input
                     id={`${idPrefix}-company`}
                     name="company"
@@ -519,20 +507,17 @@ export function ContactForm({
           {/* Row 3: Service Interest & Estimated Budget */}
           <div
             className={cn(
-              "grid grid-cols-1 gap-4",
+              "grid grid-cols-1 gap-4 sm:gap-5",
               showBudgetField ? "sm:grid-cols-2" : "sm:grid-cols-1",
             )}
           >
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label
-                  htmlFor={`${idPrefix}-service`}
-                  className="block text-xs font-semibold text-[#0f0000]"
-                >
-                  What do you need help with?
-                </label>
-                <span className="text-[11px] text-neutral-400">Optional</span>
-              </div>
+              <label
+                htmlFor={`${idPrefix}-service`}
+                className="block text-base font-semibold text-[#0f0000] mb-2"
+              >
+                What do you need help with?
+              </label>
               <select
                 id={`${idPrefix}-service`}
                 name="service"
@@ -550,15 +535,12 @@ export function ContactForm({
 
             {showBudgetField && (
               <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label
-                    htmlFor={`${idPrefix}-budget`}
-                    className="block text-xs font-semibold text-[#0f0000]"
-                  >
-                    Estimated Budget
-                  </label>
-                  <span className="text-[11px] text-neutral-400">Optional</span>
-                </div>
+                <label
+                  htmlFor={`${idPrefix}-budget`}
+                  className="block text-base font-semibold text-[#0f0000] mb-2"
+                >
+                  Estimated Budget
+                </label>
                 <select
                   id={`${idPrefix}-budget`}
                   name="budget"
@@ -591,7 +573,7 @@ export function ContactForm({
           <div>
             <label
               htmlFor={`${idPrefix}-message`}
-              className="block text-xs font-semibold text-[#0f0000] mb-1.5"
+              className="block text-base font-semibold text-[#0f0000] mb-2"
             >
               Project context <span className="text-accent">*</span>
             </label>
@@ -599,7 +581,7 @@ export function ContactForm({
               id={`${idPrefix}-message`}
               name="message"
               required
-              rows={3}
+              rows={4}
               value={formData.message}
               onChange={handleChange}
               placeholder="What are you trying to build, modernize, or scale?"
@@ -617,25 +599,22 @@ export function ContactForm({
             {errors.message && (
               <p
                 id={`${idPrefix}-message-error`}
-                className="text-[11px] text-red-600 mt-1 font-medium"
+                className="text-xs text-red-600 mt-1.5 font-medium"
               >
                 {errors.message}
               </p>
             )}
           </div>
 
-          {/* Row 5: Optional Document / Brief Upload */}
+          {/* Row 5: Document / Brief Upload */}
           {showDocumentField && (
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label
-                  htmlFor={`${idPrefix}-document`}
-                  className="block text-xs font-semibold text-[#0f0000]"
-                >
-                  Document / brief upload
-                </label>
-                <span className="text-[11px] text-neutral-400">Optional</span>
-              </div>
+              <label
+                htmlFor={`${idPrefix}-document`}
+                className="block text-base font-semibold text-[#0f0000] mb-2"
+              >
+                Document / brief upload
+              </label>
 
               <input
                 ref={fileInputRef}
@@ -648,13 +627,13 @@ export function ContactForm({
               />
 
               {attachedFile ? (
-                <div className="flex items-center justify-between gap-3 rounded-xl border border-red-200/80 bg-red-50/35 px-3.5 py-2.5">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-9 h-9 rounded-lg bg-white border border-red-200/80 text-accent flex items-center justify-center shrink-0 shadow-xs">
+                <div className="flex items-center justify-between gap-3.5 rounded-xl sm:rounded-2xl border border-red-200/80 bg-red-50/35 px-4 py-3">
+                  <div className="flex items-center gap-3.5 min-w-0">
+                    <div className="w-10 h-10 rounded-xl bg-white border border-red-200/80 text-accent flex items-center justify-center shrink-0 shadow-xs">
                       <FileText className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs font-semibold text-[#0f0000] truncate">
+                      <p className="text-xs sm:text-sm font-semibold text-[#0f0000] truncate">
                         {attachedFile.name}
                       </p>
                       <p className="text-[11px] text-neutral-500 font-sans font-medium tabular-nums">
@@ -687,7 +666,7 @@ export function ContactForm({
                       : `${idPrefix}-document-hint`
                   }
                   className={cn(
-                    "group/drop flex items-center gap-3 rounded-xl border border-dashed px-3.5 py-2.5 cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/20",
+                    "group/drop flex items-center gap-3.5 rounded-xl sm:rounded-2xl border border-dashed px-4 py-3.5 cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/20",
                     isDragging
                       ? "border-accent bg-red-50/45"
                       : errors.document
@@ -695,11 +674,11 @@ export function ContactForm({
                         : "border-neutral-300 bg-[#f7f7f9] hover:bg-white hover:border-accent/60",
                   )}
                 >
-                  <div className="w-9 h-9 rounded-lg bg-white border border-neutral-200/90 text-[#0f0000] group-hover/drop:text-accent group-hover/drop:border-red-200 flex items-center justify-center transition-colors shrink-0 shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-white border border-neutral-200/90 text-[#0f0000] group-hover/drop:text-accent group-hover/drop:border-red-200 flex items-center justify-center transition-colors shrink-0 shadow-xs">
                     <Upload className="w-4 h-4" />
                   </div>
                   <div className="min-w-0 flex-1 text-left">
-                    <p className="text-xs font-medium text-[#0f0000] truncate">
+                    <p className="text-xs sm:text-sm font-medium text-[#0f0000] truncate">
                       Drop your RFP, spec, or brief here, or{" "}
                       <span className="font-semibold text-accent underline underline-offset-2">
                         browse
@@ -718,7 +697,7 @@ export function ContactForm({
               {errors.document && (
                 <p
                   id={`${idPrefix}-document-error`}
-                  className="text-[11px] text-red-600 mt-1 font-medium"
+                  className="text-xs text-red-600 mt-1.5 font-medium"
                 >
                   {errors.document}
                 </p>
@@ -727,7 +706,7 @@ export function ContactForm({
           )}
 
           {/* Submit CTA */}
-          <div className="pt-1">
+          <div className="pt-2">
             <FlowButton
               type="submit"
               disabled={submitting}
@@ -739,7 +718,7 @@ export function ContactForm({
           </div>
 
           {ndaNote && (
-            <p className="flex items-center justify-center gap-1.5 text-[11px] text-neutral-500 text-center pt-0.5">
+            <p className="flex items-center justify-center gap-1.5 text-xs text-neutral-500 text-center pt-1">
               <ShieldCheck className="w-3.5 h-3.5 text-accent/80 shrink-0" />
               <span>{ndaNote}</span>
             </p>

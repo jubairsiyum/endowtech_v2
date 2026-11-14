@@ -1,8 +1,10 @@
 "use client";
 
-import SlingButton from "@/components/SlingButton";
+import SlingButton, { type SlingAction } from "@/components/SlingButton";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+const SCROLL_THRESHOLD = 180;
 
 export default function ScrollToTopButton() {
   const [visible, setVisible] = useState(false);
@@ -14,8 +16,7 @@ export default function ScrollToTopButton() {
   useEffect(() => {
     const updateVisibility = () => {
       if (launchingRef.current) return;
-      const threshold = Math.min(480, window.innerHeight * 0.65);
-      setVisible(window.scrollY > threshold);
+      setVisible(window.scrollY > SCROLL_THRESHOLD);
     };
 
     updateVisibility();
@@ -33,18 +34,69 @@ export default function ScrollToTopButton() {
     launchingRef.current = true;
     clearTimeout(keepAliveTimer.current);
 
-    if (window.lenis) {
-      window.lenis.scrollTo(0, { duration: 1.0 });
+    const isTouch =
+      typeof window !== "undefined" &&
+      ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+
+    if (window.lenis && !isTouch) {
+      window.lenis.scrollTo(0, { duration: 1.1 });
+    } else if (window.lenis) {
+      try {
+        window.lenis.scrollTo(0, { duration: 1.1 });
+      } catch {}
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     keepAliveTimer.current = setTimeout(() => {
       launchingRef.current = false;
-      const threshold = Math.min(480, window.innerHeight * 0.65);
-      setVisible(window.scrollY > threshold);
-    }, 450);
+      setVisible(window.scrollY > SCROLL_THRESHOLD);
+    }, 1150);
   }, []);
+
+  const handleScrollToBottom = useCallback(() => {
+    launchingRef.current = true;
+    clearTimeout(keepAliveTimer.current);
+
+    const targetY = Math.max(
+      document.documentElement.scrollHeight - window.innerHeight,
+      document.body.scrollHeight - window.innerHeight,
+      0
+    );
+
+    const isTouch =
+      typeof window !== "undefined" &&
+      ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+
+    if (window.lenis && !isTouch) {
+      window.lenis.scrollTo("bottom", { duration: 1.2 });
+    } else if (window.lenis) {
+      try {
+        window.lenis.scrollTo(targetY, { duration: 1.2 });
+      } catch {}
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+    }
+
+    keepAliveTimer.current = setTimeout(() => {
+      launchingRef.current = false;
+      setVisible(window.scrollY > SCROLL_THRESHOLD);
+    }, 1250);
+  }, []);
+
+  const handleSend = useCallback(
+    (action: SlingAction) => {
+      if (action === "down") {
+        handleScrollToBottom();
+      } else {
+        // "tap", "up" or any fallback strictly scrolls to top
+        handleScrollToTop();
+      }
+    },
+    [handleScrollToBottom, handleScrollToTop]
+  );
 
   return (
     <AnimatePresence>
@@ -55,10 +107,11 @@ export default function ScrollToTopButton() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.72, y: 16 }}
           transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
-          className="fixed right-5 bottom-5 sm:right-7 sm:bottom-7 z-40 drop-shadow-[0_10px_22px_rgba(15,0,0,0.32)]"
+          className="fixed right-5 bottom-5 sm:right-7 sm:bottom-7 z-40 touch-none select-none drop-shadow-[0_10px_22px_rgba(15,0,0,0.32)]"
+          title="Click to scroll to top · Pull and sling to navigate"
         >
           <SlingButton
-            onSend={handleScrollToTop}
+            onSend={handleSend}
             padColor="#dc2626"
             iconColor="#ffffff"
             accentColor="#ef4444"
@@ -66,10 +119,11 @@ export default function ScrollToTopButton() {
             bandColor="#b91c1c"
             size={45}
             strokeWidth={3}
-            armAt={34}
-            maxPull={110}
+            armAt={28}
+            maxPull={100}
             flight={100}
-            ariaLabel="Scroll to top"
+            axis="vertical"
+            ariaLabel="Scroll navigation slingshot"
           />
         </motion.div>
       )}

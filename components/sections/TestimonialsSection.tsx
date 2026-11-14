@@ -156,23 +156,46 @@ export default function TestimonialsSection() {
     setCanScrollLeft(scrollLeft > 12);
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 12);
 
-    const maxScroll = Math.max(1, scrollWidth - clientWidth);
-    const ratio = Math.min(1, Math.max(0, scrollLeft / maxScroll));
-    const idx = Math.round(ratio * (testimonials.length - 1));
-    setActiveIndex(idx);
+    const containerPaddingLeft =
+      Number.parseFloat(getComputedStyle(el).paddingLeft) || 0;
+    const currentPos = el.scrollLeft + containerPaddingLeft;
+    let closestIdx = 0;
+    let minDiff = Infinity;
+    for (let i = 0; i < el.children.length; i++) {
+      const child = el.children[i] as HTMLElement;
+      const diff = Math.abs(child.offsetLeft - currentPos);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIdx = i;
+      }
+    }
+    setActiveIndex(closestIdx);
   }, []);
 
   useEffect(() => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollLeft = 0;
+    }
     updateScrollState();
+    const timer = setTimeout(updateScrollState, 100);
     window.addEventListener("resize", updateScrollState, { passive: true });
-    return () => window.removeEventListener("resize", updateScrollState);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", updateScrollState);
+    };
   }, [updateScrollState]);
 
   const scrollByCard = (direction: "left" | "right") => {
     const el = carouselRef.current;
     if (!el) return;
     const firstCard = el.firstElementChild as HTMLElement | null;
-    const step = firstCard ? firstCard.offsetWidth + 28 : 780;
+    const cardWidth = firstCard ? firstCard.offsetWidth : 560;
+    const secondCard = firstCard?.nextElementSibling as HTMLElement | null;
+    const gap =
+      firstCard && secondCard
+        ? secondCard.offsetLeft - (firstCard.offsetLeft + firstCard.offsetWidth)
+        : 32;
+    const step = cardWidth + gap;
     el.scrollBy({
       left: direction === "left" ? -step : step,
       behavior: "smooth",
@@ -287,11 +310,7 @@ export default function TestimonialsSection() {
       {/* ── Centered Editorial Header ── */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         <FadeIn className="text-center max-w-4xl mx-auto mb-14 sm:mb-16 lg:mb-20">
-          <div className="inline-flex items-center justify-center gap-2.5 font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-4">
-            <span
-              className="w-2 h-2 rounded-[2px] bg-accent shrink-0"
-              aria-hidden="true"
-            />
+          <div className="inline-flex items-center justify-center font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-4">
             <span>Client Voices</span>
           </div>
 
@@ -323,8 +342,7 @@ export default function TestimonialsSection() {
           role="region"
           aria-label="Client testimonials carousel"
           className={cn(
-            "flex items-stretch gap-6 sm:gap-7 lg:gap-8 overflow-x-auto py-4 select-none",
-            "pl-6 pr-6 sm:pl-8 sm:pr-8 lg:pl-[max(3rem,calc((100vw-1400px)/2+3rem))] lg:pr-12",
+            "testimonials-track flex items-stretch overflow-x-auto py-4 select-none",
             "cursor-grab active:cursor-grabbing",
             isMouseDown
               ? "snap-none scroll-auto"
@@ -334,6 +352,9 @@ export default function TestimonialsSection() {
             scrollbarWidth: "none",
             msOverflowStyle: "none",
             WebkitOverflowScrolling: "touch",
+            paddingLeft: "var(--carousel-pl)",
+            scrollPaddingLeft: "var(--carousel-pl)",
+            gap: "var(--carousel-gap)",
           }}
         >
           {testimonials.map((t) => {
@@ -349,40 +370,40 @@ export default function TestimonialsSection() {
             return (
               <article
                 key={t.id ?? t.author}
-                className="group shrink-0 w-[90vw] max-w-[440px] sm:max-w-none sm:w-[560px] md:w-[660px] lg:w-[760px] xl:w-[820px] snap-start rounded-2xl sm:rounded-3xl bg-white border border-neutral-200/85 p-7 sm:p-10 lg:p-12 shadow-[0_16px_44px_-22px_rgba(15,0,0,0.09)] hover:border-red-200/90 hover:shadow-[0_24px_56px_-22px_rgba(220,38,38,0.16)] transition-all duration-300 flex flex-col justify-between min-h-[350px] sm:min-h-[410px] lg:min-h-[450px]"
+                className="testimonials-card group snap-start rounded-2xl sm:rounded-3xl bg-white border border-neutral-200/85 p-6 sm:p-8 lg:p-10 shadow-[0_16px_44px_-22px_rgba(15,0,0,0.09)] hover:border-red-200/90 hover:shadow-[0_24px_56px_-22px_rgba(220,38,38,0.16)] transition-all duration-300 flex flex-col justify-between min-h-[340px] sm:min-h-[380px] lg:min-h-[410px]"
               >
                 <div>
                   {/* Top Row: Organization Emblem + Large Bold Accent Headline */}
-                  <div className="flex items-start gap-5 sm:gap-6">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[72px] lg:h-[72px] rounded-2xl bg-white border border-neutral-200/90 shadow-[0_6px_18px_-6px_rgba(15,0,0,0.12)] flex items-center justify-center shrink-0 group-hover:border-red-200 transition-colors">
+                  <div className="flex items-start gap-4 sm:gap-5">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-2xl bg-white border border-neutral-200/90 shadow-[0_6px_18px_-6px_rgba(15,0,0,0.12)] flex items-center justify-center shrink-0 group-hover:border-red-200 transition-colors">
                       <PartnerLogoMark
                         logoKey={t.logoKey}
                         orgShort={t.orgShort}
                       />
                     </div>
 
-                    <h3 className="text-lg sm:text-[22px] lg:text-[26px] xl:text-[28px] font-bold text-accent leading-[1.28] tracking-[-0.025em] pt-0.5">
+                    <h3 className="text-base sm:text-lg lg:text-xl xl:text-[22px] font-bold text-accent leading-[1.3] tracking-[-0.02em] pt-0.5">
                       {t.headline ?? t.organization}
                     </h3>
                   </div>
 
                   {/* Quote Body */}
-                  <blockquote className="mt-6 sm:mt-8 text-[15px] sm:text-[17px] lg:text-[19px] text-neutral-600 leading-[1.68]">
+                  <blockquote className="mt-5 sm:mt-6 text-[14px] sm:text-[15px] lg:text-[16px] text-neutral-600 leading-[1.65]">
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
                 </div>
 
                 {/* Bottom Row: Author Avatar + Meta & Case Study Link */}
-                <div className="mt-8 sm:mt-10 pt-6 border-t border-neutral-100 flex items-center justify-between gap-4">
+                <div className="mt-6 sm:mt-8 pt-5 border-t border-neutral-100 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
                     <div
                       aria-hidden="true"
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#180204] via-[#7f1d1d] to-[#dc2626] text-white text-sm sm:text-base font-bold tracking-tight flex items-center justify-center shrink-0 ring-2 ring-red-100 shadow-xs"
+                      className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#180204] via-[#7f1d1d] to-[#dc2626] text-white text-xs sm:text-sm font-bold tracking-tight flex items-center justify-center shrink-0 ring-2 ring-red-100 shadow-xs"
                     >
                       {initials}
                     </div>
                     <div className="min-w-0">
-                      <div className="font-bold text-base sm:text-lg text-[#0f0000] leading-snug truncate">
+                      <div className="font-bold text-sm sm:text-base text-[#0f0000] leading-snug truncate">
                         {t.author}
                       </div>
                       <div className="text-xs sm:text-sm text-neutral-500 mt-0.5 leading-snug truncate">
@@ -396,11 +417,11 @@ export default function TestimonialsSection() {
                     onClick={(e) => {
                       if (isDraggingRef.current) e.preventDefault();
                     }}
-                    className="group/cs inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-[#0f0000] hover:text-accent transition-colors shrink-0 whitespace-nowrap"
+                    className="group/cs inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm lg:text-base font-semibold text-[#0f0000] hover:text-accent transition-colors shrink-0 whitespace-nowrap"
                   >
                     <span>View Case Study</span>
                     <ArrowRight
-                      className="w-4 h-4 transition-transform duration-200 group-hover/cs:translate-x-1"
+                      className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 group-hover/cs:translate-x-1"
                       aria-hidden="true"
                     />
                   </Link>

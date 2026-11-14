@@ -14,10 +14,12 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowUp02Icon } from '@hugeicons/core-free-icons';
 
 export type SlingAxis = 'any' | 'horizontal' | 'vertical';
+export type SlingDirection = 'up' | 'down' | 'left' | 'right';
+export type SlingAction = 'tap' | SlingDirection;
 
 export interface SlingButtonProps {
   children?: ReactNode;
-  onSend?: () => void;
+  onSend?: (action: SlingAction) => void;
   padColor?: string;
   iconColor?: string;
   accentColor?: string;
@@ -67,6 +69,14 @@ const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 const rubberband = (o: number, dim: number, c = 0.55) => (o * dim * c) / (dim + c * Math.abs(o));
+
+export const getSlingDirection = (ux: number, uy: number): SlingDirection => {
+  if (Math.abs(ux) > Math.abs(uy) * 1.5) {
+    return ux > 0 ? 'left' : 'right';
+  }
+  // Pulling down (uy > 0) recoils UP; pulling up (uy < 0) recoils DOWN
+  return uy < 0 ? 'down' : 'up';
+};
 
 const SlingButton: React.FC<SlingButtonProps> = ({
   children,
@@ -334,9 +344,10 @@ const SlingButton: React.FC<SlingButtonProps> = ({
     }
     if (!g.moved) {
       relaxIcon();
-      if (tapSends && !cancelled) onSend?.();
+      if (tapSends && !cancelled) onSend?.('tap');
     } else {
-      const fire = armedRef.current && !cancelled;
+      const isFlick = Math.hypot(vx, vy) > 260 && d > 6;
+      const fire = (armedRef.current || isFlick) && !cancelled;
       const launch = fire ? launchSpeed * Math.min(p, POWER_CAP) : CANCEL * launchSpeed * Math.min(p, 1);
       let v0x = vx - ux * launch;
       let v0y = vy - uy * launch;
@@ -347,7 +358,8 @@ const SlingButton: React.FC<SlingButtonProps> = ({
       }
       if (!fire) relaxIcon();
       if (fire) {
-        onSend?.();
+        const direction = getSlingDirection(ux, uy);
+        onSend?.(direction);
         if (reduce) {
           setSent(true);
           setTimeout(() => setSent(false), 200);
@@ -375,7 +387,7 @@ const SlingButton: React.FC<SlingButtonProps> = ({
   return (
     <span
       ref={rootRef}
-      className={`group/root relative inline-block [width:var(--sl-size)] [height:var(--sl-size)]${className ? ` ${className}` : ''}`}
+      className={`group/root relative inline-block touch-none select-none [width:var(--sl-size)] [height:var(--sl-size)]${className ? ` ${className}` : ''}`}
       data-armed={armed ? '' : undefined}
       data-sent={sent ? '' : undefined}
       style={
@@ -430,7 +442,7 @@ const SlingButton: React.FC<SlingButtonProps> = ({
           aria-hidden="true"
         />
       ))}
-      <motion.span className="absolute inset-0" style={{ transform: padT }}>
+      <motion.span className="absolute inset-0 touch-none select-none" style={{ transform: padT }}>
         <button
           ref={padRef}
           type="button"
@@ -443,8 +455,8 @@ const SlingButton: React.FC<SlingButtonProps> = ({
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={e => release(e.pointerId, false)}
-          onPointerCancel={e => release(e.pointerId, true)}
-          onLostPointerCapture={e => release(e.pointerId, true)}
+          onPointerCancel={e => release(e.pointerId, false)}
+          onLostPointerCapture={e => release(e.pointerId, false)}
           onKeyDown={e => {
             if (e.key === 'Escape' && grip.current) release(grip.current.id, true);
           }}
@@ -453,7 +465,7 @@ const SlingButton: React.FC<SlingButtonProps> = ({
               skipClick.current = false;
               return;
             }
-            if (!disabled) onSend?.();
+            if (!disabled) onSend?.('tap');
           }}
         >
           <span className="flex h-full w-full items-center justify-center rounded-full [background:var(--sl-pad)] [color:var(--sl-icon)] [transition:transform_160ms_cubic-bezier(0.23,1,0.32,1)] group-hover/pad:scale-[1.03] group-data-[held]/pad:scale-[0.97] group-data-[armed]/pad:scale-[1.06] group-aria-disabled/pad:scale-100 motion-reduce:!transition-none motion-reduce:!transform-none">

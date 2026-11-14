@@ -2,7 +2,6 @@
 
 import AnimatedContent from "@/components/AnimatedContent";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { Badge } from "@/components/ui/Badge";
 import { siteConfig } from "@/data/siteConfig";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -29,16 +28,18 @@ export default function ContactSection({
             duration={0.65}
             ease="power2.out"
           >
-            <Badge variant="code">{"// Initiate Collaboration"}</Badge>
+            <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-3">
+              Initiate Collaboration
+            </span>
             <h2
               id="contact-heading"
-              className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.1]"
             >
               Let&apos;s build software <br />
               <span className="gradient-text">that powers your future.</span>
             </h2>
 
-            <p className="mt-5 text-text-muted text-base leading-relaxed max-w-lg">
+            <p className="mt-5 text-neutral-600 text-sm sm:text-base leading-relaxed max-w-lg">
               Have a product roadmap, portal system, or SaaS platform in mind?
               Submit your brief and our executive and senior engineering leads
               will respond with a technical breakdown within 24 hours.
@@ -48,9 +49,9 @@ export default function ContactSection({
             <div className="mt-8 flex flex-col gap-4">
               <a
                 href={`mailto:${siteConfig.contact.email}`}
-                className="group inline-flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-200/80 hover:border-accent/40 transition-all max-w-sm"
+                className="group inline-flex items-center gap-3.5 p-4 rounded-2xl bg-[#fafafa] border border-neutral-200/80 hover:border-accent/40 hover:bg-white hover:shadow-xs transition-all max-w-sm"
               >
-                <div className="w-10 h-10 rounded-lg bg-accent/10 text-accent flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
                   <svg
                     width="18"
                     height="18"
@@ -64,10 +65,10 @@ export default function ContactSection({
                   </svg>
                 </div>
                 <div>
-                  <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-text-muted">
+                  <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-neutral-500">
                     Direct Email
                   </div>
-                  <div className="text-sm font-bold text-text-primary group-hover:text-accent transition-colors">
+                  <div className="text-sm font-bold text-[#0f0000] group-hover:text-accent transition-colors">
                     {siteConfig.contact.email}
                   </div>
                 </div>
@@ -77,9 +78,9 @@ export default function ContactSection({
                 href={siteConfig.contact.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 p-4 rounded-xl bg-emerald-50 border border-emerald-200/80 hover:border-emerald-400 transition-all max-w-sm"
+                className="group inline-flex items-center gap-3.5 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 hover:border-emerald-400 hover:bg-emerald-50 hover:shadow-xs transition-all max-w-sm"
               >
-                <div className="w-10 h-10 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs">
                   <svg
                     width="20"
                     height="20"
@@ -103,9 +104,9 @@ export default function ContactSection({
                 <button
                   type="button"
                   onClick={onOpenScheduler}
-                  className="group inline-flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-200/80 hover:border-accent/40 transition-all text-left max-w-sm cursor-pointer"
+                  className="group inline-flex items-center gap-3.5 p-4 rounded-2xl bg-[#fafafa] border border-neutral-200/80 hover:border-accent/40 hover:bg-white hover:shadow-xs transition-all text-left max-w-sm cursor-pointer"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                     <svg
                       width="18"
                       height="18"
@@ -121,10 +122,10 @@ export default function ContactSection({
                     </svg>
                   </div>
                   <div>
-                    <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-text-muted">
+                    <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-neutral-500">
                       Calendar Booking
                     </div>
-                    <div className="text-sm font-bold text-text-primary group-hover:text-accent transition-colors">
+                    <div className="text-sm font-bold text-[#0f0000] group-hover:text-accent transition-colors">
                       Schedule a 30-Min Discovery Call
                     </div>
                   </div>
