@@ -1,9 +1,8 @@
-import React from 'react'
-import { caseStudies } from '@/data/caseStudies'
-import { Badge } from '@/components/ui/Badge'
-import { FlowButton } from '@/components/ui/FlowButton'
-import { FadeIn } from '@/components/motion/FadeIn'
-import { CountUp } from '@/components/motion/CountUp'
+import { CountUp } from "@/components/motion/CountUp";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { Badge } from "@/components/ui/Badge";
+import { FlowButton } from "@/components/ui/FlowButton";
+import { caseStudies } from "@/data/caseStudies";
 
 export default function CaseStudiesSection() {
   return (
@@ -16,19 +15,18 @@ export default function CaseStudiesSection() {
         {/* Section Header */}
         <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
           <div>
-            <Badge variant="code">
-              {'// Case Studies & Impact'}
-            </Badge>
+            <Badge variant="code">{"// Case Studies & Impact"}</Badge>
             <h2
               id="case-studies-heading"
               className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight"
             >
-              Engineering that delivers{' '}
+              Engineering that delivers{" "}
               <span className="gradient-text">measurable ROI.</span>
             </h2>
             <p className="mt-4 text-text-muted max-w-2xl text-base leading-relaxed">
-              Explore how our bespoke software solutions and automated platforms have modernized
-              operations, reduced processing time, and accelerated business growth.
+              Explore how our bespoke software solutions and automated platforms
+              have modernized operations, reduced processing time, and
+              accelerated business growth.
             </p>
           </div>
           <div className="shrink-0">
@@ -103,5 +101,5 @@ export default function CaseStudiesSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

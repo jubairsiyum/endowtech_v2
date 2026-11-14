@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { testimonials } from "@/data/testimonials";
 import { cn } from "@/lib/utils";
 import type { Testimonial } from "@/types";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 function PartnerLogoMark({
   logoKey,

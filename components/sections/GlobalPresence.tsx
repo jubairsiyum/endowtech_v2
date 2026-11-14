@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { ArrowUpRight, Globe2, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { FlowButton } from "@/components/ui/FlowButton";
 import { siteConfig } from "@/data/siteConfig";
 import { cn } from "@/lib/utils";
+import { ArrowUpRight, Globe2, MapPin, Phone, ShieldCheck } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface HubMeta {
   countryCode: "KR" | "BD";
@@ -80,7 +80,10 @@ function CountryFlag({ code }: { code: "KR" | "BD" }) {
   );
 }
 
-function formatHubTime(timeZone: "Asia/Seoul" | "Asia/Dhaka", now: Date): string {
+function formatHubTime(
+  timeZone: "Asia/Seoul" | "Asia/Dhaka",
+  now: Date,
+): string {
   return new Intl.DateTimeFormat("en-GB", {
     timeZone,
     hour: "2-digit",
@@ -135,8 +138,7 @@ export default function GlobalPresence() {
                 id="about-heading"
                 className="text-[clamp(28px,3.1vw,46px)] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.1]"
               >
-                Built in Dhaka.{" "}
-                <br />
+                Built in Dhaka. <br />
                 <span className="gradient-text">Headquartered in Seoul.</span>
               </h2>
 

@@ -1,8 +1,7 @@
-import React from 'react'
-import { flagshipProducts } from '@/data/products'
-import { Badge } from '@/components/ui/Badge'
-import { FadeIn } from '@/components/motion/FadeIn'
-import { FlowButton } from '@/components/ui/FlowButton'
+import { FadeIn } from "@/components/motion/FadeIn";
+import { Badge } from "@/components/ui/Badge";
+import { FlowButton } from "@/components/ui/FlowButton";
+import { flagshipProducts } from "@/data/products";
 
 export default function FlagshipProducts() {
   return (
@@ -18,20 +17,19 @@ export default function FlagshipProducts() {
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Section Header */}
         <FadeIn className="text-center max-w-4xl mx-auto mb-16">
-          <Badge variant="code">
-            {'// Flagship Platforms'}
-          </Badge>
+          <Badge variant="code">{"// Flagship Platforms"}</Badge>
           <h2
             id="products-heading"
             className="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight"
           >
-            Real products powering{' '}
+            Real products powering{" "}
             <span className="gradient-text">thousands of journeys.</span>
           </h2>
           <p className="mt-4 text-gray-400 text-base sm:text-lg leading-relaxed">
-            We don’t just write software for clients — we engineer, launch, and operate
-            high-volume production platforms that streamline international admissions,
-            automate decision logic, and manage global student operations.
+            We don’t just write software for clients — we engineer, launch, and
+            operate high-volume production platforms that streamline
+            international admissions, automate decision logic, and manage global
+            student operations.
           </p>
         </FadeIn>
 
@@ -78,7 +76,10 @@ export default function FlagshipProducts() {
                     {/* Feature bullet points */}
                     <div className="space-y-2.5 mb-6">
                       {product.features.map((feat) => (
-                        <div key={feat} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-300">
+                        <div
+                          key={feat}
+                          className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-300"
+                        >
                           <svg
                             className="w-4 h-4 mt-0.5 shrink-0"
                             style={{ color: product.accentColor }}
@@ -150,5 +151,5 @@ export default function FlagshipProducts() {
         </div>
       </div>
     </section>
-  )
+  );
 }

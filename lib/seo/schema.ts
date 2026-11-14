@@ -140,14 +140,16 @@ export function getServiceSchema(service: {
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: service.title,
-      itemListElement: (service.deliverables || []).map((deliverable, index) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: deliverable,
-        },
-        position: index + 1,
-      })),
+      itemListElement: (service.deliverables || []).map(
+        (deliverable, index) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: deliverable,
+          },
+          position: index + 1,
+        }),
+      ),
     },
   };
 }
@@ -187,9 +189,7 @@ export function getProjectSchema(project: {
  * BreadcrumbList Schema
  * Clarifies route hierarchy for bots and structured navigation.
  */
-export function getBreadcrumbSchema(
-  items: { name: string; url: string }[]
-) {
+export function getBreadcrumbSchema(items: { name: string; url: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -197,7 +197,9 @@ export function getBreadcrumbSchema(
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: item.url.startsWith("http") ? item.url : `${siteConfig.url}${item.url}`,
+      item: item.url.startsWith("http")
+        ? item.url
+        : `${siteConfig.url}${item.url}`,
     })),
   };
 }
@@ -229,7 +231,7 @@ export function getContactPageSchema() {
  * Connects Endow Tech's 5 production case studies to the Knowledge Graph.
  */
 export function getCaseStudiesPageSchema(
-  projects: Array<{ id: string; title: string; description: string }>
+  projects: Array<{ id: string; title: string; description: string }>,
 ) {
   return {
     "@context": "https://schema.org",
@@ -258,3 +260,24 @@ export function getCaseStudiesPageSchema(
   };
 }
 
+/**
+ * WebPage Schema for Sitemap
+ * Indexes the complete site hierarchy, internal routes, and platform entities.
+ */
+export function getSitemapPageSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${siteConfig.url}/sitemap#webpage`,
+    url: `${siteConfig.url}/sitemap`,
+    name: "Sitemap — Website Directory & Architecture | Endow Tech",
+    description:
+      "Explore the comprehensive directory of Endow Tech: enterprise engineering services, flagship platforms, case studies, technology stack, and global office locations.",
+    isPartOf: {
+      "@id": `${siteConfig.url}/#website`,
+    },
+    about: {
+      "@id": `${siteConfig.url}/#organization`,
+    },
+  };
+}

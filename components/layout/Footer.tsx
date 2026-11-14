@@ -286,10 +286,26 @@ export default function Footer() {
           <span className="sr-only">ENDOWTECH</span>
         </div>
 
-        {/*  Copyright */}
-        <div className=" mt-8 pt-6 border-t border-white/10 text-xs text-gray-500 text-center sm:text-left">
-          &copy; {currentYear} Endow Tech. All rights reserved. A subsidiary of
-          Endow Corporation.
+        {/* Copyright & Meta Links */}
+        <div className="mt-8 pt-6 border-t border-white/10 text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div>
+            &copy; {currentYear} Endow Tech. All rights reserved. A subsidiary of
+            Endow Corporation.
+          </div>
+          <div className="flex items-center gap-5 text-gray-400">
+            <Link
+              href="/sitemap"
+              className="hover:text-white transition-colors"
+            >
+              Sitemap
+            </Link>
+            <Link
+              href="/contact"
+              className="hover:text-white transition-colors"
+            >
+              Contact
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
