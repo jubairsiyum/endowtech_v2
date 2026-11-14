@@ -232,7 +232,7 @@ export default function ProjectDetailClient({
         setIsSchedulerOpen={setIsSchedulerOpen}
       />
 
-      <main className="overflow-x-clip">
+      <main id="main" className="overflow-x-clip">
         {/* ══════════════════════════════════════════════════════════════════════
             SECTION 1: LIGHT EDITORIAL HERO + FRAMED PLATFORM SHOWCASE
         ══════════════════════════════════════════════════════════════════════ */}

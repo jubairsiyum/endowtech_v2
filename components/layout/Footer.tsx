@@ -3,17 +3,45 @@ import Image from "next/image";
 import Link from "next/link";
 
 const PLATFORM_LINKS = [
-  { label: "Endow Student Portal (AMS)", href: "/#work" },
-  { label: "UniMatch AI Recommendation", href: "/#work" },
-  { label: "LeadFlow CRM & Workflow", href: "/#work" },
-  { label: "Tuition Settlement Engine", href: "/#work" },
+  {
+    label: "Endow Connect (CRM & Portals)",
+    href: "/projects/endow-connect",
+  },
+  {
+    label: "Endow Cuisine (Accounting Platform)",
+    href: "/projects/endow-cuisine",
+  },
+  {
+    label: "Endow Cloud (On-Premises Infrastructure)",
+    href: "/projects/endow-cloud",
+  },
+  {
+    label: "Endow Desk (AI Support Ticketing)",
+    href: "/projects/endow-desk",
+  },
+  {
+    label: "ZendOS (Hospitality Operations OS)",
+    href: "/projects/zendos",
+  },
 ];
 
 const CAPABILITY_LINKS = [
-  { label: "Next.js Web Applications", href: "/#services" },
-  { label: "SaaS Multi-Tenant Engines", href: "/#services" },
-  { label: "API & System Integration", href: "/#services" },
-  { label: "Security & Audit Profiling", href: "/#process" },
+  {
+    label: "Next.js Web Applications",
+    href: "/services/web-engineering",
+  },
+  {
+    label: "SaaS Multi-Tenant Engines",
+    href: "/services/saas-platforms",
+  },
+  {
+    label: "Student & Academic Portals",
+    href: "/services/student-portals",
+  },
+  {
+    label: "API & Systems Integration",
+    href: "/services/api-integration",
+  },
 ];
 
 export default function Footer() {
@@ -120,7 +148,7 @@ export default function Footer() {
               <ul className="space-y-3.5 text-sm">
                 {PLATFORM_LINKS.map((item) => (
                   <li key={item.label}>
-                    <a
+                    <Link
                       href={item.href}
                       className="group inline-flex items-start gap-2.5 text-gray-400 hover:text-white transition-colors duration-200"
                     >
@@ -140,7 +168,7 @@ export default function Footer() {
                         <path d="m12 5 7 7-7 7" />
                       </svg>
                       <span>{item.label}</span>
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -156,7 +184,7 @@ export default function Footer() {
               <ul className="space-y-3.5 text-sm">
                 {CAPABILITY_LINKS.map((item) => (
                   <li key={item.label}>
-                    <a
+                    <Link
                       href={item.href}
                       className="group inline-flex items-start gap-2.5 text-gray-400 hover:text-white transition-colors duration-200"
                     >
@@ -176,7 +204,7 @@ export default function Footer() {
                         <path d="m12 5 7 7-7 7" />
                       </svg>
                       <span>{item.label}</span>
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -293,6 +321,12 @@ export default function Footer() {
             Endow Corporation.
           </div>
           <div className="flex items-center gap-5 text-gray-400">
+            <Link
+              href="/case-studies"
+              className="hover:text-white transition-colors"
+            >
+              Case Studies
+            </Link>
             <Link
               href="/sitemap"
               className="hover:text-white transition-colors"

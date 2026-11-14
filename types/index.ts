@@ -3,6 +3,9 @@ export interface SiteConfig {
   tagline: string;
   description: string;
   url: string;
+  locale?: string;
+  ogImage?: string;
+  twitterHandle?: string;
   parentCompany: {
     name: string;
     url: string;

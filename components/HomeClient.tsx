@@ -26,7 +26,7 @@ export default function HomeClient() {
         isSchedulerOpen={isSchedulerOpen}
         setIsSchedulerOpen={setIsSchedulerOpen}
       />
-      <main>
+      <main id="main">
         <HeroSection onOpenScheduler={() => setIsSchedulerOpen(true)} />
         <TrustEcosystem />
         <FeaturedProjects onOpenScheduler={() => setIsSchedulerOpen(true)} />

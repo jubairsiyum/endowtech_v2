@@ -224,7 +224,7 @@ export default function CaseStudiesPageClient() {
         setIsSchedulerOpen={setIsSchedulerOpen}
       />
 
-      <main className="overflow-x-clip">
+      <main id="main" className="overflow-x-clip">
         {/* ══════════════════════════════════════════════════════════════════════
             SECTION 1: DARK HERO + 2×2 NOTCHED PARALLELOGRAM STAT CARDS
         ══════════════════════════════════════════════════════════════════════ */}

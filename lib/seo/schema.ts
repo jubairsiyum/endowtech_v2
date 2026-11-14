@@ -227,6 +227,47 @@ export function getContactPageSchema() {
 }
 
 /**
+ * LocalBusiness / ProfessionalService Schema
+ * Formats local engineering studio locations for Seoul HQ and Dhaka Tech Hub.
+ */
+export function getLocalBusinessSchema() {
+  return siteConfig.offices.map((office) => ({
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${siteConfig.url}/#localbusiness-${office.city.toLowerCase()}`,
+    name: `${siteConfig.name} (${office.city} ${office.type})`,
+    url: siteConfig.url,
+    telephone: office.phone,
+    email: siteConfig.contact.email,
+    image: `${siteConfig.url}/images/logo.png`,
+    priceRange: "$$$$",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: office.address,
+      addressLocality: office.city,
+      addressCountry: office.country === "South Korea" ? "KR" : "BD",
+    },
+    parentOrganization: {
+      "@id": `${siteConfig.url}/#organization`,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+        ],
+        opens: "09:00",
+        closes: "18:00",
+      },
+    ],
+  }));
+}
+
+/**
  * CollectionPage Schema for Case Studies
  * Connects Endow Tech's 5 production case studies to the Knowledge Graph.
  */

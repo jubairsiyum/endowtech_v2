@@ -51,7 +51,7 @@ export default function SitemapPageClient() {
         setIsSchedulerOpen={setIsSchedulerOpen}
       />
 
-      <main className="overflow-x-clip bg-white">
+      <main id="main" className="overflow-x-clip bg-white">
         {/* ══════════════════════════════════════════════════════════════════════
             HERO SECTION: DAFFODIL VARSITY REFERENCE (COVER BANNER + OVERLAY)
         ══════════════════════════════════════════════════════════════════════ */}

@@ -33,7 +33,8 @@ export async function generateMetadata({
 
   if (!service) {
     return {
-      title: "Service Not Found | Endow Tech",
+      title: "Service Not Found",
+      robots: { index: false },
     };
   }
 
@@ -42,7 +43,7 @@ export async function generateMetadata({
   const description = detail?.heroSummary ?? service.description;
 
   return {
-    title: `${service.title} | Services`,
+    title: `${service.title} — Engineering Services`,
     description,
     alternates: {
       canonical: pageUrl,
@@ -52,11 +53,20 @@ export async function generateMetadata({
       description,
       url: pageUrl,
       type: "website",
+      images: [
+        {
+          url: `${siteConfig.url}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `${service.title} — Endow Tech`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${service.title} | Endow Tech`,
       description,
+      images: [`${siteConfig.url}/opengraph-image`],
     },
   };
 }

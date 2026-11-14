@@ -5,7 +5,10 @@ export const siteConfig: SiteConfig = {
   tagline: "Enterprise Software & Digital Product Studio",
   description:
     "Endow Tech is the technology and product engineering wing of Endow Corporation. We build high-performance web applications, student portal systems, and scalable SaaS platforms.",
-  url: "https://endowtech.net",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://endowtech.net",
+  locale: "en_US",
+  ogImage: "/images/logo.png",
+  twitterHandle: "@endowtech",
   parentCompany: {
     name: "Endow Corporation",
     url: "https://endowglobaledu.com",

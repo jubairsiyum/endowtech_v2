@@ -266,13 +266,33 @@ export default function Navbar({
                     );
                   }
 
+                  const isAnchor = link.href.startsWith("#");
+                  const targetHref = isAnchor
+                    ? pathname === "/" || pathname === ""
+                      ? link.href
+                      : `/${link.href}`
+                    : link.href;
+
                   const isActiveRoute =
-                    !link.href.startsWith("#") && pathname === link.href;
+                    !isAnchor && pathname === link.href;
+
+                  const handleLinkClick = (e: React.MouseEvent) => {
+                    if (isAnchor) {
+                      if (pathname === "/" || pathname === "") {
+                        e.preventDefault();
+                        scrollToElement(link.href, -40, 0.75);
+                      }
+                    } else if (pathname === link.href) {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  };
 
                   return (
-                    <button
+                    <Link
                       key={link.label}
-                      onClick={() => scrollTo(link.href)}
+                      href={targetHref}
+                      onClick={handleLinkClick}
                       className={`text-base font-medium transition-colors cursor-pointer flex items-center gap-1.5 group py-1.5 ${
                         isActiveRoute
                           ? "text-white underline decoration-accent decoration-2 underline-offset-8"
@@ -294,7 +314,7 @@ export default function Navbar({
                           <path d="m6 9 6 6 6-6" />
                         </svg>
                       )}
-                    </button>
+                    </Link>
                   );
                 })}
               </div>
@@ -441,10 +461,31 @@ export default function Navbar({
                     );
                   }
 
+                  const isAnchor = link.href.startsWith("#");
+                  const targetHref = isAnchor
+                    ? pathname === "/" || pathname === ""
+                      ? link.href
+                      : `/${link.href}`
+                    : link.href;
+
+                  const handleMobileLinkClick = (e: React.MouseEvent) => {
+                    setMobileMenuOpen(false);
+                    if (isAnchor) {
+                      if (pathname === "/" || pathname === "") {
+                        e.preventDefault();
+                        scrollToElement(link.href, -40, 0.75);
+                      }
+                    } else if (pathname === link.href) {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  };
+
                   return (
-                    <button
+                    <Link
                       key={link.label}
-                      onClick={() => scrollTo(link.href)}
+                      href={targetHref}
+                      onClick={handleMobileLinkClick}
                       className="text-base sm:text-lg font-semibold text-white/90 hover:text-white text-left uppercase tracking-wider py-2.5 border-b border-white/5 flex items-center justify-between"
                     >
                       <span>{link.label}</span>
@@ -461,7 +502,7 @@ export default function Navbar({
                           <path d="m9 18 6-6-6-6" />
                         </svg>
                       )}
-                    </button>
+                    </Link>
                   );
                 })}
               </div>

@@ -26,7 +26,8 @@ export async function generateMetadata({
 
   if (!project) {
     return {
-      title: "Project Not Found | Endow Tech",
+      title: "Project Not Found",
+      robots: { index: false },
     };
   }
 

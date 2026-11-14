@@ -223,11 +223,15 @@ export default function HeroSection({
                 transition={{ duration: 0.85, ease: EASE, delay: 0.15 }}
                 className="mb-3 sm:mb-4 w-full select-none"
               >
-                <h1 className="sr-only">
-                  Building Software That Scales Real Impact.
-                </h1>
-                <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2 max-w-2xl">
-                  <div className="relative z-10 hover:z-20 h-11 sm:h-14 md:h-16 lg:h-[58px] xl:h-[68px] 2xl:h-[76px] w-full">
+                <h1
+                  aria-label="Endow Tech — Building Software That Scales Real Impact"
+                  className="flex flex-col gap-1 sm:gap-1.5 md:gap-2 max-w-2xl font-bold"
+                >
+                  <span className="sr-only">
+                    Endow Tech — Building Software That Scales Real Impact.
+                  </span>
+                  <div aria-hidden="true" className="contents">
+                    <div className="relative z-10 hover:z-20 h-11 sm:h-14 md:h-16 lg:h-[58px] xl:h-[68px] 2xl:h-[76px] w-full">
                     <TechText
                       text="BUILDING SOFTWARE"
                       fontWeight={700}
@@ -288,7 +292,8 @@ export default function HeroSection({
                     />
                   </div>
                 </div>
-              </motion.div>
+              </h1>
+            </motion.div>
 
               {/* Subtitle */}
               <motion.p

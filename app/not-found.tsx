@@ -15,12 +15,26 @@ export default function NotFound() {
         The page you are looking for has been moved, deprecated, or does not
         exist in the Endow Tech architecture.
       </p>
-      <Link
-        href="/"
-        className="px-6 py-3 rounded-xl bg-accent text-white text-sm font-bold uppercase tracking-wider hover:bg-accent-hover transition-colors shadow-lg shadow-accent/30"
-      >
-        Return to Homepage
-      </Link>
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        <Link
+          href="/"
+          className="px-6 py-3 rounded-xl bg-accent text-white text-sm font-bold uppercase tracking-wider hover:bg-accent-hover transition-colors shadow-lg shadow-accent/30"
+        >
+          Return to Homepage
+        </Link>
+        <Link
+          href="/case-studies"
+          className="px-6 py-3 rounded-xl bg-white/[0.08] text-white text-sm font-bold uppercase tracking-wider hover:bg-white/[0.14] transition-colors border border-white/10"
+        >
+          Explore Case Studies
+        </Link>
+        <Link
+          href="/contact"
+          className="px-6 py-3 rounded-xl bg-white/[0.08] text-white text-sm font-bold uppercase tracking-wider hover:bg-white/[0.14] transition-colors border border-white/10"
+        >
+          Contact Studio
+        </Link>
+      </div>
     </div>
   );
 }

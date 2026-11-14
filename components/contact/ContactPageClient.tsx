@@ -77,7 +77,7 @@ export function ContactPageClient({
         setIsSchedulerOpen={setIsSchedulerOpen}
       />
 
-      <main className="overflow-x-clip">
+      <main id="main" className="overflow-x-clip">
         {/* ══════════════════════════════════════════════════════════════════════
             SECTION 1: SPLIT HERO + LEADERSHIP CARDS + REUSABLE BRIEF FORM (NO GRID)
         ══════════════════════════════════════════════════════════════════════ */}

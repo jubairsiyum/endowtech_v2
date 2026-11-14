@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import ContactPageClient from "@/components/contact/ContactPageClient";
 import JsonLd from "@/components/seo/JsonLd";
 import { siteConfig } from "@/data/siteConfig";
-import { getBreadcrumbSchema, getContactPageSchema } from "@/lib/seo/schema";
+import {
+  getBreadcrumbSchema,
+  getContactPageSchema,
+  getLocalBusinessSchema,
+} from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Contact Us — Seoul & Dhaka Engineering Studio",
@@ -33,6 +37,7 @@ export default async function ContactPage({
 }) {
   const { service } = await searchParams;
   const contactSchema = getContactPageSchema();
+  const localBusinessSchemas = getLocalBusinessSchema();
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: "Home", url: "/" },
     { name: "Contact", url: "/contact" },
@@ -40,7 +45,9 @@ export default async function ContactPage({
 
   return (
     <>
-      <JsonLd schema={[contactSchema, breadcrumbSchema]} />
+      <JsonLd
+        schema={[contactSchema, breadcrumbSchema, ...localBusinessSchemas]}
+      />
       <ContactPageClient initialService={service} />
     </>
   );
