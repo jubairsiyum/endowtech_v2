@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { ArrowUpRight, Mail, Moon, Phone, Sun } from "lucide-react";
 import AnimatedContent from "@/components/AnimatedContent";
+import { SectionTitle } from "@/components/ui/SectionHeader";
 import { officeRoutes } from "@/data/contact";
 import { cn } from "@/lib/utils";
 import type { OfficeRoute } from "@/types";
@@ -107,14 +108,14 @@ export function LocalTimeRoutes() {
             ease="power2.out"
             className="lg:col-span-5 pt-1"
           >
-            <h2
+            <SectionTitle
               id="local-time-heading"
-              className="text-4xl sm:text-5xl lg:text-[56px] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.06]"
+              className="text-4xl sm:text-5xl lg:text-[56px] leading-[1.06]"
             >
               Local time
               <br />
               Direct routes.
-            </h2>
+            </SectionTitle>
           </AnimatedContent>
 
           {/* Right Column: ONLY Seoul, South Korea & Dhaka, Bangladesh */}

@@ -2,6 +2,11 @@
 
 import { FadeIn } from "@/components/motion/FadeIn";
 import { FlowButton } from "@/components/ui/FlowButton";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { siteConfig } from "@/data/siteConfig";
 import { cn } from "@/lib/utils";
 import {
@@ -154,19 +159,19 @@ export default function GlobalPresence() {
           {/* ── Left Column: Editorial Story & Philosophy ── */}
           <div className="lg:col-span-6">
             <FadeIn>
-              <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-3">
+              <SectionMeta className="mb-3">
                 Global Footprint &amp; Identity
-              </span>
+              </SectionMeta>
 
-              <h2
+              <SectionTitle
                 id="about-heading"
-                className="text-[clamp(28px,3.1vw,46px)] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.1]"
+                className="text-[clamp(28px,3.1vw,46px)] leading-[1.1]"
               >
                 Built in Dhaka. <br />
                 <span className="gradient-text">Headquartered in Seoul.</span>
-              </h2>
+              </SectionTitle>
 
-              <p className="mt-5 text-neutral-600 text-sm sm:text-base leading-relaxed max-w-xl">
+              <SectionDescription className="mt-5 text-sm sm:text-base max-w-xl">
                 Endow Tech bridges global strategy with top-tier engineering
                 talent. As the technological foundation of{" "}
                 <strong className="font-semibold text-[#0f0000]">
@@ -175,9 +180,9 @@ export default function GlobalPresence() {
                 , our systems serve international education pipelines connecting
                 students with premier academic institutions in South Korea,
                 Finland, and beyond.
-              </p>
+              </SectionDescription>
 
-              <p className="mt-4 text-neutral-600 text-sm sm:text-base leading-relaxed max-w-xl">
+              <SectionDescription className="mt-4 text-sm sm:text-base max-w-xl">
                 We believe in{" "}
                 <strong className="font-semibold text-[#0f0000]">
                   purposeful engineering
@@ -186,7 +191,7 @@ export default function GlobalPresence() {
                 hacks. Whether we are building internal platforms for our parent
                 company or launching MVPs for startup founders, we engineer for
                 long-term durability.
-              </p>
+              </SectionDescription>
 
               {/* Architectural Corridor Strip */}
               <div className="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl">
@@ -201,7 +206,7 @@ export default function GlobalPresence() {
                 </div>
 
                 <div className="rounded-2xl bg-[#fafafa] border border-neutral-200/80 px-4 py-3">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-500">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-600">
                     Sync Window
                   </div>
                   <div className="mt-1 text-sm font-bold text-[#0f0000] tabular-nums">
@@ -210,7 +215,7 @@ export default function GlobalPresence() {
                 </div>
 
                 <div className="rounded-2xl bg-[#fafafa] border border-neutral-200/80 px-4 py-3">
-                  <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-500">
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-600">
                     <ShieldCheck
                       className="w-3.5 h-3.5 text-accent"
                       aria-hidden="true"

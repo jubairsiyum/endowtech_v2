@@ -1,6 +1,11 @@
 "use client";
 
 import { FadeIn } from "@/components/motion/FadeIn";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { engineeringProcess } from "@/data/process";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
@@ -166,22 +171,19 @@ export default function ProcessSection() {
       />
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
-        {/* ── Section Header — matching ServicesSection title style ── */}
+        {/* ── Section Header ── */}
         <FadeIn className="text-left md:text-center md:mx-auto max-w-2xl mb-14 sm:mb-16">
-          <span className="block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-2">
+          <SectionMeta className="mb-2">
             Engineering Methodology
-          </span>
-          <h2
-            id="process-heading"
-            className="text-[clamp(24px,2.5vw,38px)] font-bold leading-[1.14] tracking-[-0.035em] text-[#0f0000]"
-          >
+          </SectionMeta>
+          <SectionTitle id="process-heading">
             How we take products from blueprint to production.
-          </h2>
-          <p className="mt-2 text-[clamp(13px,0.95vw,15px)] leading-relaxed text-neutral-600 max-w-lg md:mx-auto">
+          </SectionTitle>
+          <SectionDescription className="max-w-lg md:mx-auto">
             No guesswork, no missed deadlines, no technical debt. Our 4-stage
             engineering lifecycle guarantees transparency, code quality, and
             predictable milestones.
-          </p>
+          </SectionDescription>
         </FadeIn>
 
         {/* ── Interactive Process Split Layout ── */}
@@ -369,7 +371,7 @@ export default function ProcessSection() {
 
                               {/* Inline Key Outputs for Mobile & Tablet (< lg) */}
                               <div className="lg:hidden mt-5 pt-4 border-t border-neutral-100">
-                                <div className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-neutral-500 mb-3">
+                                <div className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-neutral-600 mb-3">
                                   Key Outputs
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -429,7 +431,7 @@ export default function ProcessSection() {
 
                 {/* Key Outputs List */}
                 <div className="relative p-7">
-                  <div className="flex items-center gap-2 text-[11px] font-sans font-bold uppercase tracking-[0.16em] text-neutral-500 mb-4">
+                  <div className="flex items-center gap-2 text-[11px] font-sans font-bold uppercase tracking-[0.16em] text-neutral-600 mb-4">
                     <span className="w-2 h-2 rounded-md bg-accent" />
                     <span>Key Outputs:</span>
                   </div>
@@ -469,7 +471,7 @@ export default function ProcessSection() {
 
                 {/* Panel Footer with Step Controls */}
                 <div className="px-7 py-4 bg-[#fafafa] border-t border-neutral-100 flex items-center justify-between gap-4">
-                  <span className="text-xs font-sans font-medium tabular-nums text-neutral-500">
+                  <span className="text-xs font-sans font-medium tabular-nums text-neutral-600">
                     Stage{" "}
                     <strong className="text-[#0f0000]">
                       0{activeIndex + 1}
@@ -488,15 +490,19 @@ export default function ProcessSection() {
                         type="button"
                         onClick={() => setActiveIndex(i)}
                         aria-label={`Inspect step ${i + 1}: ${s.title}`}
-                        className={cn(
-                          "h-1.5 rounded-full transition-all duration-300 cursor-pointer",
-                          i === activeIndex
-                            ? "w-6 bg-accent"
-                            : i < activeIndex
-                              ? "w-2.5 bg-red-200 hover:bg-red-300"
-                              : "w-2 bg-neutral-200 hover:bg-neutral-300",
-                        )}
-                      />
+                        className="py-3 px-1 inline-flex items-center justify-center cursor-pointer min-h-[44px] focus:outline-none"
+                      >
+                        <span
+                          className={cn(
+                            "block h-1.5 rounded-full transition-all duration-300 pointer-events-none",
+                            i === activeIndex
+                              ? "w-6 bg-accent"
+                              : i < activeIndex
+                                ? "w-2.5 bg-red-200 hover:bg-red-300"
+                                : "w-2 bg-neutral-200 hover:bg-neutral-300",
+                          )}
+                        />
+                      </button>
                     ))}
                   </div>
 
@@ -505,7 +511,7 @@ export default function ProcessSection() {
                       type="button"
                       onClick={handlePrev}
                       aria-label="Previous engineering stage"
-                      className="w-8 h-8 rounded-xl border border-neutral-200 bg-white text-neutral-600 hover:border-accent hover:text-accent hover:bg-red-50/40 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95"
+                      className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-neutral-200 bg-white text-neutral-600 hover:border-accent hover:text-accent hover:bg-red-50/40 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95"
                     >
                       <ChevronLeft className="w-4 h-4 stroke-[2.2]" />
                     </button>
@@ -513,7 +519,7 @@ export default function ProcessSection() {
                       type="button"
                       onClick={handleNext}
                       aria-label="Next engineering stage"
-                      className="w-8 h-8 rounded-xl border border-neutral-200 bg-white text-neutral-600 hover:border-accent hover:text-accent hover:bg-red-50/40 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95"
+                      className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-neutral-200 bg-white text-neutral-600 hover:border-accent hover:text-accent hover:bg-red-50/40 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95"
                     >
                       <ChevronRight className="w-4 h-4 stroke-[2.2]" />
                     </button>

@@ -2,6 +2,11 @@
 
 import { FadeIn } from "@/components/motion/FadeIn";
 import { FlowButton } from "@/components/ui/FlowButton";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { industriesData } from "@/data/industries";
 import { cn } from "@/lib/utils";
 import { IndustryItem } from "@/types";
@@ -227,17 +232,17 @@ export default function IndustriesSection({
           <FadeIn className="max-w-2xl">
             {/* Top Tag: Square icon + Industries */}
             <div className="flex items-center gap-2 mb-3 sm:mb-4">
-              <span className="block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-2">
+              <SectionMeta className="mb-2">
                 Industries
-              </span>
+              </SectionMeta>
             </div>
 
-            <h2
+            <SectionTitle
               id="industries-heading"
-              className="text-[clamp(26px,2.9vw,42px)] font-bold text-neutral-900 leading-[1.14] tracking-[-0.035em]"
+              className="text-[clamp(26px,2.9vw,42px)] text-neutral-900"
             >
               Technology built around how your industry actually operates
-            </h2>
+            </SectionTitle>
 
             <div className="mt-6 sm:mt-8">
               <FlowButton

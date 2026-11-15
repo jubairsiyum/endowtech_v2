@@ -175,15 +175,10 @@ export function HeroGlassLogo({
 
   return (
     <motion.div
-      initial={
-        prefersReducedMotion
-          ? { opacity: 0 }
-          : { opacity: 0, scale: 0.88, y: 24, rotate: -4 }
-      }
+      initial={false}
       animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
       transition={{
-        duration: prefersReducedMotion ? 0.25 : 0.95,
-        delay: prefersReducedMotion ? 0 : 0.22,
+        duration: prefersReducedMotion ? 0.25 : 0.8,
         ease: HERO_EASE,
       }}
       className={`relative w-full aspect-[1200/1084] flex items-center justify-center ${className}`}
@@ -287,7 +282,7 @@ export function HeroGlassLogo({
             width={1200}
             height={1084}
             priority
-            quality={95}
+            quality={75}
             draggable={false}
             sizes="(max-width: 640px) 270px, (max-width: 1024px) 360px, (max-width: 1280px) 320px, 440px"
             className="w-full h-full object-contain select-none pointer-events-none"

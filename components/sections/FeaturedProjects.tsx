@@ -6,6 +6,11 @@
  * No framer-motion needed: one rAF loop writes transforms straight to the DOM (no React re-renders while scrolling).
  */
 import FeaturedWorkCta from "@/components/sections/FeaturedWorkCta";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { featuredProjects } from "@/data/featuredProjects"; // { id, title, image, category, client }
 import Image from "next/image";
 import Link from "next/link";
@@ -323,7 +328,7 @@ export default function FeaturedProjects({
               width={640}
               height={748}
               className="w-full h-auto object-contain"
-              priority
+              loading="lazy"
             />
           </div>
 
@@ -334,12 +339,12 @@ export default function FeaturedProjects({
           >
             {/* Mobile Top Bar */}
             <div className="flex md:hidden items-center justify-between w-full mb-3 pointer-events-auto">
-              <span className="font-sans text-[12px] uppercase tracking-[0.2em] text-accent font-semibold">
+              <SectionMeta className="text-[12px] mb-0">
                 Featured Work
-              </span>
+              </SectionMeta>
               <a
                 href="#services"
-                className="inline-flex items-center gap-1.5 font-sans font-medium text-[12px] text-neutral-600 hover:text-black transition-colors"
+                className="inline-flex items-center gap-1.5 font-sans font-medium text-[12px] text-neutral-700 hover:text-black transition-colors py-2 min-h-[44px]"
               >
                 <span className="text-[#0f0000]">Beyond the projects</span>
                 <span className="text-[16px] leading-none">↘</span>
@@ -353,17 +358,17 @@ export default function FeaturedProjects({
 
               {/* Title & Text */}
               <div className="text-left md:text-center md:mx-auto max-w-2xl pointer-events-auto">
-                <span className="hidden md:block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-2">
+                <SectionMeta className="hidden md:block mb-2">
                   Featured Work
-                </span>
-                <h2 className="text-[clamp(24px,2.5vw,38px)] font-bold leading-[1.14] tracking-[-0.035em] text-[#0f0000]">
+                </SectionMeta>
+                <SectionTitle>
                   Built for scale. Proven in production.
-                </h2>
-                <p className="mt-2 text-[clamp(13px,0.95vw,15px)] leading-relaxed text-neutral-600 max-w-lg md:mx-auto">
+                </SectionTitle>
+                <SectionDescription className="max-w-lg md:mx-auto">
                   We measure enterprise engineering by what the system has to
                   handle, how critical it becomes, and what changes for the
                   business after it ships.
-                </p>
+                </SectionDescription>
               </div>
 
               {/* Right: Beyond the projects link (desktop only) */}
@@ -412,9 +417,9 @@ export default function FeaturedProjects({
                   src={p.image}
                   alt={p.title}
                   fill
-                  quality={95}
+                  quality={75}
                   sizes="(max-width: 767px) 92vw, (max-width: 1100px) 52vw, 780px"
-                  priority={i < 2}
+                  priority={false}
                   draggable={false}
                   className="object-cover object-center transition-transform duration-500 ease-out group-hover/card:scale-[1.02]"
                 />
@@ -485,7 +490,7 @@ export default function FeaturedProjects({
                   style={{ width: 0 }}
                 />
               </div>
-              <span className="font-sans font-medium tabular-nums text-[11px] sm:text-[12px] leading-none text-neutral-500">
+              <span className="font-sans font-medium tabular-nums text-[11px] sm:text-[12px] leading-none text-neutral-600">
                 {String(N).padStart(2, "0")}
               </span>
             </div>

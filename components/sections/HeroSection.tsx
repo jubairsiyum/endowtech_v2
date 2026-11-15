@@ -203,24 +203,24 @@ export default function HeroSection({
             >
               {/* Eyebrow badge */}
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: EASE }}
                 className="mb-3 sm:mb-4 flex flex-wrap items-center gap-3"
               >
-                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/30 text-accent font-sans text-xs font-semibold uppercase tracking-[0.14em]">
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/30 text-red-400 font-sans text-xs font-semibold uppercase tracking-[0.14em]">
                   {siteConfig.parentCompany.name} Venture
                 </span>
-                <span className="text-gray-400 text-xs font-medium hidden sm:inline">
+                <span className="text-gray-300 text-xs font-medium hidden sm:inline">
                   Seoul HQ · Dhaka Tech Hub
                 </span>
               </motion.div>
 
-              {/* Headline - Interactive TechText Blueprint Canvas */}
+              {/* Headline - Responsive: Instant HTML on mobile (< md), Interactive TechText on md+ */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.85, ease: EASE, delay: 0.15 }}
+                transition={{ duration: 0.85, ease: EASE }}
                 className="mb-3 sm:mb-4 w-full select-none"
               >
                 <h1
@@ -230,77 +230,85 @@ export default function HeroSection({
                   <span className="sr-only">
                     Endow Tech — Building Software That Scales Real Impact.
                   </span>
-                  <div aria-hidden="true" className="contents">
-                    <div className="relative z-10 hover:z-20 h-11 sm:h-14 md:h-16 lg:h-[58px] xl:h-[68px] 2xl:h-[76px] w-full">
-                    <TechText
-                      text="BUILDING SOFTWARE"
-                      fontWeight={700}
-                      fontSize={150}
-                      reveal="letter"
-                      dashLength={4}
-                      dashGap={2}
-                      specks={15}
-                      intro="assemble"
-                      introDuration={2}
-                      clickKick
-                      guides={false}
-                      fontFamily=""
-                      letterSpacing={0}
-                      accentColor="#ef4444"
-                      reach={200}
-                      softness={0.7}
-                      lineStyle="dashed"
-                      strokeWidth={1.5}
-                      speed={1}
-                      bounce={0.4}
-                      selection
-                      labels
-                      color="#ffff"
-                      align="left"
-                      draggable
-                      sweep={false}
-                    />
-                  </div>
-                  <div className="relative z-10 hover:z-20 h-11 sm:h-14 md:h-16 lg:h-[58px] xl:h-[68px] 2xl:h-[76px] w-full">
-                    <TechText
-                      text="THAT SCALES REAL IMPACT."
-                      fontWeight={700}
-                      fontSize={150}
-                      reveal="letter"
-                      dashLength={4}
-                      dashGap={2}
-                      specks={15}
-                      intro="metrics"
-                      introDuration={2}
-                      clickKick
-                      guides={false}
-                      fontFamily=""
-                      letterSpacing={0}
-                      accentColor="#fff"
-                      reach={200}
-                      softness={0.7}
-                      lineStyle="dashed"
-                      strokeWidth={1.5}
-                      speed={1}
-                      bounce={0.4}
-                      selection
-                      labels
-                      color="#ef4444"
-                      align="left"
-                      draggable
-                      sweep={false}
-                    />
-                  </div>
-                </div>
-              </h1>
-            </motion.div>
+                  
+                  {/* Instant Mobile Visual Typography (Zero-Lag LCP) */}
+                  <span className="md:hidden flex flex-col gap-1 w-full text-[clamp(28px,7.8vw,42px)] font-bold tracking-tight leading-[1.08] select-none" aria-hidden="true">
+                    <span className="text-white">BUILDING SOFTWARE</span>
+                    <span className="text-red-500">THAT SCALES REAL IMPACT.</span>
+                  </span>
+
+                  {/* Desktop Blueprint Canvas */}
+                  <span aria-hidden="true" className="hidden md:contents">
+                    <span className="block relative z-10 hover:z-20 h-11 sm:h-14 md:h-16 lg:h-[58px] xl:h-[68px] 2xl:h-[76px] w-full">
+                      <TechText
+                        text="BUILDING SOFTWARE"
+                        fontWeight={700}
+                        fontSize={150}
+                        reveal="letter"
+                        dashLength={4}
+                        dashGap={2}
+                        specks={12}
+                        intro="assemble"
+                        introDuration={1.2}
+                        clickKick
+                        guides={false}
+                        fontFamily=""
+                        letterSpacing={0}
+                        accentColor="#ef4444"
+                        reach={200}
+                        softness={0.7}
+                        lineStyle="dashed"
+                        strokeWidth={1.5}
+                        speed={1}
+                        bounce={0.4}
+                        selection
+                        labels
+                        color="#ffff"
+                        align="left"
+                        draggable
+                        sweep={false}
+                      />
+                    </span>
+                    <span className="block relative z-10 hover:z-20 h-11 sm:h-14 md:h-16 lg:h-[58px] xl:h-[68px] 2xl:h-[76px] w-full">
+                      <TechText
+                        text="THAT SCALES REAL IMPACT."
+                        fontWeight={700}
+                        fontSize={150}
+                        reveal="letter"
+                        dashLength={4}
+                        dashGap={2}
+                        specks={12}
+                        intro="metrics"
+                        introDuration={1.2}
+                        clickKick
+                        guides={false}
+                        fontFamily=""
+                        letterSpacing={0}
+                        accentColor="#fff"
+                        reach={200}
+                        softness={0.7}
+                        lineStyle="dashed"
+                        strokeWidth={1.5}
+                        speed={1}
+                        bounce={0.4}
+                        selection
+                        labels
+                        color="#ef4444"
+                        align="left"
+                        draggable
+                        sweep={false}
+                      />
+                    </span>
+                  </span>
+                </h1>
+              </motion.div>
 
               {/* Subtitle */}
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: EASE, delay: 0.35 }}
-                className="text-base sm:text-md text-gray-300 max-w-2xl leading-relaxed mb-6 sm:mb-8"
+                transition={{ duration: 0.7, ease: EASE }}
+                className="text-base sm:text-lg text-gray-200 max-w-2xl leading-relaxed mb-6 sm:mb-8"
               >
                 We are the software and product engineering studio behind global
                 academic portals, automated admissions pipelines, and
@@ -310,9 +318,9 @@ export default function HeroSection({
 
               {/* Action CTAs */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: EASE, delay: 0.45 }}
+                transition={{ duration: 0.7, ease: EASE }}
                 className="flex flex-wrap items-center gap-4 mb-2 sm:mb-4 lg:mb-0"
               >
                 <FlowButton
@@ -357,7 +365,7 @@ export default function HeroSection({
         <div className="relative z-30 w-full pointer-events-none overflow-hidden -mb-1">
           <div className="pointer-events-auto w-full">
             <TextLoop
-              logos={TECH_STACK_LOGOS}
+              logos={isMobile ? TECH_STACK_LOGOS.slice(0, 10) : TECH_STACK_LOGOS}
               reddishGray
               logoSize={isMobile ? 70 : 28}
               logoSpacing={isMobile ? 120 : 64}
@@ -393,16 +401,16 @@ export default function HeroSection({
               width={640}
               height={748}
               className="w-full h-auto object-contain"
-              priority
+              loading="lazy"
             />
           </div>
 
           <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
             {/* Header block for extra height and architectural weight */}
             <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10 lg:mb-14">
-              <h5 className="mt-2 sm:mt-3 text-base sm:text-xl md:text-2xl text-white tracking-tight">
+              <h2 className="mt-2 sm:mt-3 text-base sm:text-xl md:text-2xl text-white tracking-tight font-medium">
                 Trusted by enterprises and technology leaders
-              </h5>
+              </h2>
             </div>
 
             {/* Colossal numbers & metrics grid: 2 per row on mobile, 4 on desktop */}
@@ -422,7 +430,7 @@ export default function HeroSection({
                   <div className="text-xs sm:text-base font-semibold text-white tracking-wide mt-2 sm:mt-3">
                     {stat.label}
                   </div>
-                  <div className="text-[11px] sm:text-xs text-white/85 font-medium mt-1 max-w-[180px] sm:max-w-[220px]">
+                  <div className="text-[11px] sm:text-xs text-white font-medium mt-1 max-w-[180px] sm:max-w-[220px]">
                     {stat.desc}
                   </div>
                 </div>

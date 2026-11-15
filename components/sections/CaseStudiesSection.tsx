@@ -2,6 +2,11 @@ import { CountUp } from "@/components/motion/CountUp";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Badge } from "@/components/ui/Badge";
 import { FlowButton } from "@/components/ui/FlowButton";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { caseStudies } from "@/data/caseStudies";
 
 export default function CaseStudiesSection() {
@@ -15,19 +20,21 @@ export default function CaseStudiesSection() {
         {/* Section Header */}
         <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
           <div>
-            <Badge variant="code">{"// Case Studies & Impact"}</Badge>
-            <h2
+            <SectionMeta className="mb-2">
+              Case Studies &amp; Impact
+            </SectionMeta>
+            <SectionTitle
               id="case-studies-heading"
-              className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight"
+              className="mt-4 text-3xl sm:text-4xl md:text-5xl text-text-primary tracking-tight"
             >
               Engineering that delivers{" "}
               <span className="gradient-text">measurable ROI.</span>
-            </h2>
-            <p className="mt-4 text-text-muted max-w-2xl text-base leading-relaxed">
+            </SectionTitle>
+            <SectionDescription className="mt-4 text-text-muted max-w-2xl text-base">
               Explore how our bespoke software solutions and automated platforms
               have modernized operations, reduced processing time, and
               accelerated business growth.
-            </p>
+            </SectionDescription>
           </div>
           <div className="shrink-0">
             <FlowButton href="/case-studies" variant="primary" size="md">

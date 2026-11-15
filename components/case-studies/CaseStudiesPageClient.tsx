@@ -11,6 +11,11 @@ import { CountUp } from "@/components/motion/CountUp";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { FlowButton } from "@/components/ui/FlowButton";
 import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
+import {
   caseStudiesHeroStats,
   caseStudiesImpactMetrics,
   caseStudiesPageContent,
@@ -253,23 +258,24 @@ export default function CaseStudiesPageClient() {
                   duration={0.65}
                   ease="power3.out"
                 >
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-3">
+                  <SectionMeta className="mb-3">
                     {caseStudiesPageContent.hero.eyebrow}
-                  </span>
+                  </SectionMeta>
 
-                  <h1
+                  <SectionTitle
+                    as="h1"
                     id="case-studies-hero-heading"
-                    className="text-4xl sm:text-5xl lg:text-[50px] xl:text-[60px] font-bold text-white tracking-[-0.035em] leading-[1.06] max-w-2xl"
+                    className="text-4xl sm:text-5xl lg:text-[50px] xl:text-[60px] text-white leading-[1.06] max-w-2xl"
                   >
                     {caseStudiesPageContent.hero.titleLine1}{" "}
                     <span className="gradient-text">
                       {caseStudiesPageContent.hero.titleHighlight}
                     </span>
-                  </h1>
+                  </SectionTitle>
 
-                  <p className="mt-5 text-base sm:text-lg text-gray-300 leading-relaxed max-w-xl">
+                  <SectionDescription className="mt-5 text-base sm:text-lg text-gray-300 max-w-xl">
                     {caseStudiesPageContent.hero.subtitle}
-                  </p>
+                  </SectionDescription>
 
                   <div className="mt-8 flex flex-wrap items-center gap-4">
                     <FlowButton
@@ -378,20 +384,20 @@ export default function CaseStudiesPageClient() {
             {/* Section Title Row (User's Red Section Title Style) */}
             <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 sm:mb-12">
               <div className="max-w-xl">
-                <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                <SectionMeta>
                   {caseStudiesPageContent.featured.eyebrow}
-                </span>
-                <h2
+                </SectionMeta>
+                <SectionTitle
                   id="featured-spotlight-heading"
-                  className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                  className="text-[clamp(26px,2.8vw,42px)]"
                 >
                   {caseStudiesPageContent.featured.title}
-                </h2>
+                </SectionTitle>
               </div>
 
-              <p className="text-[clamp(13px,1vw,15px)] leading-relaxed text-neutral-600 max-w-md">
+              <SectionDescription className="mt-0 max-w-md">
                 {caseStudiesPageContent.featured.sideDescription}
-              </p>
+              </SectionDescription>
             </FadeIn>
 
             {/* Spotlight Card */}
@@ -581,15 +587,15 @@ export default function CaseStudiesPageClient() {
           <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             {/* Section Title (User's Red Section Title Style) */}
             <FadeIn className="mb-8 sm:mb-10">
-              <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+              <SectionMeta>
                 {caseStudiesPageContent.grid.eyebrow}
-              </span>
-              <h2
+              </SectionMeta>
+              <SectionTitle
                 id="case-studies-grid-heading"
-                className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                className="text-[clamp(26px,2.8vw,42px)]"
               >
                 {caseStudiesPageContent.grid.title}
-              </h2>
+              </SectionTitle>
             </FadeIn>
 
             {/* Filter Pills & Live Counter Bar */}
@@ -732,15 +738,15 @@ export default function CaseStudiesPageClient() {
 
           <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 text-center">
             <FadeIn className="max-w-2xl mx-auto">
-              <div className="text-xs font-sans uppercase tracking-[0.18em] text-white/85 font-semibold mb-3">
+              <SectionMeta className="text-xs text-white/85 tracking-[0.18em] mb-3">
                 {caseStudiesPageContent.ctaBanner.eyebrow}
-              </div>
-              <h2
+              </SectionMeta>
+              <SectionTitle
                 id="case-studies-banner-heading"
-                className="text-2xl sm:text-3xl lg:text-[42px] font-bold text-white tracking-tight leading-[1.15]"
+                className="text-2xl sm:text-3xl lg:text-[42px] text-white tracking-tight leading-[1.15]"
               >
                 {caseStudiesPageContent.ctaBanner.title}
-              </h2>
+              </SectionTitle>
               <div className="mt-7 flex justify-center">
                 <FlowButton
                   variant="white-red"
@@ -790,18 +796,18 @@ export default function CaseStudiesPageClient() {
               {/* Left Column: Editorial Prompt & Direct Routes */}
               <div className="lg:col-span-5">
                 <FadeIn>
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                  <SectionMeta>
                     {caseStudiesPageContent.contact.eyebrow}
-                  </span>
-                  <h2
+                  </SectionMeta>
+                  <SectionTitle
                     id="case-studies-contact-heading"
-                    className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.1]"
+                    className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.1]"
                   >
                     {caseStudiesPageContent.contact.title}
-                  </h2>
-                  <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed max-w-md">
+                  </SectionTitle>
+                  <SectionDescription className="mt-4 text-sm sm:text-base max-w-md">
                     {caseStudiesPageContent.contact.subtitle}
-                  </p>
+                  </SectionDescription>
 
                   {/* Quick Direct Channels */}
                   <div className="mt-8 space-y-3 max-w-sm">

@@ -3,6 +3,11 @@
 import { FadeIn } from "@/components/motion/FadeIn";
 import { scrollToElement } from "@/components/SmoothScroll";
 import { FlowButton } from "@/components/ui/FlowButton";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { faqItems } from "@/data/faq";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
@@ -53,20 +58,20 @@ export default function FAQSection({
           {/* Left Sticky Intro & Dark Watermarked Direct Consultation Box */}
           <div className="lg:col-span-5 lg:sticky lg:top-28">
             <FadeIn>
-              <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+              <SectionMeta>
                 Frequently Asked Questions
-              </span>
-              <h2
+              </SectionMeta>
+              <SectionTitle
                 id="faq-heading"
-                className="text-[clamp(26px,2.8vw,40px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                className="text-[clamp(26px,2.8vw,40px)]"
               >
                 Everything you need to know before partnering.
-              </h2>
-              <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed max-w-md">
+              </SectionTitle>
+              <SectionDescription className="mt-4 text-sm sm:text-base max-w-md">
                 Clear engineering commitments around intellectual property,
                 sprint cadences, integration boundaries, and post-launch SLAs
                 across our Seoul &amp; Dhaka teams.
-              </p>
+              </SectionDescription>
 
               {/* Signature Dark Crimson Card with Rising White Watermark */}
               <div

@@ -1,7 +1,7 @@
 "use client";
 
 import { useInView } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 export interface CountUpProps {
   value: string | number;
@@ -65,29 +65,17 @@ export function CountUp({
     };
   }, [value, customPrefix, customSuffix, rawString]);
 
-  // Initial placeholder before viewport entrance
-  const initialPlaceholder = useMemo(() => {
-    const zeroStr = decimals > 0 ? `0.${"0".repeat(decimals)}` : "0";
-    return `${prefix}${zeroStr}${suffix}`;
-  }, [prefix, decimals, suffix]);
-
-  const [displayValue, setDisplayValue] = useState<string>(initialPlaceholder);
-
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || !ref.current) return;
 
     // Check for prefers-reduced-motion
     if (
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
     ) {
-      const formatted = hasCommas
-        ? target.toLocaleString("en-US", {
-            minimumFractionDigits: decimals,
-            maximumFractionDigits: decimals,
-          })
-        : target.toFixed(decimals);
-      setDisplayValue(`${prefix}${formatted}${suffix}`);
+      if (ref.current) {
+        ref.current.textContent = String(value);
+      }
       return;
     }
 
@@ -111,19 +99,17 @@ export function CountUp({
         ? Math.round(current).toLocaleString("en-US")
         : current.toFixed(decimals);
 
-      setDisplayValue(`${prefix}${formattedNum}${suffix}`);
+      if (ref.current) {
+        ref.current.textContent = `${prefix}${formattedNum}${suffix}`;
+      }
 
       if (progress < 1) {
         animationFrameId = requestAnimationFrame(step);
       } else {
         // Pin to exact target format on completion
-        const finalFormatted = hasCommas
-          ? target.toLocaleString("en-US", {
-              minimumFractionDigits: decimals,
-              maximumFractionDigits: decimals,
-            })
-          : target.toFixed(decimals);
-        setDisplayValue(`${prefix}${finalFormatted}${suffix}`);
+        if (ref.current) {
+          ref.current.textContent = String(value);
+        }
       }
     };
 
@@ -139,11 +125,11 @@ export function CountUp({
       if (timeoutId) clearTimeout(timeoutId);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
-  }, [isInView, target, duration, delay, decimals, hasCommas, prefix, suffix]);
+  }, [isInView, target, duration, delay, decimals, hasCommas, prefix, suffix, value]);
 
   return (
     <span ref={ref} className={`tabular-nums ${className}`}>
-      {isInView ? displayValue : initialPlaceholder}
+      {value}
     </span>
   );
 }

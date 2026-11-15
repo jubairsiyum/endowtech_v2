@@ -1,4 +1,9 @@
 import { FadeIn } from "@/components/motion/FadeIn";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { coreServices } from "@/data/services";
 
 export default function ServicesSection() {
@@ -69,22 +74,19 @@ export default function ServicesSection() {
       </div>
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Section Header — matching previous section's title style */}
+        {/* Section Header */}
         <FadeIn className="text-left md:text-center md:mx-auto max-w-2xl mb-14 sm:mb-16">
-          <span className="block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-2">
+          <SectionMeta className="mb-2">
             Core Capabilities
-          </span>
-          <h2
-            id="services-heading"
-            className="text-[clamp(24px,2.5vw,38px)] font-bold leading-[1.14] tracking-[-0.035em] text-[#0f0000]"
-          >
+          </SectionMeta>
+          <SectionTitle id="services-heading">
             Full-stack engineering built for scale, speed &amp; reliability.
-          </h2>
-          <p className="mt-2 text-[clamp(13px,0.95vw,15px)] leading-relaxed text-neutral-600 max-w-lg md:mx-auto">
+          </SectionTitle>
+          <SectionDescription className="max-w-lg md:mx-auto">
             From greenfield architecture to high-concurrency production
             platforms, we handle every layer of your software product — design,
             engineering, and continuous SLA delivery.
-          </p>
+          </SectionDescription>
         </FadeIn>
 
         {/* Services Grid */}

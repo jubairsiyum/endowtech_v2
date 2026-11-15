@@ -1,6 +1,11 @@
 "use client";
 
 import { FadeIn } from "@/components/motion/FadeIn";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import type { ServiceCapabilityModule } from "@/data/serviceDetails";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
@@ -179,18 +184,15 @@ export default function ServiceCapabilitiesSection({
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         {/* ── Section Header — Centered Homepage Blueprint Style ── */}
         <FadeIn className="text-left md:text-center md:mx-auto max-w-2xl mb-14 sm:mb-16">
-          <span className="block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-2">
+          <SectionMeta className="mb-2">
             {eyebrow}
-          </span>
-          <h2
-            id="service-capabilities-heading"
-            className="text-[clamp(24px,2.5vw,38px)] font-bold leading-[1.14] tracking-[-0.035em] text-[#0f0000]"
-          >
+          </SectionMeta>
+          <SectionTitle id="service-capabilities-heading">
             {heading}
-          </h2>
-          <p className="mt-2 text-[clamp(13px,0.95vw,15px)] leading-relaxed text-neutral-600 max-w-lg md:mx-auto">
+          </SectionTitle>
+          <SectionDescription className="max-w-lg md:mx-auto">
             {summary}
-          </p>
+          </SectionDescription>
         </FadeIn>
 
         {/* ── Interactive Capabilities Blueprint Split Layout ── */}
@@ -501,15 +503,19 @@ export default function ServiceCapabilitiesSection({
                         type="button"
                         onClick={() => setActiveIndex(i)}
                         aria-label={`Inspect module ${i + 1}: ${cap.title}`}
-                        className={cn(
-                          "h-1.5 rounded-full transition-all duration-300 cursor-pointer",
-                          i === activeIndex
-                            ? "w-6 bg-accent"
-                            : i < activeIndex
-                              ? "w-2.5 bg-red-200 hover:bg-red-300"
-                              : "w-2 bg-neutral-200 hover:bg-neutral-300",
-                        )}
-                      />
+                        className="py-3 px-1 inline-flex items-center justify-center cursor-pointer min-h-[44px] focus:outline-none"
+                      >
+                        <span
+                          className={cn(
+                            "block h-1.5 rounded-full transition-all duration-300 pointer-events-none",
+                            i === activeIndex
+                              ? "w-6 bg-accent"
+                              : i < activeIndex
+                                ? "w-2.5 bg-red-200 hover:bg-red-300"
+                                : "w-2 bg-neutral-200 hover:bg-neutral-300",
+                          )}
+                        />
+                      </button>
                     ))}
                   </div>
 
@@ -518,7 +524,7 @@ export default function ServiceCapabilitiesSection({
                       type="button"
                       onClick={handlePrev}
                       aria-label="Previous capability module"
-                      className="w-8 h-8 rounded-xl border border-neutral-200 bg-white text-neutral-600 hover:border-accent hover:text-accent hover:bg-red-50/40 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95"
+                      className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-neutral-200 bg-white text-neutral-600 hover:border-accent hover:text-accent hover:bg-red-50/40 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95"
                     >
                       <ChevronLeft className="w-4 h-4 stroke-[2.2]" />
                     </button>
@@ -526,7 +532,7 @@ export default function ServiceCapabilitiesSection({
                       type="button"
                       onClick={handleNext}
                       aria-label="Next capability module"
-                      className="w-8 h-8 rounded-xl border border-neutral-200 bg-white text-neutral-600 hover:border-accent hover:text-accent hover:bg-red-50/40 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95"
+                      className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-neutral-200 bg-white text-neutral-600 hover:border-accent hover:text-accent hover:bg-red-50/40 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95"
                     >
                       <ChevronRight className="w-4 h-4 stroke-[2.2]" />
                     </button>

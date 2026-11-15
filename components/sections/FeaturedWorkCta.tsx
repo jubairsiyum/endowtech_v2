@@ -1,6 +1,7 @@
 "use client";
 
 import { FlowButton } from "@/components/ui/FlowButton";
+import { SectionTitle } from "@/components/ui/SectionHeader";
 import Image from "next/image";
 
 export interface FeaturedWorkCtaProps {
@@ -49,12 +50,14 @@ export default function FeaturedWorkCta({
       {/* ── Left Content: Clean Headline & White Button ── */}
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-7 lg:px-10 flex flex-col justify-center">
         <div className="max-w-2xl">
-          <h2 className="text-xl sm:text-2xl md:text-[25px] lg:text-[30px] font-bold text-white tracking-tight leading-[1.25] mb-5">
+          <SectionTitle
+            className="text-xl sm:text-2xl md:text-[25px] lg:text-[30px] text-white tracking-tight leading-[1.25] mb-5"
+          >
             From complex architecture to seamless
             <span className="block mt-1 sm:mt-1.5 text-white">
               user experiences - Let&apos;s build
             </span>
-          </h2>
+          </SectionTitle>
 
           <div className="mt-5 sm:mt-6">
             <FlowButton

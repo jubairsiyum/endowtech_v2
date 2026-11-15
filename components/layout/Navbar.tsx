@@ -342,7 +342,7 @@ export default function Navbar({
                 {/* Mobile Menu Toggle Button */}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className={`lg:hidden p-1.5 sm:p-2 rounded-lg transition-colors cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent flex items-center justify-center ${
+                  className={`lg:hidden min-w-[44px] min-h-[44px] p-2 rounded-lg transition-colors cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent flex items-center justify-center ${
                     mobileMenuOpen
                       ? "text-accent bg-accent/10 hover:bg-accent/20"
                       : "text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15"
@@ -446,7 +446,7 @@ export default function Navbar({
                                       setMobileMenuOpen(false);
                                       setMobileServicesOpen(false);
                                     }}
-                                    className="text-sm font-medium text-gray-300 hover:text-white py-1 flex items-center justify-between group/mob transition-colors"
+                                    className="text-sm font-medium text-gray-300 hover:text-white py-2.5 min-h-[44px] flex items-center justify-between group/mob transition-colors"
                                   >
                                     <span className="font-semibold text-white/90 group-hover/mob:text-accent transition-colors">
                                       {service.title}

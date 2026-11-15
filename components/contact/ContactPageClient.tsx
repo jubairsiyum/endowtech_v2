@@ -17,6 +17,11 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import AnimatedContent from "@/components/AnimatedContent";
 import { FlowButton } from "@/components/ui/FlowButton";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { LeadershipCards } from "@/components/contact/LeadershipCards";
 import { LocalTimeRoutes } from "@/components/contact/LocalTimeRoutes";
@@ -126,23 +131,24 @@ export function ContactPageClient({
                   ease="power3.out"
                 >
                   {/* Red Section Title Style Matching ServicesSection */}
-                  <span className="block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-3">
+                  <SectionMeta className="mb-3">
                     {contactPageContent.hero.eyebrow}
-                  </span>
+                  </SectionMeta>
 
-                  <h1
+                  <SectionTitle
+                    as="h1"
                     id="contact-hero-heading"
-                    className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.05] max-w-xl"
+                    className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] leading-[1.05] max-w-xl"
                   >
                     {contactPageContent.hero.titleLine1}{" "}
                     <span className="gradient-text">
                       {contactPageContent.hero.titleHighlight}
                     </span>
-                  </h1>
+                  </SectionTitle>
 
-                  <p className="mt-5 text-base sm:text-lg text-neutral-600 leading-relaxed max-w-lg">
+                  <SectionDescription className="mt-5 text-base sm:text-lg max-w-lg">
                     {contactPageContent.hero.subtitle}
-                  </p>
+                  </SectionDescription>
                 </AnimatedContent>
 
                 {/* CEO Card + Smaller Left-Aligned Tech Lead Card */}
@@ -213,15 +219,15 @@ export function ContactPageClient({
               duration={0.58}
               ease="power2.out"
             >
-              <h2
+              <SectionTitle
                 id="direct-connect-heading"
-                className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-white tracking-tight leading-tight"
+                className="text-3xl sm:text-4xl lg:text-[46px] text-white tracking-tight leading-tight"
               >
                 {contactPageContent.directStrip.title}
-              </h2>
-              <p className="mt-4 text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              </SectionTitle>
+              <SectionDescription className="mt-4 text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
                 {contactPageContent.directStrip.subtitle}
-              </p>
+              </SectionDescription>
             </AnimatedContent>
 
             {/* Direct Channel Pills: Larger Cards, Lighter Surface, Zero Border, White Icon Button */}
@@ -328,18 +334,18 @@ export function ContactPageClient({
               ease="power2.out"
               className="text-center max-w-2xl mx-auto mb-12 sm:mb-14"
             >
-              <span className="block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-2">
+              <SectionMeta className="mb-2">
                 {contactPageContent.whatHappensNext.eyebrow}
-              </span>
-              <h2
+              </SectionMeta>
+              <SectionTitle
                 id="what-happens-next-heading"
-                className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#0f0000] tracking-tight leading-[1.12]"
+                className="text-3xl sm:text-4xl lg:text-[42px] tracking-tight leading-[1.12]"
               >
                 {contactPageContent.whatHappensNext.title}
-              </h2>
-              <p className="mt-3 text-sm sm:text-base text-neutral-600 leading-relaxed">
+              </SectionTitle>
+              <SectionDescription className="mt-3 text-sm sm:text-base">
                 {contactPageContent.whatHappensNext.subtitle}
-              </p>
+              </SectionDescription>
             </AnimatedContent>
 
             {/* Editorial Studio Team Visual */}
@@ -455,15 +461,15 @@ export function ContactPageClient({
               ease="power2.out"
               className="max-w-2xl"
             >
-              <div className="text-xs font-sans uppercase tracking-[0.18em] text-white/80 font-semibold mb-3">
+              <SectionMeta className="text-xs text-white/80 tracking-[0.18em] mb-3">
                 {contactPageContent.bottomCta.eyebrow}
-              </div>
-              <h2
+              </SectionMeta>
+              <SectionTitle
                 id="bottom-cta-heading"
-                className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-white tracking-tight leading-[1.15]"
+                className="text-2xl sm:text-3xl lg:text-[40px] text-white tracking-tight leading-[1.15]"
               >
                 {contactPageContent.bottomCta.title}
-              </h2>
+              </SectionTitle>
               <p className="mt-3 text-sm sm:text-base text-white/85 leading-relaxed max-w-lg">
                 {contactPageContent.bottomCta.subtitle}
               </p>

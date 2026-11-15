@@ -2,6 +2,11 @@
 
 import AnimatedContent from "@/components/AnimatedContent";
 import { ContactForm } from "@/components/contact/ContactForm";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { siteConfig } from "@/data/siteConfig";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -28,22 +33,22 @@ export default function ContactSection({
             duration={0.65}
             ease="power2.out"
           >
-            <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-3">
+            <SectionMeta className="mb-3">
               Initiate Collaboration
-            </span>
-            <h2
+            </SectionMeta>
+            <SectionTitle
               id="contact-heading"
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.1]"
+              className="text-3xl sm:text-4xl md:text-5xl leading-[1.1]"
             >
               Let&apos;s build software <br />
               <span className="gradient-text">that powers your future.</span>
-            </h2>
+            </SectionTitle>
 
-            <p className="mt-5 text-neutral-600 text-sm sm:text-base leading-relaxed max-w-lg">
+            <SectionDescription className="mt-5 text-sm sm:text-base max-w-lg">
               Have a product roadmap, portal system, or SaaS platform in mind?
               Submit your brief and our executive and senior engineering leads
               will respond with a technical breakdown within 24 hours.
-            </p>
+            </SectionDescription>
 
             {/* Quick Contact Methods */}
             <div className="mt-8 flex flex-col gap-4">
@@ -65,7 +70,7 @@ export default function ContactSection({
                   </svg>
                 </div>
                 <div>
-                  <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-neutral-500">
+                  <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-neutral-600">
                     Direct Email
                   </div>
                   <div className="text-sm font-bold text-[#0f0000] group-hover:text-accent transition-colors">
@@ -122,7 +127,7 @@ export default function ContactSection({
                     </svg>
                   </div>
                   <div>
-                    <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-neutral-500">
+                    <div className="text-xs font-sans font-semibold uppercase tracking-[0.1em] text-neutral-600">
                       Calendar Booking
                     </div>
                     <div className="text-sm font-bold text-[#0f0000] group-hover:text-accent transition-colors">

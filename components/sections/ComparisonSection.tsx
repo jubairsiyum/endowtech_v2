@@ -1,6 +1,11 @@
 "use client";
 
 import { FadeIn } from "@/components/motion/FadeIn";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { comparisons } from "@/data/comparison";
 import { cn } from "@/lib/utils";
 import {
@@ -376,21 +381,21 @@ export default function ComparisonSection() {
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         {/* ── Section Header ── */}
         <FadeIn className="text-left md:text-center md:mx-auto max-w-2xl mb-12 sm:mb-16">
-          <span className="block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-2">
+          <SectionMeta className="mb-2">
             Competitive Advantage
-          </span>
-          <h2
+          </SectionMeta>
+          <SectionTitle
             id="comparison-heading"
-            className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.03em] text-[#0f0000]"
+            className="text-[clamp(26px,2.8vw,42px)] tracking-[-0.03em]"
           >
             Where traditional agencies stop,{" "}
             <span className="gradient-text">our engineering begins.</span>
-          </h2>
-          <p className="mt-2.5 text-[clamp(13px,0.95vw,15px)] leading-relaxed text-neutral-700 max-w-lg md:mx-auto">
+          </SectionTitle>
+          <SectionDescription className="mt-2.5 text-neutral-700 max-w-lg md:mx-auto">
             We don&apos;t just hand off templates and disappear. We engineer
             mission-critical systems, transfer 100% intellectual property, and
             back our platforms with enterprise SLAs.
-          </p>
+          </SectionDescription>
         </FadeIn>
 
         {/* ── Desktop 3-Column Connected White List Cards (lg+) ── */}
@@ -521,7 +526,7 @@ export default function ComparisonSection() {
                           </span>
                         )}
                       </div>
-                      <p className="mt-1 text-xs text-neutral-500 leading-relaxed">
+                      <p className="mt-1 text-xs text-neutral-600 leading-relaxed">
                         {row.whyItMatters}
                       </p>
                     </div>
@@ -659,7 +664,7 @@ export default function ComparisonSection() {
                           </span>
                         )}
                       </div>
-                      <p className="mt-1 text-xs text-neutral-500 leading-relaxed">
+                      <p className="mt-1 text-xs text-neutral-600 leading-relaxed">
                         {row.whyItMatters}
                       </p>
                     </div>
@@ -673,7 +678,7 @@ export default function ComparisonSection() {
                         aria-hidden="true"
                       />
                       <div>
-                        <div className="text-[11px] font-sans font-bold tracking-tight text-neutral-500 mb-0.5">
+                        <div className="text-[11px] font-sans font-bold tracking-tight text-neutral-600 mb-0.5">
                           Standard Agency
                         </div>
                         <div className="text-xs text-neutral-600 font-medium leading-snug">

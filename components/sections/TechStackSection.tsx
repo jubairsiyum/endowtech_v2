@@ -2,6 +2,11 @@
 
 import { FadeIn } from "@/components/motion/FadeIn";
 import { TechIcon } from "@/components/sections/TechStackIcons";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { infrastructureStack, techPillars } from "@/data/techStack";
 import { cn } from "@/lib/utils";
 import { TechItem } from "@/types";
@@ -172,20 +177,20 @@ export default function TechStackSection() {
               {/* ── Header Area ── */}
               <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8 sm:mb-11 lg:mb-14">
                 <div className="max-w-2xl">
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                  <SectionMeta>
                     Technology Stack
-                  </span>
-                  <h2
+                  </SectionMeta>
+                  <SectionTitle
                     id="tech-stack-heading"
-                    className="text-[clamp(26px,2.8vw,40px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                    className="text-[clamp(26px,2.8vw,40px)]"
                   >
                     Your architecture comes first.
-                  </h2>
-                  <p className="mt-3 text-[clamp(14px,1vw,15.5px)] leading-relaxed text-neutral-600 max-w-xl">
+                  </SectionTitle>
+                  <SectionDescription className="mt-3 text-[clamp(14px,1vw,15.5px)] max-w-xl">
                     We work with your teams to pick proven web, mobile, and
                     cloud stacks — using AI-native workflows where they add real
                     value.
-                  </p>
+                  </SectionDescription>
                 </div>
 
                 {/* Interactive Stack Lens Toggle */}
@@ -482,14 +487,14 @@ export default function TechStackSection() {
                           <span className="text-xs sm:text-sm font-semibold text-[#0f0000] shrink-0">
                             Architecture-First Stack
                           </span>
-                          <span className="text-xs sm:text-sm text-neutral-500 leading-snug">
+                          <span className="text-xs sm:text-sm text-neutral-600 leading-snug">
                             <span className="hidden lg:inline">— </span>
                             Hover or tap any technology above to inspect how
                             Endow Tech deploys it in production.
                           </span>
                         </div>
 
-                        <span className="font-sans font-medium tabular-nums text-[11px] text-neutral-400 shrink-0">
+                        <span className="font-sans font-medium tabular-nums text-[11px] text-neutral-600 shrink-0">
                           {totalCount} Verified Tools
                         </span>
                       </motion.div>

@@ -12,6 +12,11 @@ import ServiceCapabilitiesSection from "@/components/services/ServiceCapabilitie
 import ServiceSectionNav from "@/components/services/ServiceSectionNav";
 import ServiceStackGravitySection from "@/components/services/ServiceStackGravitySection";
 import { FlowButton } from "@/components/ui/FlowButton";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { caseStudyDomainMeta } from "@/data/caseStudiesPage";
 import type { FeaturedProject } from "@/data/featuredProjects";
 import type { ServiceDetailData } from "@/data/serviceDetails";
@@ -267,23 +272,24 @@ export default function ServiceDetailClient({
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
                 {/* Left Column: Headline, Narrative & CTAs */}
                 <div className="lg:col-span-7">
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-3">
+                  <SectionMeta className="mb-3">
                     {detail.eyebrow}
-                  </span>
+                  </SectionMeta>
 
-                  <h1
+                  <SectionTitle
+                    as="h1"
                     id="service-hero-heading"
-                    className="text-4xl sm:text-5xl lg:text-[52px] xl:text-[60px] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.06]"
+                    className="text-4xl sm:text-5xl lg:text-[52px] xl:text-[60px] leading-[1.06]"
                   >
                     {detail.heroTitle}{" "}
                     <span className="gradient-text">
                       {detail.heroHighlight}
                     </span>
-                  </h1>
+                  </SectionTitle>
 
-                  <p className="mt-5 text-base sm:text-lg lg:text-xl text-neutral-600 leading-relaxed max-w-2xl">
+                  <SectionDescription className="mt-5 text-base sm:text-lg lg:text-xl max-w-2xl">
                     {detail.heroSummary}
-                  </p>
+                  </SectionDescription>
 
                   <div className="mt-8 flex flex-wrap items-center gap-3.5">
                     <FlowButton
@@ -457,15 +463,15 @@ export default function ServiceDetailClient({
               {/* Left Column: Section Heading & Tags */}
               <div className="lg:col-span-5">
                 <FadeIn>
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                  <SectionMeta>
                     {detail.overviewEyebrow}
-                  </span>
-                  <h2
+                  </SectionMeta>
+                  <SectionTitle
                     id="service-overview-heading"
-                    className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                    className="text-[clamp(26px,2.8vw,42px)]"
                   >
                     {detail.overviewHeading}
-                  </h2>
+                  </SectionTitle>
 
                   <div className="mt-6 flex flex-wrap gap-2">
                     {service.tags.map((tag) => (
@@ -557,15 +563,15 @@ export default function ServiceDetailClient({
           <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 sm:mb-10">
               <div className="max-w-2xl">
-                <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2">
+                <SectionMeta className="mb-2">
                   Production Proof
-                </span>
-                <h2
+                </SectionMeta>
+                <SectionTitle
                   id="service-proof-heading"
-                  className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                  className="text-[clamp(26px,2.8vw,42px)]"
                 >
                   Real platforms shipped with this capability.
-                </h2>
+                </SectionTitle>
               </div>
 
               <Link
@@ -637,15 +643,15 @@ export default function ServiceDetailClient({
           <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             <FadeIn className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
               <div>
-                <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2">
+                <SectionMeta className="mb-2">
                   Full Studio Capabilities
-                </span>
-                <h2
+                </SectionMeta>
+                <SectionTitle
                   id="other-services-heading"
-                  className="text-[clamp(26px,2.8vw,40px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                  className="text-[clamp(26px,2.8vw,40px)]"
                 >
                   Explore adjacent engineering services.
-                </h2>
+                </SectionTitle>
               </div>
 
               <Link
@@ -748,23 +754,23 @@ export default function ServiceDetailClient({
               {/* Left Sticky Intro & Direct Consultation Box */}
               <div className="lg:col-span-5 lg:sticky lg:top-36">
                 <FadeIn>
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                  <SectionMeta>
                     Service FAQ
-                  </span>
-                  <h2
+                  </SectionMeta>
+                  <SectionTitle
                     id="service-faq-heading"
-                    className="text-[clamp(26px,2.8vw,40px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                    className="text-[clamp(26px,2.8vw,40px)]"
                   >
                     Technical answers before your first sprint.
-                  </h2>
-                  <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed max-w-md">
+                  </SectionTitle>
+                  <SectionDescription className="mt-4 text-sm sm:text-base max-w-md">
                     Clear engineering commitments around architecture, code
                     ownership, security boundaries, and timelines for{" "}
                     <span className="font-semibold text-[#0f0000]">
                       {service.title}
                     </span>
                     .
-                  </p>
+                  </SectionDescription>
 
                   <div className="mt-7 rounded-2xl bg-[#fafafa] border border-neutral-200/90 p-5 sm:p-6 shadow-xs max-w-md">
                     <div className="text-sm font-bold text-[#0f0000]">
@@ -892,20 +898,20 @@ export default function ServiceDetailClient({
               {/* Left Column: Editorial Prompt & Direct Channels */}
               <div className="lg:col-span-5">
                 <FadeIn>
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                  <SectionMeta>
                     Initiate Collaboration
-                  </span>
-                  <h2
+                  </SectionMeta>
+                  <SectionTitle
                     id="service-contact-heading"
-                    className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.1]"
+                    className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.1]"
                   >
                     Scope your {service.title.toLowerCase()} roadmap.
-                  </h2>
-                  <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed max-w-md">
+                  </SectionTitle>
+                  <SectionDescription className="mt-4 text-sm sm:text-base max-w-md">
                     Share your goals, architecture constraints, or RFPs. Our
                     Seoul headquarters and Dhaka engineering leads respond within
                     24 hours with a concrete technical plan.
-                  </p>
+                  </SectionDescription>
 
                   <div className="mt-8 space-y-3 max-w-sm">
                     <a

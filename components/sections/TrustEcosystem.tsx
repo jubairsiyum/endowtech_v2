@@ -4,6 +4,11 @@ import { CountUp } from "@/components/motion/CountUp";
 import { FadeIn } from "@/components/motion/FadeIn";
 import TextLoop from "@/components/TextLoop";
 import { FlowButton } from "@/components/ui/FlowButton";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { siteConfig } from "@/data/siteConfig";
 import { Building2, Cpu, Globe2, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -42,25 +47,27 @@ export default function TrustEcosystem() {
               {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/[0.08] border border-accent/25 text-accent font-sans text-xs font-semibold uppercase tracking-[0.14em] mb-5">
                 {"// Corporate Ecosystem"}
               </div> */}
-              <span className="hidden md:block font-semibold text-sm uppercase tracking-[0.2em] text-accent mb-5">
+              <SectionMeta className="hidden md:block mb-5">
                 Corporate Ecosystem
-              </span>
+              </SectionMeta>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-black text-gray-900 tracking-tight leading-[1.15]">
+              <SectionTitle
+                className="text-3xl sm:text-4xl lg:text-[42px] font-black text-gray-900 tracking-tight leading-[1.15]"
+              >
                 An international technology wing backed by{" "}
                 <span className="text-accent underline decoration-accent/30 decoration-wavy underline-offset-4">
                   {siteConfig.parentCompany.name}
                 </span>
                 .
-              </h2>
+              </SectionTitle>
 
-              <p className="mt-5 text-gray-600 text-base sm:text-lg leading-relaxed">
+              <SectionDescription className="mt-5 text-gray-600 text-base sm:text-lg">
                 Headquartered in Seoul, South Korea, with regional engineering
                 operations in Dhaka, Endow Corporation operates across higher
                 education consultancy, international mobility, and enterprise
                 digital systems. Endow Tech delivers the mission-critical
                 software powering this global ecosystem.
-              </p>
+              </SectionDescription>
 
               {/* Action FlowButtons */}
               <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -87,13 +94,13 @@ export default function TrustEcosystem() {
                 <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
                   <Building2 className="w-5 h-5" />
                 </div>
-                <div className="text-xs font-sans uppercase text-accent font-semibold tracking-[0.12em]">
+                <div className="text-xs font-sans uppercase text-red-700 font-semibold tracking-[0.12em]">
                   Corporate HQ
                 </div>
                 <div className="text-xl font-bold text-gray-900 mt-1.5">
                   Seoul, South Korea
                 </div>
-                <div className="text-xs sm:text-sm text-gray-500 mt-1">
+                <div className="text-xs sm:text-sm text-neutral-600 font-medium mt-1">
                   Teheran-ro, Gangnam · Global Strategy &amp; Governance
                 </div>
               </div>
@@ -104,13 +111,13 @@ export default function TrustEcosystem() {
                 <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
                   <Cpu className="w-5 h-5" />
                 </div>
-                <div className="text-xs font-sans uppercase text-accent font-semibold tracking-[0.12em]">
+                <div className="text-xs font-sans uppercase text-red-700 font-semibold tracking-[0.12em]">
                   Tech &amp; Ops Hub
                 </div>
                 <div className="text-xl font-bold text-gray-900 mt-1.5">
                   Dhaka, Bangladesh
                 </div>
-                <div className="text-xs sm:text-sm text-gray-500 mt-1">
+                <div className="text-xs sm:text-sm text-neutral-600 font-medium mt-1">
                   Shyamoli Square · High-Velocity Engineering Studio
                 </div>
               </div>
@@ -121,13 +128,13 @@ export default function TrustEcosystem() {
                 <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
                   <Globe2 className="w-5 h-5" />
                 </div>
-                <div className="text-xs font-sans uppercase text-accent font-semibold tracking-[0.12em]">
+                <div className="text-xs font-sans uppercase text-red-700 font-semibold tracking-[0.12em]">
                   Specializations
                 </div>
                 <div className="text-xl font-bold text-gray-900 mt-1.5">
                   South Korea
                 </div>
-                <div className="text-xs sm:text-sm text-gray-500 mt-1">
+                <div className="text-xs sm:text-sm text-neutral-600 font-medium mt-1">
                   Cross-Border Higher Education &amp; Visa Automation
                 </div>
               </div>
@@ -138,13 +145,13 @@ export default function TrustEcosystem() {
                 <div className="w-9 h-9 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
-                <div className="text-xs font-sans uppercase text-accent font-semibold tracking-[0.12em]">
+                <div className="text-xs font-sans uppercase text-red-700 font-semibold tracking-[0.12em]">
                   Engineering SLA
                 </div>
                 <div className="text-xl font-bold text-gray-900 mt-1.5">
                   <CountUp value="99.98%" duration={2} /> Uptime SLA
                 </div>
-                <div className="text-xs sm:text-sm text-gray-500 mt-1">
+                <div className="text-xs sm:text-sm text-neutral-600 font-medium mt-1">
                   Zero-Downtime Deployment &amp; Resilient Cloud Ops
                 </div>
               </div>

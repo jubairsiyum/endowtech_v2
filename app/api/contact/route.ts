@@ -13,6 +13,35 @@ import {
 
 const MAX_REQUEST_BYTES = MAX_CONTACT_FILE_SIZE_BYTES + 2 * 1024 * 1024; // 10 MB file + multipart/form fields overhead
 
+// In-memory rate limiting map: ip -> { count: number, resetAt: number }
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes window
+const MAX_REQUESTS_PER_WINDOW = 10; // Max 10 submissions per 15 minutes per IP
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  // Periodic pruning if cache exceeds 1000 items
+  if (rateLimitMap.size > 1000) {
+    for (const [key, val] of rateLimitMap.entries()) {
+      if (val.resetAt < now) rateLimitMap.delete(key);
+    }
+  }
+
+  if (!entry || entry.resetAt < now) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+
+  if (entry.count >= MAX_REQUESTS_PER_WINDOW) {
+    return true;
+  }
+
+  entry.count += 1;
+  return false;
+}
+
 function getFormString(formData: FormData, key: string): string {
   const value = formData.get(key);
   return typeof value === "string" ? value.trim() : "";
@@ -32,6 +61,23 @@ function createReferenceId(): string {
 
 export async function POST(request: Request) {
   try {
+    // 1. IP-based Rate Limiting (max 10 submissions per 15 mins per IP)
+    const forwarded = request.headers.get("x-forwarded-for");
+    const realIp = request.headers.get("x-real-ip");
+    const clientIp =
+      (forwarded ? forwarded.split(",")[0].trim() : realIp) || "127.0.0.1";
+
+    if (isRateLimited(clientIp)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Too many inquiries sent from this connection. Please wait a few minutes before trying again or reach out directly via WhatsApp.",
+        },
+        { status: 429 },
+      );
+    }
+
     const contentLengthHeader = request.headers.get("content-length");
     if (contentLengthHeader) {
       const contentLength = Number.parseInt(contentLengthHeader, 10);
@@ -55,9 +101,11 @@ export async function POST(request: Request) {
 
     let payload: Partial<ContactFormData> = {};
     let uploadedFile: File | null = null;
+    let honeypot = "";
 
     if (contentType.includes("multipart/form-data")) {
       const formData = await request.formData();
+      honeypot = getFormString(formData, "_hp_title");
       payload = {
         name: getFormString(formData, "name"),
         email: getFormString(formData, "email"),
@@ -76,6 +124,7 @@ export async function POST(request: Request) {
       try {
         const rawJson = (await request.json()) as Record<string, unknown>;
         const asStr = (val: unknown) => (typeof val === "string" ? val : "");
+        honeypot = asStr(rawJson?._hp_title);
         payload = {
           name: asStr(rawJson?.name),
           email: asStr(rawJson?.email),
@@ -94,6 +143,15 @@ export async function POST(request: Request) {
           { status: 400 },
         );
       }
+    }
+
+    // 2. Anti-Spam Honeypot Check (Silently neutralize automated bots)
+    if (honeypot) {
+      return NextResponse.json({
+        success: true,
+        referenceId: createReferenceId(),
+        message: "Thank you! Your inquiry has been received.",
+      });
     }
 
     // Validate text fields
@@ -189,12 +247,24 @@ export async function POST(request: Request) {
     const budget = payload.budget?.trim() || "";
     const message = payload.message?.trim() || "";
 
+    // Mask email and phone in server logs for GDPR and privacy compliance
+    const maskedEmail = email
+      ? email.replace(
+          /^(.{2})(.*)(@.*)$/,
+          (_, start, mid, domain) =>
+            `${start}${"*".repeat(Math.min(mid.length, 5))}${domain}`,
+        )
+      : "";
+    const maskedPhone = phone
+      ? phone.replace(/\d(?=\d{3})/g, "*")
+      : "Not specified";
+
     // Log received lead details securely on server
     console.log("[New Lead Inquiry Received]:", {
       referenceId,
       name,
-      email,
-      phone: phone || "Not specified",
+      email: maskedEmail,
+      phone: maskedPhone,
       company: company || "Not specified",
       service: service || "Not specified",
       budget: budget || "Not specified",

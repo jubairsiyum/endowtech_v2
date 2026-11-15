@@ -970,7 +970,7 @@ const TextLoop = ({
                       transform={`translate(${initialX}, ${initialY})`}
                       opacity={inBounds ? 1 : 0}
                       style={{ willChange: 'transform' }}
-                      className="cursor-pointer"
+                      pointerEvents="none"
                     >
                       <title>{item.name}</title>
                       {item.icon ? (

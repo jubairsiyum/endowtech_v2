@@ -6,6 +6,11 @@ import Navbar from "@/components/layout/Navbar";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { FlowButton } from "@/components/ui/FlowButton";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { sitemapSections } from "@/data/sitemapData";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -100,19 +105,22 @@ export default function SitemapPageClient() {
               </nav>
 
               {/* Big Clean Title */}
-              <h1
+              <SectionTitle
+                as="h1"
                 id="sitemap-hero-heading"
-                className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-[-0.035em] leading-[1.08]"
+                className="font-black text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.08]"
               >
                 Sitemap
-              </h1>
+              </SectionTitle>
 
               {/* Subtitle Description */}
-              <p className="mt-3 sm:mt-4 text-base sm:text-lg lg:text-xl text-white/80 max-w-3xl leading-relaxed">
+              <SectionDescription
+                className="mt-3 sm:mt-4 text-base sm:text-lg lg:text-xl text-white/80 max-w-3xl"
+              >
                 Explore the comprehensive sitemap of Endow Tech to easily
                 navigate through our engineering services, flagship platforms,
                 case studies, and corporate hubs.
-              </p>
+              </SectionDescription>
             </AnimatedContent>
           </div>
         </section>
@@ -274,17 +282,21 @@ export default function SitemapPageClient() {
           <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
               <div className="max-w-2xl">
-                <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-white/80 mb-2.5">
+                <SectionMeta className="text-white/80">
                   Direct Engineering Channel
-                </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-white tracking-tight leading-[1.15]">
+                </SectionMeta>
+                <SectionTitle
+                  className="text-2xl sm:text-3xl lg:text-[40px] text-white tracking-tight leading-[1.15]"
+                >
                   Need a Custom Enterprise Architecture or Technical RFP?
-                </h2>
-                <p className="mt-3.5 text-sm sm:text-base text-white/90 leading-relaxed max-w-xl">
+                </SectionTitle>
+                <SectionDescription
+                  className="mt-3.5 text-sm sm:text-base text-white/90 max-w-xl"
+                >
                   Connect with our principal engineering team across Seoul and
                   Dhaka to evaluate your system requirements, performance
                   benchmarks, and delivery roadmap.
-                </p>
+                </SectionDescription>
               </div>
 
               <div className="flex flex-wrap items-center justify-center gap-4 shrink-0">

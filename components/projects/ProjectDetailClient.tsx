@@ -9,6 +9,11 @@ import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import { CountUp } from "@/components/motion/CountUp";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { FlowButton } from "@/components/ui/FlowButton";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { caseStudyDomainMeta } from "@/data/caseStudiesPage";
 import type { FeaturedProject } from "@/data/featuredProjects";
 import {
@@ -300,20 +305,21 @@ export default function ProjectDetailClient({
               {/* Editorial Header Split */}
               <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
                 <div className="max-w-3xl">
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-3">
+                  <SectionMeta className="mb-3">
                     {project.category}
-                  </span>
+                  </SectionMeta>
 
-                  <h1
+                  <SectionTitle
+                    as="h1"
                     id="project-hero-heading"
-                    className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[64px] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.06]"
+                    className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[64px] leading-[1.06]"
                   >
                     {project.title}
-                  </h1>
+                  </SectionTitle>
 
-                  <p className="mt-5 text-base sm:text-xl text-neutral-600 leading-relaxed max-w-2xl">
+                  <SectionDescription className="mt-5 text-base sm:text-xl max-w-2xl">
                     {project.tagline}
-                  </p>
+                  </SectionDescription>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3.5 shrink-0">
@@ -430,15 +436,15 @@ export default function ProjectDetailClient({
               {/* Left Column: Section Heading */}
               <div className="lg:col-span-5">
                 <FadeIn>
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                  <SectionMeta>
                     Project Overview
-                  </span>
-                  <h2
+                  </SectionMeta>
+                  <SectionTitle
                     id="project-overview-heading"
-                    className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                    className="text-[clamp(26px,2.8vw,42px)]"
                   >
                     Operational context, mandate &amp; delivery scope.
-                  </h2>
+                  </SectionTitle>
 
                   <div className="mt-6 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
@@ -550,15 +556,15 @@ export default function ProjectDetailClient({
 
           <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             <FadeIn className="max-w-2xl mb-10 sm:mb-12">
-              <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+              <SectionMeta>
                 Challenge &amp; Solution
-              </span>
-              <h2
+              </SectionMeta>
+              <SectionTitle
                 id="challenge-solution-heading"
-                className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.035em] text-white"
+                className="text-[clamp(26px,2.8vw,42px)] text-white"
               >
                 What constrained operations — and what our architecture solved.
-              </h2>
+              </SectionTitle>
             </FadeIn>
 
             <FadeIn delay={0.08}>
@@ -735,19 +741,19 @@ export default function ProjectDetailClient({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
               <div className="lg:col-span-4 lg:sticky lg:top-28">
                 <FadeIn>
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                  <SectionMeta>
                     Core Features
-                  </span>
-                  <h2
+                  </SectionMeta>
+                  <SectionTitle
                     id="capabilities-heading"
-                    className="text-[clamp(26px,2.8vw,40px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                    className="text-[clamp(26px,2.8vw,40px)]"
                   >
                     Core capabilities delivered.
-                  </h2>
-                  <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed">
+                  </SectionTitle>
+                  <SectionDescription className="mt-4 text-sm sm:text-base">
                     Designed around actual operator workflows so teams adopt the
                     system quickly and rely on it under daily production load.
-                  </p>
+                  </SectionDescription>
                 </FadeIn>
               </div>
 
@@ -790,19 +796,19 @@ export default function ProjectDetailClient({
             {/* Header Row */}
             <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 sm:mb-12">
               <div className="max-w-2xl">
-                <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                <SectionMeta>
                   Scale &amp; System Architecture
-                </span>
-                <h2
+                </SectionMeta>
+                <SectionTitle
                   id="scale-impact-heading"
-                  className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                  className="text-[clamp(26px,2.8vw,42px)]"
                 >
                   {detail.impactHeadline}
-                </h2>
+                </SectionTitle>
               </div>
-              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-md">
+              <SectionDescription className="mt-0 text-sm sm:text-base text-neutral-600 max-w-md">
                 {detail.impactSummary}
-              </p>
+              </SectionDescription>
             </FadeIn>
 
             {/* Full-Width Dark Impact Metrics Pill Bar */}
@@ -912,17 +918,17 @@ export default function ProjectDetailClient({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
               <div className="lg:col-span-5">
                 <FadeIn>
-                  <h2
+                  <SectionTitle
                     id="architectural-decisions-heading"
-                    className="text-[clamp(26px,2.8vw,40px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                    className="text-[clamp(26px,2.8vw,40px)]"
                   >
                     Decisions designed to hold up under real production traffic.
-                  </h2>
-                  <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed">
+                  </SectionTitle>
+                  <SectionDescription className="mt-4 text-sm sm:text-base">
                     Every technical choice across {project.title} prioritized
                     auditability, predictable latency, and clean maintainability
                     for teams operating across Seoul and Dhaka.
-                  </p>
+                  </SectionDescription>
 
                   <div className="mt-8">
                     <FlowButton
@@ -976,16 +982,16 @@ export default function ProjectDetailClient({
         >
           <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             <FadeIn className="max-w-3xl mb-10 sm:mb-12">
-              <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+              <SectionMeta>
                 Delivery Process
-              </span>
-              <h2
+              </SectionMeta>
+              <SectionTitle
                 id="delivery-blueprint-heading"
-                className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                className="text-[clamp(26px,2.8vw,42px)]"
               >
                 The workflow stayed structured, transparent &amp;
                 production-driven.
-              </h2>
+              </SectionTitle>
             </FadeIn>
 
             {/* Interactive Connected 5-Stage Bar */}
@@ -1112,18 +1118,18 @@ export default function ProjectDetailClient({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               <div className="lg:col-span-6">
                 <FadeIn>
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                  <SectionMeta>
                     Business Impact
-                  </span>
-                  <h2
+                  </SectionMeta>
+                  <SectionTitle
                     id="transformation-heading"
-                    className="text-[clamp(26px,2.8vw,40px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                    className="text-[clamp(26px,2.8vw,40px)]"
                   >
                     {detail.transformationTitle}
-                  </h2>
-                  <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed">
+                  </SectionTitle>
+                  <SectionDescription className="mt-4 text-sm sm:text-base">
                     {detail.transformationBody}
-                  </p>
+                  </SectionDescription>
 
                   <ul className="mt-6 space-y-3">
                     {detail.transformationOutcomes.map((outcome) => (
@@ -1200,15 +1206,15 @@ export default function ProjectDetailClient({
 
           <div className="relative z-10 max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-12 text-center">
             <FadeIn>
-              <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-white/85 mb-2.5">
+              <SectionMeta className="text-white/85">
                 Built With
-              </span>
-              <h2
+              </SectionMeta>
+              <SectionTitle
                 id="tech-used-heading"
-                className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white"
+                className="text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight"
               >
                 Production Technology Stack
-              </h2>
+              </SectionTitle>
 
               <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
                 {techVisuals.map((item) => (
@@ -1229,15 +1235,15 @@ export default function ProjectDetailClient({
           <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
             <FadeIn className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 sm:mb-12">
               <div>
-                <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2">
+                <SectionMeta className="mb-2">
                   Continue Exploring
-                </span>
-                <h2
+                </SectionMeta>
+                <SectionTitle
                   id="related-case-studies-heading"
-                  className="text-[clamp(26px,2.8vw,42px)] font-bold leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                  className="text-[clamp(26px,2.8vw,42px)]"
                 >
                   Related Case Studies
-                </h2>
+                </SectionTitle>
               </div>
 
               <Link
@@ -1326,15 +1332,15 @@ export default function ProjectDetailClient({
 
           <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 text-center">
             <FadeIn className="max-w-2xl mx-auto">
-              <div className="text-xs font-sans uppercase tracking-[0.18em] text-white/85 font-semibold mb-3">
+              <SectionMeta className="text-xs text-white/85 tracking-[0.18em] mb-3">
                 Ready to build a similar platform?
-              </div>
-              <h2
+              </SectionMeta>
+              <SectionTitle
                 id="project-cta-banner-heading"
-                className="text-2xl sm:text-3xl lg:text-[42px] font-bold text-white tracking-tight leading-[1.15]"
+                className="text-2xl sm:text-3xl lg:text-[42px] text-white tracking-tight leading-[1.15]"
               >
                 Put the right technical people in the room.
-              </h2>
+              </SectionTitle>
               <div className="mt-7 flex justify-center">
                 <FlowButton
                   variant="white-red"
@@ -1381,20 +1387,20 @@ export default function ProjectDetailClient({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
               <div className="lg:col-span-5">
                 <FadeIn>
-                  <span className="block font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-2.5">
+                  <SectionMeta>
                     Initiate Collaboration
-                  </span>
-                  <h2
+                  </SectionMeta>
+                  <SectionTitle
                     id="project-contact-heading"
-                    className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.1]"
+                    className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.1]"
                   >
                     Bring us what needs to change.
-                  </h2>
-                  <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed max-w-md">
+                  </SectionTitle>
+                  <SectionDescription className="mt-4 text-sm sm:text-base max-w-md">
                     Share the system bottleneck, workflow, or platform roadmap
                     your team is planning. Our Seoul headquarters and Dhaka
                     engineering leads respond within 24 hours.
-                  </p>
+                  </SectionDescription>
 
                   <div className="mt-8 space-y-3 max-w-sm">
                     <a

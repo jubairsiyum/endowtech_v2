@@ -52,7 +52,7 @@ export function FlowButton({
 
   // Base styling: isolated with group/flow, rounded-2xl initial, smooth hover:rounded-lg
   const baseClasses =
-    'group/flow relative inline-flex items-center justify-center overflow-hidden rounded-2xl cursor-pointer select-none transition-all duration-1000 ease-flow-smooth hover:rounded-lg active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed';
+    'group/flow relative inline-flex items-center justify-center min-h-[44px] overflow-hidden rounded-2xl cursor-pointer select-none transition-all duration-1000 ease-flow-smooth hover:rounded-lg active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed';
 
   // Size specifications with built-in responsive scaling and generous gap between text & arrows
   const sizeConfig = {

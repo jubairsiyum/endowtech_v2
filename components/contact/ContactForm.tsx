@@ -85,6 +85,7 @@ export function ContactForm({
   const [submittedRefId, setSubmittedRefId] = useState<string | null>(null);
   const [submittedDocName, setSubmittedDocName] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [honeypot, setHoneypot] = useState("");
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -211,6 +212,7 @@ export function ContactForm({
       const body = new FormData();
       body.append("name", summaryPayload.name);
       body.append("email", summaryPayload.email);
+      if (honeypot) body.append("_hp_title", honeypot);
       if (summaryPayload.phone) body.append("phone", summaryPayload.phone);
       if (summaryPayload.company) {
         body.append("company", summaryPayload.company);
@@ -262,6 +264,7 @@ export function ContactForm({
     setErrors({});
     setSubmitError(null);
     setAttachedFile(null);
+    setHoneypot("");
     if (fileInputRef.current) fileInputRef.current.value = "";
     setFormData({
       name: "",
@@ -335,6 +338,24 @@ export function ContactForm({
         </div>
       ) : (
         <form onSubmit={handleSubmit} noValidate className="space-y-5 sm:space-y-6">
+          {/* Anti-spam honeypot - invisible to real users, traps automated bots */}
+          <div
+            className="sr-only opacity-0 pointer-events-none absolute -left-[9999px]"
+            aria-hidden="true"
+            tabIndex={-1}
+          >
+            <label htmlFor={`${idPrefix}-hp-title`}>Leave this field blank</label>
+            <input
+              id={`${idPrefix}-hp-title`}
+              name="_hp_title"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+            />
+          </div>
+
           {showHeader && (
             <div className="pb-1">
               <h2 className="text-xl sm:text-2xl font-bold text-[#0f0000] tracking-tight">

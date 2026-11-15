@@ -88,7 +88,7 @@ export default function Footer() {
                   href={siteConfig.socials.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/[0.07] flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/[0.12] hover:border-white/20 hover:-translate-y-0.5 transition-all duration-200"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/[0.06] border border-white/[0.07] flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/[0.12] hover:border-white/20 hover:-translate-y-0.5 transition-all duration-200"
                   aria-label="GitHub profile"
                 >
                   <svg
@@ -105,7 +105,7 @@ export default function Footer() {
                   href={siteConfig.socials.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/[0.07] flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/[0.12] hover:border-white/20 hover:-translate-y-0.5 transition-all duration-200"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/[0.06] border border-white/[0.07] flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/[0.12] hover:border-white/20 hover:-translate-y-0.5 transition-all duration-200"
                   aria-label="LinkedIn page"
                 >
                   <svg
@@ -122,7 +122,7 @@ export default function Footer() {
                   href={siteConfig.socials.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/[0.07] flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/[0.12] hover:border-white/20 hover:-translate-y-0.5 transition-all duration-200"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/[0.06] border border-white/[0.07] flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/[0.12] hover:border-white/20 hover:-translate-y-0.5 transition-all duration-200"
                   aria-label="X (Twitter) account"
                 >
                   <svg
@@ -315,27 +315,27 @@ export default function Footer() {
         </div>
 
         {/* Copyright & Meta Links */}
-        <div className="mt-8 pt-6 border-t border-white/10 text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+        <div className="mt-8 pt-6 border-t border-white/10 text-xs text-gray-400 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <div>
             &copy; {currentYear} Endow Tech. All rights reserved. A subsidiary of
             Endow Corporation.
           </div>
-          <div className="flex items-center gap-5 text-gray-400">
+          <div className="flex items-center gap-4 text-gray-300">
             <Link
               href="/case-studies"
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors py-2 px-1 inline-flex items-center min-h-[44px]"
             >
               Case Studies
             </Link>
             <Link
               href="/sitemap"
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors py-2 px-1 inline-flex items-center min-h-[44px]"
             >
               Sitemap
             </Link>
             <Link
               href="/contact"
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors py-2 px-1 inline-flex items-center min-h-[44px]"
             >
               Contact
             </Link>

@@ -2,6 +2,10 @@
 
 import { FadeIn } from "@/components/motion/FadeIn";
 import { TechIcon } from "@/components/sections/TechStackIcons";
+import {
+  SectionMeta,
+  SectionTitle,
+} from "@/components/ui/SectionHeader";
 import type { ServiceEngineeringStandard } from "@/data/serviceDetails";
 import { cn } from "@/lib/utils";
 import type { TechItem } from "@/types";
@@ -922,16 +926,16 @@ export default function ServiceStackGravitySection({
           <div className="rounded-3xl bg-white border border-neutral-200/90 shadow-[0_24px_70px_-28px_rgba(15,0,0,0.09)] overflow-hidden grid grid-cols-1 lg:grid-cols-12">
             {/* Left Side: Clean "Stacks" Title & Replay Controls (matches skeleton) */}
             <div className="lg:col-span-4 p-7 sm:p-10 lg:p-12 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-neutral-200/80 bg-white">
-              <span className="font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent">
+              <SectionMeta className="mb-0">
                 Technology Stack
-              </span>
+              </SectionMeta>
 
-              <h2
+              <SectionTitle
                 id="service-stack-heading"
-                className="mt-2 text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#0f0000] tracking-[-0.035em] leading-[1.08]"
+                className="mt-2 text-3xl sm:text-4xl lg:text-[42px] leading-[1.08]"
               >
                 Stacks
-              </h2>
+              </SectionTitle>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <button

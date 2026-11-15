@@ -1,22 +1,11 @@
+/* eslint-disable @next/next/no-page-custom-font */
 import ScrollToTopButton from "@/components/layout/ScrollToTopButton";
 import SmoothScroll from "@/components/SmoothScroll";
 import JsonLd from "@/components/seo/JsonLd";
 import { siteConfig } from "@/data/siteConfig";
 import { getOrganizationSchema, getWebSiteSchema } from "@/lib/seo/schema";
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-  preload: true,
-});
-
-const isProd =
-  process.env.VERCEL_ENV === "production" ||
-  process.env.NODE_ENV === "production";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -58,10 +47,10 @@ export const metadata: Metadata = {
     images: [`${siteConfig.url}/opengraph-image`],
   },
   robots: {
-    index: isProd,
+    index: true,
     follow: true,
     googleBot: {
-      index: isProd,
+      index: true,
       follow: true,
       "max-video-preview": -1,
       "max-image-preview": "large",
@@ -91,8 +80,38 @@ export default function RootLayout({
   const websiteSchema = getWebSiteSchema();
 
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://cdn.simpleicons.org"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+          media="print"
+          // @ts-expect-error onLoad media switch for non-render-blocking font loading
+          onLoad="this.media='all'"
+        />
+        <noscript>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+          />
+        </noscript>
         <JsonLd schema={[organizationSchema, websiteSchema]} />
       </head>
       <body

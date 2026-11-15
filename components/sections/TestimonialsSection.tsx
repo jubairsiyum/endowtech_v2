@@ -1,6 +1,11 @@
 "use client";
 
 import { FadeIn } from "@/components/motion/FadeIn";
+import {
+  SectionMeta,
+  SectionTitle,
+  SectionDescription,
+} from "@/components/ui/SectionHeader";
 import { testimonials } from "@/data/testimonials";
 import { cn } from "@/lib/utils";
 import type { Testimonial } from "@/types";
@@ -310,23 +315,23 @@ export default function TestimonialsSection() {
       {/* ── Centered Editorial Header ── */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         <FadeIn className="text-center max-w-4xl mx-auto mb-14 sm:mb-16 lg:mb-20">
-          <div className="inline-flex items-center justify-center font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] text-accent mb-4">
-            <span>Client Voices</span>
-          </div>
+          <SectionMeta className="mb-4">
+            Client Voices
+          </SectionMeta>
 
-          <h2
+          <SectionTitle
             id="testimonials-heading"
-            className="text-[clamp(34px,4.1vw,58px)] font-bold leading-[1.08] tracking-[-0.035em] text-[#0f0000]"
+            className="text-[clamp(34px,4.1vw,58px)] leading-[1.08]"
           >
             What partners value{" "}
             <span className="gradient-text">once the work is live</span>
-          </h2>
+          </SectionTitle>
 
-          <p className="mt-4 sm:mt-5 text-[clamp(15px,1.15vw,18px)] leading-relaxed text-neutral-600 max-w-2xl mx-auto">
+          <SectionDescription className="mt-4 sm:mt-5 text-[clamp(15px,1.15vw,18px)] max-w-2xl mx-auto">
             The strongest partnerships show their value after launch. Teams work
             with Endow Tech for technical ownership, reliable delivery, and
             systems built to perform in real operations.
-          </p>
+          </SectionDescription>
         </FadeIn>
       </div>
 
@@ -406,7 +411,7 @@ export default function TestimonialsSection() {
                       <div className="font-bold text-sm sm:text-base text-[#0f0000] leading-snug truncate">
                         {t.author}
                       </div>
-                      <div className="text-xs sm:text-sm text-neutral-500 mt-0.5 leading-snug truncate">
+                      <div className="text-xs sm:text-sm text-neutral-600 mt-0.5 leading-snug truncate">
                         {t.role}
                       </div>
                     </div>
@@ -436,7 +441,7 @@ export default function TestimonialsSection() {
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 mt-8 sm:mt-10 flex items-center justify-between gap-4">
         {/* Progress Indicator Pills */}
         <div
-          className="flex items-center gap-2"
+          className="flex items-center gap-1"
           aria-label="Testimonial slides"
         >
           {testimonials.map((t, idx) => (
@@ -445,13 +450,17 @@ export default function TestimonialsSection() {
               type="button"
               onClick={() => scrollToCard(idx)}
               aria-label={`View testimonial from ${t.author}`}
-              className={cn(
-                "h-2 rounded-full transition-all duration-300 cursor-pointer",
-                idx === activeIndex
-                  ? "w-9 bg-accent"
-                  : "w-2.5 bg-neutral-300/80 hover:bg-red-300",
-              )}
-            />
+              className="py-3 px-1 inline-flex items-center justify-center cursor-pointer min-h-[44px] focus:outline-none"
+            >
+              <span
+                className={cn(
+                  "block h-2 rounded-full transition-all duration-300 pointer-events-none",
+                  idx === activeIndex
+                    ? "w-9 bg-accent"
+                    : "w-2.5 bg-neutral-300/80 hover:bg-red-300",
+                )}
+              />
+            </button>
           ))}
         </div>
 
