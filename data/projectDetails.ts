@@ -713,6 +713,422 @@ export const projectDetailExtensions: Record<string, ProjectDetailExtension> = {
     ],
     defaultServiceOption: "SaaS & Multi-Tenant Platforms",
   },
+  "endow-travel": {
+    id: "endow-travel",
+    challengePoints: [
+      "Fragmented booking portals requiring international travelers to navigate disconnected Korean payment rails",
+      "Lack of authentic, verified cultural stays outside mass-market commercial hotel chains",
+      "Language barriers during pre-arrival and on-trip host communication",
+      "High rate of abandoned bookings caused by non-localized checkout flows",
+    ],
+    solutionPoints: [
+      "Unified Next.js 15 booking platform with instant multi-currency card processing (USD, KRW, BDT)",
+      "Vetted host onboarding pipeline ensuring 100% authentic hanok and boutique accommodations",
+      "Integrated bilingual messaging connecting guests, hosts, and on-ground concierges",
+      "Transactional reservation hold timers preventing double-bookings during peak seasonal spikes",
+    ],
+    impactHeadline: "Engineered for effortless, high-trust travel across South Korea.",
+    impactSummary:
+      "From Seoul to Jeju, Endow Travel eliminates friction in international reservations through resilient booking state machines, real-time host chat, and curated cultural itineraries.",
+    engineeringDecisions: [
+      {
+        title: "Bilingual Mobile-First Reservation Sheets",
+        tag: "Frontend UX",
+        summary:
+          "Developed fluid booking sheets using Next.js 15 and Framer Motion, enabling single-screen date selection, guest adjustment, and currency toggling.",
+        iconKey: "zap",
+      },
+      {
+        title: "ACID Booking Engine & Hold Timers",
+        tag: "Data Integrity",
+        summary:
+          "PostgreSQL row-level locking with Supabase edge workers ensures room inventory cannot be double-booked during concurrent checkout sessions.",
+        iconKey: "database",
+      },
+      {
+        title: "Multi-Currency Stripe Processing",
+        tag: "FinTech & Payments",
+        summary:
+          "Stripe Connect integration supporting dynamic exchange rates, instant webhooks, automated receipt generation, and fraud screening.",
+        iconKey: "shield",
+      },
+      {
+        title: "Sub-Second Geo-Availability Caching",
+        tag: "Performance",
+        summary:
+          "Redis geospatial indexes pre-cache stay inventory by city and date range, delivering sub-1.2s search responses across Korea's top destinations.",
+        iconKey: "server",
+      },
+    ],
+    deliveryStages: [
+      {
+        step: "01",
+        shortLabel: "Architecture & Host UX",
+        title: "Booking Architecture & Bilingual Host Specs",
+        focus:
+          "Domain modeling of multi-day room inventories, currency models, and bilingual checkout flows.",
+        deliverables: [
+          "Interactive Figma prototype for traveler and host portals",
+          "PostgreSQL relational schema for stays, pricing rules, and bookings",
+          "Stripe Connect multi-currency payment architecture specification",
+        ],
+      },
+      {
+        step: "02",
+        shortLabel: "Core Engine",
+        title: "Booking State Machine & Calendar Logic",
+        focus:
+          "Implementation of real-time availability calendars, reservation hold locks, and map overlays.",
+        deliverables: [
+          "Transactional booking engine preventing calendar overlap",
+          "Kakao Maps API integration with custom stay clustering markers",
+          "Dynamic currency switcher with live exchange rate ingestion",
+        ],
+      },
+      {
+        step: "03",
+        shortLabel: "Concierge & Launch",
+        title: "Messaging, Telemetry & Production Launch",
+        focus:
+          "End-to-end testing of payment webhooks, bilingual messaging, and CDN optimization.",
+        deliverables: [
+          "Real-time guest-to-host messaging system with email fallbacks",
+          "Automated PDF booking voucher generation and QR check-in codes",
+          "Vercel Edge network deployment with 99.8% checkout SLA",
+        ],
+      },
+    ],
+    systemStandards: [
+      { label: "Checkout SLA", value: "99.8% Reliability", iconKey: "zap" },
+      { label: "Search Latency", value: "< 1.2s Cached", iconKey: "server" },
+      { label: "Data Protection", value: "PCI-DSS Compliant", iconKey: "shield" },
+      { label: "Host Verification", value: "100% Vetted", iconKey: "check" },
+    ],
+    transformationTitle:
+      "From fragmented tourism sites to a premier South Korea travel concierge.",
+    transformationBody:
+      "Travelers book verified boutique stays with total financial security and cultural clarity, while local Korean hosts gain direct, seamless access to international travelers.",
+    transformationOutcomes: [
+      "Zero payment failure or double-booking incidents across multi-currency checkouts",
+      "Immediate sub-second search speeds across hundreds of verified stay listings",
+      "Bilingual chat removing communication barriers between international guests and local hosts",
+      "Complete custom trip planning flow increasing booking conversion by 38%",
+      "Scalable infrastructure engineered for seasonal Korea festival surges",
+    ],
+    defaultServiceOption: "Web Platforms & SaaS",
+  },
+  "endow-fill": {
+    id: "endow-fill",
+    challengePoints: [
+      "Manual copy-pasting into PDF templates causing thousands of administrative lost hours",
+      "Standard document merger tools breaking complex fonts, table layouts, and branding",
+      "Lack of cryptographic authenticity leading to high certificate forgery risks",
+      "Server crashes during end-of-semester bulk certificate and invoice runs",
+    ],
+    solutionPoints: [
+      "Distributed document generation pipeline powered by BullMQ queues and headless Chromium",
+      "Visual HTML/CSS template studio supporting arbitrary dynamic data bindings",
+      "One-click Excel and CSV batch processor with pre-flight schema validation",
+      "Cryptographically signed verification QR codes embedded automatically on each page",
+    ],
+    impactHeadline: "Engineered for 10,000+ flawless documents per hour.",
+    impactSummary:
+      "EndowFill replaces brittle desktop mail-merge workflows with a cloud-native, distributed rendering architecture designed for mission-critical enterprise document production.",
+    engineeringDecisions: [
+      {
+        title: "Asynchronous BullMQ Rendering Queues",
+        tag: "Scalability",
+        summary:
+          "Decoupled web requests from resource-heavy PDF rendering via Redis-backed BullMQ worker pools with automated retry and backoff mechanisms.",
+        iconKey: "layers",
+      },
+      {
+        title: "Headless Chromium Print-Fidelity Pipeline",
+        tag: "Visual Precision",
+        summary:
+          "Sandboxed Puppeteer instances with custom print CSS stylesheets guarantee pixel-perfect output matching typography, margins, and page breaks.",
+        iconKey: "zap",
+      },
+      {
+        title: "Cryptographic QR Authenticity Verification",
+        tag: "Security · Trust",
+        summary:
+          "Generates tamper-proof SHA-256 signatures for every document, allowing instant public verification without exposing sensitive internal student records.",
+        iconKey: "shield",
+      },
+      {
+        title: "Pre-Flight Excel & CSV Schema Validator",
+        tag: "Data Integrity",
+        summary:
+          "Client-side streaming parser verifies column schemas, identifies missing fields, and highlights syntax errors before submitting generation jobs.",
+        iconKey: "database",
+      },
+    ],
+    deliveryStages: [
+      {
+        step: "01",
+        shortLabel: "Pipeline Design",
+        title: "Document Engine Architecture & Security Specs",
+        focus:
+          "Designing headless rendering pools, variable schema specs, and multi-tenant workspace security.",
+        deliverables: [
+          "Distributed queue architecture and worker scaling model",
+          "Dynamic HTML template syntax and CSS print standard guidelines",
+          "Cryptographic hash verification protocol specification",
+        ],
+      },
+      {
+        step: "02",
+        shortLabel: "Rendering Core",
+        title: "Worker Pools, Batch Processing & Template Studio",
+        focus:
+          "Engineering Puppeteer worker clustering, Redis state machines, and batch upload parsers.",
+        deliverables: [
+          "Interactive browser-based template editor with live preview",
+          "High-throughput batch CSV/Excel ingestor with progress websockets",
+          "AWS S3 encrypted artifact storage with presigned URLs",
+        ],
+      },
+      {
+        step: "03",
+        shortLabel: "Verification & Release",
+        title: "Public Verification Portal & Enterprise Deployment",
+        focus:
+          "Load testing 10,000+ batch runs and deploying the public QR verification gateway.",
+        deliverables: [
+          "Public zero-latency document verification web route",
+          "Role-based multi-workspace team access control (RBAC)",
+          "Enterprise monitoring dashboards tracking generation throughput",
+        ],
+      },
+    ],
+    systemStandards: [
+      { label: "Throughput", value: "10,000+ PDFs/Hour", iconKey: "zap" },
+      { label: "Layout Accuracy", value: "98.2% First-Pass", iconKey: "check" },
+      { label: "Verification", value: "SHA-256 Tamper-Proof", iconKey: "shield" },
+      { label: "Storage Security", value: "AWS S3 Encrypted", iconKey: "server" },
+    ],
+    transformationTitle:
+      "From tedious manual paperwork to automated enterprise document workflows.",
+    transformationBody:
+      "Institutions and enterprises generate thousands of audited, branded certificates and contracts in minutes, backed by instant verification.",
+    transformationOutcomes: [
+      "Over 80% reduction in manual staff hours previously spent on certificate and letter generation",
+      "Complete elimination of formatting errors and font layout shifts in bulk output",
+      "Tamper-proof online verification protecting university and corporate credential integrity",
+      "Reliable handling of 10,000+ document batches during peak admission and graduation periods",
+      "Secure multi-tenant workspaces allowing different departments to manage their own templates",
+    ],
+    defaultServiceOption: "SaaS & Multi-Tenant Platforms",
+  },
+  "endow-gpt": {
+    id: "endow-gpt",
+    challengePoints: [
+      "Consumer chat interfaces keep AI reasoning isolated in conversational bubbles without usable outputs",
+      "Inability of LLMs to export structured findings into verified, styled Office documents (.docx, .xlsx)",
+      "Lack of side-by-side editing canvas for documents, briefs, and code artifacts",
+      "Security concerns regarding enterprise data privacy and training retention policies",
+    ],
+    solutionPoints: [
+      "Full-stack Next.js and Python FastAPI architecture featuring an interactive two-pane Canvas",
+      "Real-time web search grounding with automated citation indexing and source verification",
+      "Programmatic document compiler generating clean, corporate-styled DOCX, XLSX, and PDF files",
+      "Strict enterprise zero-retention data boundaries with multi-tenant workspace separation",
+    ],
+    impactHeadline: "AI reasoning combined with live canvas execution and document synthesis.",
+    impactSummary:
+      "EndowGPT bridges conversational intelligence and enterprise execution—enabling knowledge teams to research, draft, code, and export production-ready documents side-by-side.",
+    engineeringDecisions: [
+      {
+        title: "Side-by-Side Reactive Canvas",
+        tag: "Frontend Architecture",
+        summary:
+          "Engineered a two-pane workspace allowing models to independently stream and edit code, HTML, or markdown artifacts without interrupting chat flow.",
+        iconKey: "layers",
+      },
+      {
+        title: "Low-Latency SSE Streaming Gateway",
+        tag: "Real-Time AI",
+        summary:
+          "FastAPI gateway using Server-Sent Events (SSE) and token buffering delivers under 450ms time-to-first-token across complex multi-step tool calls.",
+        iconKey: "zap",
+      },
+      {
+        title: "Programmatic Document Synthesis Engine",
+        tag: "File Generation",
+        summary:
+          "Python backend compiles model outputs into styled corporate Word documents, formatted Excel spreadsheets, and print-ready PDFs in seconds.",
+        iconKey: "server",
+      },
+      {
+        title: "Zero-Data-Retention Enterprise Enclave",
+        tag: "Security · Privacy",
+        summary:
+          "Configured API endpoints under strict zero-data-retention agreements with tenant-isolated vector indexes in Pinecone.",
+        iconKey: "shield",
+      },
+    ],
+    deliveryStages: [
+      {
+        step: "01",
+        shortLabel: "Canvas UX",
+        title: "Workspace UX & Agent Protocol Architecture",
+        focus:
+          "Designing split-view canvas interaction patterns, tool-calling schemas, and document generators.",
+        deliverables: [
+          "Interactive Figma specification for split-pane chat and canvas",
+          "Tool execution protocol defining file-generation and web-search interfaces",
+          "FastAPI streaming backend prototype with SSE transport",
+        ],
+      },
+      {
+        step: "02",
+        shortLabel: "AI Agents",
+        title: "Autonomous Web Research & Office Synthesis",
+        focus:
+          "Integrating live search grounding, citation footnoting, and python-docx document pipelines.",
+        deliverables: [
+          "Autonomous research agent synthesizing multiple web sources",
+          "Document compiler transforming markdown into styled .docx and .xlsx",
+          "Interactive code runner sandbox with live DOM preview",
+        ],
+      },
+      {
+        step: "03",
+        shortLabel: "Enterprise Hardening",
+        title: "Multi-Tenant Workspaces, RBAC & Deployment",
+        focus:
+          "Enforcing organization security policies, audit logging, and high-concurrency model routing.",
+        deliverables: [
+          "Organization workspace management with role-based permissions",
+          "Prompt library sharing and team knowledge base indexing",
+          "Production deployment on Vercel with high-availability Python microservices",
+        ],
+      },
+    ],
+    systemStandards: [
+      { label: "First Token Latency", value: "< 450ms SSE", iconKey: "zap" },
+      { label: "Document Export", value: "100% Native Office", iconKey: "check" },
+      { label: "Privacy SLA", value: "Zero Retention", iconKey: "shield" },
+      { label: "Agent Tooling", value: "Live Web & Canvas", iconKey: "server" },
+    ],
+    transformationTitle:
+      "From passive chat queries to an active, autonomous research and synthesis engine.",
+    transformationBody:
+      "Teams transform hours of research and document drafting into minutes of focused review, producing verified executive briefs and data sheets effortlessly.",
+    transformationOutcomes: [
+      "4x acceleration in researching, drafting, and compiling comprehensive strategic briefs",
+      "Direct export of structured research into pixel-perfect Word and Excel documents",
+      "Interactive canvas allowing seamless refinement of code and HTML mockups in real time",
+      "Verified web search citations providing instant factual validation for all outputs",
+      "Complete organizational data privacy with zero model training on customer queries",
+    ],
+    defaultServiceOption: "AI Integration & Automation",
+  },
+  "diu-care-ai": {
+    id: "diu-care-ai",
+    challengePoints: [
+      "University admissions staff overwhelmed by thousands of repetitive student inquiries during intake season",
+      "Long wait times driving prospective students to abandon application pipelines",
+      "Inconsistent advice given to applicants regarding waiver criteria, fees, and credit transfers",
+      "Lack of bilingual support for applicants alternating between English, Bengali, and phonetic Banglish",
+    ],
+    solutionPoints: [
+      "Institutional RAG assistant trained strictly on official university admission guidelines and curricula",
+      "Sub-second response engine answering questions 24/7 across mobile and desktop devices",
+      "Seamless 'Talk to a Human' escalation bridge transferring complex queries directly to officers",
+      "Executive admissions telemetry dashboard tracking trending applicant queries and concerns",
+    ],
+    impactHeadline: "Engineered for 24/7 admissions guidance with verified institutional accuracy.",
+    impactSummary:
+      "DIU Care AI transforms student onboarding by delivering instant, verified answers to prospective applicants—handling peak inquiry volumes with zero queue delays.",
+    engineeringDecisions: [
+      {
+        title: "Grounded RAG Pipeline & Hallucination Prevention",
+        tag: "AI Architecture",
+        summary:
+          "Implemented semantic chunking and temperature-constrained retrieval over DIU's approved university handbook, eliminating hallucinated admission rules.",
+        iconKey: "shield",
+      },
+      {
+        title: "Bilingual English & Bengali Comprehension",
+        tag: "NLP & Localization",
+        summary:
+          "Fine-tuned intent classifiers accurately parse colloquial student phrasing, formal Bengali, and mixed phonetic Banglish queries.",
+        iconKey: "zap",
+      },
+      {
+        title: "Instant Human-in-the-Loop Escalation",
+        tag: "Operations Bridge",
+        summary:
+          "Integrated WebSocket-powered handoff mechanism that transfers qualified candidates directly into live counselor triage queues.",
+        iconKey: "layers",
+      },
+      {
+        title: "High-Concurrency Vector Indexing",
+        tag: "Data & Search",
+        summary:
+          "Qdrant vector database paired with PostgreSQL delivers sub-second semantic retrieval across hundreds of degree programs and waiver criteria.",
+        iconKey: "database",
+      },
+    ],
+    deliveryStages: [
+      {
+        step: "01",
+        shortLabel: "Knowledge Base",
+        title: "Curriculum Ingestion & Intent Taxonomy",
+        focus:
+          "Parsing official university handbooks, tuition tables, and defining admissions intent classification.",
+        deliverables: [
+          "Structured document chunks and embedding pipeline for academic programs",
+          "Admissions intent taxonomy covering waivers, deadlines, and hostel policies",
+          "Brand-aligned conversational UI prototype for mobile and desktop",
+        ],
+      },
+      {
+        step: "02",
+        shortLabel: "RAG & Escalation",
+        title: "RAG Engine, Handoffs & Bilingual Tuning",
+        focus:
+          "Engineering retrieval accuracy, officer escalation triggers, and bilingual response benchmarking.",
+        deliverables: [
+          "Sub-second FastAPI RAG microservice with Qdrant vector retrieval",
+          "Interactive quick-topic navigation pills for tuition, deadlines, and majors",
+          "Counselor triage dashboard with real-time student session takeover",
+        ],
+      },
+      {
+        step: "03",
+        shortLabel: "Peak Launch",
+        title: "Stress Testing, Analytics & Live Deployment",
+        focus:
+          "Simulating peak intake volume and deploying administrative telemetry dashboards.",
+        deliverables: [
+          "Stress-tested deployment sustaining thousands of concurrent queries",
+          "Executive analytics dashboard tracking applicant interest and drop-offs",
+          "Production launch on Vercel with high-availability API endpoints",
+        ],
+      },
+    ],
+    systemStandards: [
+      { label: "Response Latency", value: "< 1s RAG Retrieval", iconKey: "zap" },
+      { label: "Resolution Rate", value: "92% Automated", iconKey: "check" },
+      { label: "Availability", value: "24/7 Peak Uptime", iconKey: "server" },
+      { label: "Factual Accuracy", value: "100% Policy Grounded", iconKey: "shield" },
+    ],
+    transformationTitle:
+      "From crowded counseling queues to an instant, 24/7 intelligent admission assistant.",
+    transformationBody:
+      "Prospective students receive immediate, authoritative answers regarding admissions and fees, while counseling officers focus on high-touch enrollment guidance.",
+    transformationOutcomes: [
+      "92% of prospective student inquiries resolved instantly without requiring staff intervention",
+      "Average applicant response time reduced from hours to under 1 second",
+      "100% adherence to official tuition policies and scholarship waiver guidelines",
+      "Seamless escalation ensuring complex cases reach admission officers with full context",
+      "Rich telemetry giving university leadership real-time visibility into applicant interests",
+    ],
+    defaultServiceOption: "AI Integration & Automation",
+  },
 };
 
 export interface TechBadgeVisual {
@@ -741,7 +1157,32 @@ const TECH_ICON_MAP: Record<string, { slug?: string; categoryLabel: string }> = 
   Vite: { slug: "vite", categoryLabel: "Build Tooling" },
   Svelte: { slug: "svelte", categoryLabel: "Fast Runtime UI" },
   Tailwind: { slug: "tailwindcss", categoryLabel: "Design System" },
+  "Tailwind CSS": { slug: "tailwindcss", categoryLabel: "Design System" },
   Prisma: { slug: "prisma", categoryLabel: "Type-Safe ORM" },
+  "Next.js": { slug: "nextdotjs", categoryLabel: "Full-Stack Framework" },
+  "Next.js 14": { slug: "nextdotjs", categoryLabel: "Full-Stack Framework" },
+  "Next.js 15": { slug: "nextdotjs", categoryLabel: "Full-Stack Framework" },
+  TypeScript: { slug: "typescript", categoryLabel: "Type Safety" },
+  PostgreSQL: { slug: "postgresql", categoryLabel: "Relational DB" },
+  Supabase: { slug: "supabase", categoryLabel: "Backend-as-a-Service" },
+  Stripe: { slug: "stripe", categoryLabel: "Payment Gateway" },
+  "Kakao Maps": { slug: "kakaotalk", categoryLabel: "Maps API" },
+  "Framer Motion": { slug: "framer", categoryLabel: "Micro-Interactions" },
+  "Node.js": { slug: "nodedotjs", categoryLabel: "Runtime" },
+  Puppeteer: { slug: "puppeteer", categoryLabel: "Headless Browser" },
+  BullMQ: { slug: "redis", categoryLabel: "Job Queue" },
+  "AWS S3": { slug: "amazons3", categoryLabel: "Cloud Storage" },
+  Python: { slug: "python", categoryLabel: "AI Core" },
+  FastAPI: { slug: "fastapi", categoryLabel: "High-Speed API" },
+  "OpenAI & Anthropic": { slug: "openai", categoryLabel: "LLM Intelligence" },
+  "OpenAI GPT-4o": { slug: "openai", categoryLabel: "LLM Intelligence" },
+  LangChain: { slug: "langchain", categoryLabel: "Agent Framework" },
+  Pinecone: { slug: "pinecone", categoryLabel: "Vector Database" },
+  Qdrant: { slug: "qdrant", categoryLabel: "Vector Engine" },
+  "Socket.io": { slug: "socketdotio", categoryLabel: "WebSockets" },
+  tRPC: { slug: "trpc", categoryLabel: "Type-Safe API" },
+  "Drizzle ORM": { slug: "drizzle", categoryLabel: "Type-Safe ORM" },
+  Typesense: { slug: "typesense", categoryLabel: "Instant Search" },
 };
 
 export function resolveTechVisuals(techStack: string[]): TechBadgeVisual[] {

@@ -138,7 +138,7 @@ export const featuredProjects: FeaturedProject[] = [
           "Sub-second dashboard loading, real-time activity feeds, and smooth lead management",
       },
     ],
-    liveUrl: "https://ec.endowglobaledu.com",
+    liveUrl: "https://endow-connect.vercel.app",
     demoAvailable: true,
   },
   {
@@ -254,8 +254,453 @@ export const featuredProjects: FeaturedProject[] = [
     demoAvailable: true,
   },
   {
-    id: "endow-cuisine",
+    id: "endow-travel",
     number: "03",
+    title: "Endow Travel",
+    shortTitle: "Endow Travel – Luxury South Korea Travel & Stays Platform",
+    category: "Travel Experience & Curated Stays Platform",
+    client: "Endow Corporation",
+    clientLocation: "Seoul · Incheon · Jeju",
+    year: "2026",
+    role: "Full-Stack Travel Booking Engine & Itinerary Platform Engineering",
+    tagline:
+      "Korea, beyond the guidebook: curated boutique stays, verified local hosts, and tailored cultural journeys.",
+    description:
+      "Endow Travel is an exclusive travel experience and boutique stay booking platform engineered for international travelers exploring South Korea. From traditional hanok retreats in Bukchon and Jeju seaside villas to VIP cultural tours and private transport coordination, the platform bridges verified local hosts with global travelers through an intuitive, bilingual reservation engine.",
+    challenge:
+      "International visitors navigating South Korea often encounter fragmented payment gateways, language barriers on local booking portals, and rigid itinerary systems that lack authentic cultural depth. Travelers need a unified, concierge-grade platform supporting multi-currency transactions and real-time host coordination.",
+    solution:
+      "Engineered a high-performance Next.js and Supabase platform featuring dynamic stay availability calendars, multi-currency checkout (USD, KRW, BDT), interactive Korean map integrations, multilingual host messaging, and curated custom trip planning workflows backed by high-concurrency booking integrity.",
+    accentColor: "#DC2626",
+    image: "/images/projects/EndowTravel.jpg",
+    techStack: [
+      "Next.js 15",
+      "TypeScript",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Supabase",
+      "Stripe",
+      "Kakao Maps",
+      "Framer Motion",
+      "Redis",
+    ],
+    tags: [
+      "Travel Tech",
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Stripe",
+      "Supabase",
+    ],
+    metrics: [
+      {
+        value: "99.8%",
+        label: "Booking Success Rate",
+        change: "Multi-currency instant checkout",
+      },
+      {
+        value: "100%",
+        label: "Verified Local Stays",
+        change: "Zero unvetted host listings",
+      },
+      {
+        value: "< 1.2s",
+        label: "Search Response Time",
+        change: "Cached geo-availability matrix",
+      },
+      {
+        value: "24/7",
+        label: "Bilingual Traveler Support",
+        change: "Integrated host & concierge chat",
+      },
+    ],
+    keyFeatures: [
+      {
+        title: "Interactive Stay & Experience Search",
+        description:
+          "Dynamic date-range filters, guest counters, geo-proximity clustering, and instant stay verification across Seoul, Busan, and Jeju.",
+      },
+      {
+        title: "Multi-Currency Stripe & Local Checkout",
+        description:
+          "Seamless currency conversion across USD, EUR, KRW, and local payment methods with automated invoice generation and refund workflows.",
+      },
+      {
+        title: "Curated Custom Trip Planner",
+        description:
+          "'Plan My Trip' interactive wizard matching traveler preferences with tailored itineraries, private transport, and licensed local guides.",
+      },
+      {
+        title: "Real-Time Host & Concierge Messaging",
+        description:
+          "Secure multi-party communication channel connecting travelers directly with stay hosts and on-ground travel concierges.",
+      },
+      {
+        title: "Wishlist & Social Trip Sharing",
+        description:
+          "Collaborative trip curation allowing travel groups to save stays, vote on experiences, and share dynamic itineraries.",
+      },
+    ],
+    architectureHighlights: [
+      {
+        layer: "Frontend & Micro-Interactions",
+        tech: "Next.js 15 (App Router), TypeScript & Framer Motion",
+        purpose:
+          "Bilingual responsive UI with smooth page transitions and mobile-first booking sheets",
+      },
+      {
+        layer: "Booking Engine & Database",
+        tech: "PostgreSQL, Supabase & Drizzle ORM",
+        purpose:
+          "ACID reservation locking preventing double-bookings with transactional hold timers",
+      },
+      {
+        layer: "Payment & Geolocation",
+        tech: "Stripe Connect, Kakao Maps API & Redis Cache",
+        purpose:
+          "Global multi-currency card processing, dynamic map overlays, and sub-second inventory caching",
+      },
+    ],
+    liveUrl: "https://endow-travel.vercel.app",
+    demoAvailable: true,
+  },
+  {
+    id: "endow-fill",
+    number: "04",
+    title: "EndowFill",
+    shortTitle: "EndowFill – Automated Document & PDF Template Engine",
+    category: "Automated Document Generation & PDF Templating Platform",
+    client: "Endow Tech",
+    clientLocation: "Seoul · Dhaka",
+    year: "2026",
+    role: "High-Throughput Document Automation & Cloud PDF Engine Engineering",
+    tagline:
+      "From spreadsheet to signed PDF in seconds: enterprise document templating, bulk generation, and verification.",
+    description:
+      "EndowFill is a high-throughput enterprise document automation platform designed to turn spreadsheets, databases, and API payloads into pixel-perfect PDF documents at scale. Engineered for education admissions, corporate HR, finance, and logistics, EndowFill enables organizations to design reusable templates, populate thousands of certificates, invoices, and contracts simultaneously, and verify them via cryptographically secure QR codes.",
+    challenge:
+      "Enterprise operations routinely waste hundreds of labor hours manually populating admission offer letters, course completion certificates, student invoices, and compliance contracts. Disconnected mail-merge tools break on complex layouts, lack audit logs, and fail to handle bulk generation without crashing.",
+    solution:
+      "Built a distributed document processing pipeline combining a visual template designer, Excel/CSV batch ingestor, sandboxed headless Chromium rendering engine, and automated S3-compatible cloud storage with QR cryptographic authenticity verification.",
+    accentColor: "#7C3AED",
+    image: "/images/projects/EndowFill2.jpg",
+    techStack: [
+      "Next.js 14",
+      "TypeScript",
+      "Node.js",
+      "Puppeteer",
+      "PostgreSQL",
+      "Prisma",
+      "BullMQ",
+      "Redis",
+      "AWS S3",
+      "Tailwind CSS",
+    ],
+    tags: [
+      "Document Automation",
+      "PDF Engine",
+      "Next.js",
+      "TypeScript",
+      "BullMQ",
+      "PostgreSQL",
+    ],
+    metrics: [
+      {
+        value: "10,000+",
+        label: "PDFs Generated / Hour",
+        change: "Distributed BullMQ worker queues",
+      },
+      {
+        value: "98.2%",
+        label: "First-Pass Render Accuracy",
+        change: "Zero CSS bleed or layout shifts",
+      },
+      {
+        value: "80%",
+        label: "Administrative Hours Saved",
+        change: "Direct Excel-to-PDF generation",
+      },
+      {
+        value: "100%",
+        label: "Cryptographic QR Verification",
+        change: "Tamper-proof certificate checks",
+      },
+    ],
+    keyFeatures: [
+      {
+        title: "Visual & HTML Template Studio",
+        description:
+          "Drag-and-drop dynamic variable placement with CSS customization for certificates, invoices, contracts, and transcripts.",
+      },
+      {
+        title: "Bulk Ingestion from Excel & CSV",
+        description:
+          "Instant column-to-variable mapping with pre-flight schema validation, error detection, and batch progress tracking.",
+      },
+      {
+        title: "Distributed High-Concurrency PDF Engine",
+        description:
+          "Headless Chromium worker pools powered by BullMQ and Redis for non-blocking asynchronous document generation.",
+      },
+      {
+        title: "Instant Verification QR Codes",
+        description:
+          "Automated embedding of unique signed QR codes allowing employers and universities to verify document authenticity online.",
+      },
+      {
+        title: "Multi-Tenant Workspaces & RBAC",
+        description:
+          "Team-level workspace segregation, template access permissions, custom branding, and download audit logs.",
+      },
+    ],
+    architectureHighlights: [
+      {
+        layer: "Template Engine & Web Client",
+        tech: "Next.js 14, TypeScript & Tailwind CSS",
+        purpose:
+          "Interactive template editor with live visual preview and multi-workspace organization",
+      },
+      {
+        layer: "Distributed Rendering Pipeline",
+        tech: "BullMQ, Redis & Headless Chromium (Puppeteer)",
+        purpose:
+          "High-throughput asynchronous PDF rendering with parallel worker scaling and retry logic",
+      },
+      {
+        layer: "Storage & Security",
+        tech: "PostgreSQL, Prisma ORM, AWS S3 & SHA-256 Hashes",
+        purpose:
+          "Encrypted document storage, signed ephemeral download URLs, and cryptographic audit records",
+      },
+    ],
+    liveUrl: "https://endowfill.vercel.app",
+    demoAvailable: true,
+  },
+  {
+    id: "endow-gpt",
+    number: "05",
+    title: "EndowGPT",
+    shortTitle: "EndowGPT – Enterprise AI Workspace & Knowledge Canvas",
+    category: "Enterprise AI Workspace & Document Intelligence",
+    client: "Endow Tech",
+    clientLocation: "Seoul · Dhaka",
+    year: "2026",
+    role: "Full-Stack AI Canvas, RAG & Document Generation Engineering",
+    tagline:
+      "AI reasoning paired with live canvas execution: live web research, document synthesis, and interactive code artifacts.",
+    description:
+      "EndowGPT is an enterprise-grade AI intelligence workspace engineered to elevate team productivity beyond simple chat. Featuring an integrated real-time Canvas, live web search grounding, automated Office document synthesis (.docx, .xlsx, .pdf), and sandboxed HTML/code execution, EndowGPT empowers professionals to conduct complex research, draft multi-page strategic briefs, and iterate on visual artifacts side-by-side.",
+    challenge:
+      "Standard consumer AI chat interfaces isolate reasoning inside conversational text bubbles. Enterprise teams require a collaborative workspace where models can autonomously search the live web, generate downloadable office files, and provide editable, run-ready interactive canvas artifacts.",
+    solution:
+      "Engineered a full-stack Next.js and Python FastAPI workspace featuring streaming LangChain/LangGraph agent pipelines, hybrid vector search (Pinecone + PostgreSQL pgvector), sandboxed client-side iframe runtimes, and programmatic python-docx/xlsx file generation.",
+    accentColor: "#0F172A",
+    image: "/images/projects/EndowGPT.jpg",
+    techStack: [
+      "Next.js 15",
+      "TypeScript",
+      "Python",
+      "FastAPI",
+      "OpenAI & Anthropic",
+      "LangChain",
+      "Pinecone",
+      "Tailwind CSS",
+      "Redis",
+    ],
+    tags: [
+      "Enterprise AI",
+      "LLM Workspace",
+      "Next.js",
+      "Python",
+      "LangChain",
+      "Pinecone",
+    ],
+    metrics: [
+      {
+        value: "4x",
+        label: "Research-to-Brief Speed",
+        change: "Live web grounding & doc export",
+      },
+      {
+        value: "< 450ms",
+        label: "Time-to-First-Token",
+        change: "Optimized streaming SSE gateway",
+      },
+      {
+        value: "100%",
+        label: "Office File Export Fidelity",
+        change: "Native DOCX, XLSX, and PDF",
+      },
+      {
+        value: "Enterprise",
+        label: "Data Privacy & RBAC",
+        change: "Zero-retention training policy",
+      },
+    ],
+    keyFeatures: [
+      {
+        title: "Side-by-Side Interactive Canvas",
+        description:
+          "Two-pane interface allowing users to refine code, markdown briefs, and interactive HTML artifacts while continuing the conversation.",
+      },
+      {
+        title: "Live Web Grounding & Real-Time Citations",
+        description:
+          "Autonomous multi-source web search with inline verification footnotes and source URL validation.",
+      },
+      {
+        title: "Programmatic Office File Synthesis",
+        description:
+          "Instantly compile structured research, tables, and briefs into downloadable .docx, .xlsx, and formatted .pdf documents.",
+      },
+      {
+        title: "Multi-Model Reasoning Hub",
+        description:
+          "Switch dynamically between high-velocity models for rapid drafting and deep-reasoning models for architectural planning.",
+      },
+      {
+        title: "Secure Enterprise Workspace",
+        description:
+          "Organization-level chat history, shared prompt libraries, team knowledge bases, and strict tenant data isolation.",
+      },
+    ],
+    architectureHighlights: [
+      {
+        layer: "Workspace Frontend",
+        tech: "Next.js 15, React 19, TypeScript & Tailwind CSS",
+        purpose:
+          "Split-view streaming interface with syntax highlighting, live artifact renderers, and stateful history",
+      },
+      {
+        layer: "Agent Gateway & Orchestration",
+        tech: "FastAPI, LangGraph & Server-Sent Events (SSE)",
+        purpose:
+          "Multi-step tool calling, web search agent orchestration, and low-latency token streaming",
+      },
+      {
+        layer: "Vector Store & Generation Engines",
+        tech: "Pinecone, python-docx, WeasyPrint & Redis",
+        purpose:
+          "Semantic document retrieval, headless document compiling, and session caching",
+      },
+    ],
+    liveUrl: "https://endowgpt.vercel.app",
+    demoAvailable: true,
+  },
+  {
+    id: "diu-care-ai",
+    number: "06",
+    title: "DIU Care AI",
+    shortTitle: "DIU Care AI – University Admission & Student Concierge",
+    category: "Conversational AI & University Admissions Concierge",
+    client: "Daffodil International University (DIU)",
+    clientLocation: "Dhaka · Bangladesh",
+    year: "2026",
+    role: "AI Concierge Architecture, RAG Pipeline & Multi-Channel Admissions Engineering",
+    tagline:
+      "Instant, 24/7 prospective student admissions guidance powered by verified university knowledge.",
+    description:
+      "DIU Care AI is an intelligent admissions assistant and prospective student concierge engineered for Daffodil International University (DIU). Trained on official academic curricula, scholarship waiver criteria, tuition structures, and international student protocols, it delivers immediate, verified answers to prospective students 24/7 across web and mobile while seamlessly handing off complex cases to human admission officers.",
+    challenge:
+      "During peak admission cycles, university call centers and counseling desks are inundated with thousands of repetitive inquiries regarding GPA requirements, waiver percentages, deadlines, and hostel facilities, leading to long wait times and lost applicant engagement.",
+    solution:
+      "Architected a retrieval-augmented generation (RAG) assistant connected to DIU's formal institutional database. Engineered intent classification, multi-turn qualification flows, Bengali and English bilingual comprehension, and a human-in-the-loop escalation bridge for counseling officers.",
+    accentColor: "#2563EB",
+    image: "/images/projects/DIUCare.jpg",
+    techStack: [
+      "Next.js 14",
+      "TypeScript",
+      "Python",
+      "FastAPI",
+      "OpenAI GPT-4o",
+      "Qdrant",
+      "PostgreSQL",
+      "Socket.io",
+      "Tailwind CSS",
+    ],
+    tags: [
+      "EdTech AI",
+      "Conversational AI",
+      "RAG",
+      "Next.js",
+      "Python",
+      "Qdrant",
+    ],
+    metrics: [
+      {
+        value: "92%",
+        label: "Automated Inquiry Resolution",
+        change: "Zero human intervention required",
+      },
+      {
+        value: "< 1s",
+        label: "Instant Query Response",
+        change: "Sub-second RAG retrieval",
+      },
+      {
+        value: "24/7",
+        label: "Admissions Concierge Uptime",
+        change: "Peak cycle zero-queue guidance",
+      },
+      {
+        value: "4.8/5",
+        label: "Student Satisfaction Rating",
+        change: "Verified factual university answers",
+      },
+    ],
+    keyFeatures: [
+      {
+        title: "Official Institutional RAG Engine",
+        description:
+          "Semantic retrieval grounded strictly in DIU's approved course catalogs, tuition tables, and scholarship waiver policies.",
+      },
+      {
+        title: "Bilingual Bengali & English Understanding",
+        description:
+          "Native handling of queries in English, formal Bengali, and phonetic Banglish for frictionless applicant accessibility.",
+      },
+      {
+        title: "Interactive Topic & Program Navigator",
+        description:
+          "Quick-action pills for admission requirements, tuition calculators, application deadlines, and campus life tours.",
+      },
+      {
+        title: "Human-in-the-Loop Officer Escalation",
+        description:
+          "'Talk to a Human' instant transfer mechanism routing complex applicant profiles directly to available admission counselors.",
+      },
+      {
+        title: "Admissions Analytics & Intent Telemetry",
+        description:
+          "Real-time administrative dashboard tracking common applicant concerns, trending academic programs, and conversion drop-offs.",
+      },
+    ],
+    architectureHighlights: [
+      {
+        layer: "Conversational UI",
+        tech: "Next.js 14 (App Router), TypeScript & Tailwind CSS",
+        purpose:
+          "Mobile-optimized floating concierge and full-screen admission assistant with responsive topic cards",
+      },
+      {
+        layer: "RAG & LLM Pipeline",
+        tech: "Python, FastAPI, LangChain & OpenAI GPT-4o",
+        purpose:
+          "Strict context-bounded generation with temperature controls preventing hallucinated admission guidelines",
+      },
+      {
+        layer: "Vector Store & Telemetry",
+        tech: "Qdrant Vector DB, PostgreSQL & Redis",
+        purpose:
+          "Hybrid semantic search, student session state tracking, and lead handoff webhooks",
+      },
+    ],
+    liveUrl: "https://diu-care-ai.vercel.app",
+    demoAvailable: true,
+  },
+  {
+    id: "endow-cuisine",
+    number: "07",
     title: "Endow Cuisine",
     shortTitle: "Endow Cuisine – Restaurant Accounting System",
     category: "Restaurant Accounting System",
@@ -351,7 +796,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     id: "endow-cloud",
-    number: "04",
+    number: "08",
     title: "Endow Cloud",
     shortTitle: "Endow Cloud – Local Infrastructure File Storage",
     category: "Local Infrastructure File Storage & Sharing",
@@ -447,7 +892,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     id: "endow-desk",
-    number: "05",
+    number: "09",
     title: "Endow Desk",
     shortTitle: "Endow Desk – AI-Powered Support Ticket System",
     category: "AI-Powered Support Ticket System",
@@ -543,7 +988,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     id: "zendos",
-    number: "06",
+    number: "10",
     title: "ZendOS",
     shortTitle: "ZendOS – Hospitality Operating System",
     category: "Hospitality Operating System / Hotel Management",

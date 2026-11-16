@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 
 interface TechIconProps {
   name: string;
@@ -19,8 +19,10 @@ export function TechIcon({
   className = "w-8 h-8 sm:w-9 sm:h-9",
 }: TechIconProps) {
   const [imageError, setImageError] = useState(false);
-  const uid = useId().replace(/:/g, "");
-  const filterId = `tech-red-tint-${uid}`;
+  const safeName =
+    name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") ||
+    "icon";
+  const filterId = `tech-red-tint-${safeName}`;
 
   if (!icon || imageError) {
     return (

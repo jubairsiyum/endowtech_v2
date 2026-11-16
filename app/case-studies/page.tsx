@@ -11,14 +11,14 @@ import {
 export const metadata: Metadata = {
   title: "Case Studies — Production Software & Enterprise Systems",
   description:
-    "Explore five production case studies engineered by Endow Tech: Endow Connect, Endow Cuisine, Endow Cloud, Endow Desk, and ZendOS.",
+    "Explore production case studies engineered by Endow Tech spanning EdTech CRM, global admissions, travel booking, automated document generation, enterprise AI, and cloud infrastructure.",
   alternates: {
     canonical: `${siteConfig.url}/case-studies`,
   },
   openGraph: {
     title: "Case Studies — Systems Built to Carry Real Operations | Endow Tech",
     description:
-      "Five production software platforms spanning EdTech CRM, restaurant accounting, on-premise local cloud storage, AI support ticketing, and hospitality OS.",
+      "Explore production software platforms spanning EdTech CRM, global admissions, travel booking, automated document generation, enterprise AI, and hospitality OS.",
     url: `${siteConfig.url}/case-studies`,
     type: "website",
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Case Studies — Endow Tech Production Systems",
     description:
-      "Explore Endow Connect, Endow Cuisine, Endow Cloud, Endow Desk, and ZendOS.",
+      "Explore Endow Tech production systems across EdTech, FinTech, AI, Travel, and Enterprise Infrastructure.",
   },
 };
 

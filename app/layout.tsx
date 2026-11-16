@@ -102,16 +102,7 @@ export default function RootLayout({
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
-          media="print"
-          // @ts-expect-error onLoad media switch for non-render-blocking font loading
-          onLoad="this.media='all'"
         />
-        <noscript>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-            rel="stylesheet"
-          />
-        </noscript>
         <JsonLd schema={[organizationSchema, websiteSchema]} />
       </head>
       <body

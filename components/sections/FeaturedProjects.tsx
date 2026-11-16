@@ -7,9 +7,9 @@
  */
 import FeaturedWorkCta from "@/components/sections/FeaturedWorkCta";
 import {
+  SectionDescription,
   SectionMeta,
   SectionTitle,
-  SectionDescription,
 } from "@/components/ui/SectionHeader";
 import { featuredProjects } from "@/data/featuredProjects"; // { id, title, image, category, client }
 import Image from "next/image";
@@ -19,6 +19,14 @@ import { useEffect, useRef } from "react";
 const REF_W = 874;
 const ASPECT = 16 / 9;
 const BG = "#ffff";
+
+const FEATURED_PROJECT_IDS = [
+  "endow-connect",
+  "endow-global",
+  "endow-travel",
+  "endow-fill",
+  "endow-gpt",
+] as const;
 
 /* ---------- Catmull-Rom Spline Helper ---------- */
 function catmullRom(
@@ -142,7 +150,11 @@ export default function FeaturedProjects({
   const curRef = useRef<HTMLSpanElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
 
-  const N = featuredProjects.length;
+  const featured5 = FEATURED_PROJECT_IDS.map(
+    (id) => featuredProjects.find((p) => p.id === id)!,
+  ).filter(Boolean);
+
+  const N = featured5.length + 1; // 5 featured cards + 1 "See All" 4-section mosaic card = 6
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -357,14 +369,14 @@ export default function FeaturedProjects({
               <div className="hidden md:block w-[180px]" />
 
               {/* Title & Text */}
-              <div className="text-left md:text-center md:mx-auto max-w-2xl pointer-events-auto">
+              <div className="text-left md:text-center md:mx-auto max-w-2xl pointer-events-auto mb-5">
                 <SectionMeta className="hidden md:block mb-2">
                   Featured Work
                 </SectionMeta>
                 <SectionTitle>
                   Built for scale. Proven in production.
                 </SectionTitle>
-                <SectionDescription className="max-w-lg md:mx-auto">
+                <SectionDescription className="max-w-lg md:mx-auto ">
                   We measure enterprise engineering by what the system has to
                   handle, how critical it becomes, and what changes for the
                   business after it ships.
@@ -384,8 +396,8 @@ export default function FeaturedProjects({
             </div>
           </header>
 
-          {/* cards */}
-          {featuredProjects.map((p, i) => (
+          {/* cards: 5 featured projects */}
+          {featured5.map((p, i) => (
             <Link
               key={p.id}
               href={`/projects/${p.id}`}
@@ -406,7 +418,7 @@ export default function FeaturedProjects({
               }}
             >
               <div
-                className="relative w-full overflow-hidden  bg-neutral-900  shadow-[0_18px_45px_-16px_rgba(0,0,0,0.22)]"
+                className="relative w-full overflow-hidden bg-neutral-900 shadow-[0_18px_45px_-16px_rgba(0,0,0,0.22)]"
                 style={{
                   height: "var(--h)",
                   outline: "1px solid transparent",
@@ -473,6 +485,174 @@ export default function FeaturedProjects({
               </div>
             </Link>
           ))}
+
+          {/* 6th Card: 4-Section Mosaic with Project Thumbnails & See All */}
+          <Link
+            key="see-all-case-studies"
+            href="/case-studies"
+            draggable={false}
+            aria-label="Explore All Case Studies"
+            ref={(el) => {
+              cardRefs.current[featured5.length] = el;
+            }}
+            className="group/card absolute block select-none will-change-transform"
+            style={{
+              left: "50%",
+              width: "var(--w)",
+              transformStyle: "preserve-3d",
+              marginLeft: "calc(var(--w) / -2)",
+              top: "var(--card-top, calc(51% - var(--h) / 2))",
+              transformOrigin: "50% calc(var(--h) / 2)",
+              backfaceVisibility: "hidden",
+            }}
+          >
+            <div
+              className="relative w-full overflow-hidden bg-neutral-900 shadow-[0_18px_45px_-16px_rgba(0,0,0,0.22)]"
+              style={{
+                height: "var(--h)",
+                outline: "1px solid transparent",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-px bg-neutral-300">
+                {/* Quadrant 1: DIU Care AI */}
+                <div className="relative overflow-hidden bg-neutral-900">
+                  <Image
+                    src="/images/projects/DIUCare.jpg"
+                    alt="DIU Care AI"
+                    fill
+                    quality={75}
+                    sizes="(max-width: 767px) 46vw, (max-width: 1100px) 26vw, 390px"
+                    priority={false}
+                    draggable={false}
+                    className="object-cover object-top transition-transform duration-500 ease-out group-hover/card:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent flex items-end p-2.5 sm:p-3.5">
+                    <span className="text-[11px] sm:text-xs md:text-sm font-semibold text-white tracking-tight drop-shadow-sm">
+                      DIU Care AI
+                    </span>
+                  </div>
+                </div>
+
+                {/* Quadrant 2: Endow Cuisine */}
+                <div className="relative overflow-hidden bg-neutral-900">
+                  <Image
+                    src="/images/projects/EndowCousine.jpg"
+                    alt="Endow Cuisine"
+                    fill
+                    quality={75}
+                    sizes="(max-width: 767px) 46vw, (max-width: 1100px) 26vw, 390px"
+                    priority={false}
+                    draggable={false}
+                    className="object-cover object-center transition-transform duration-500 ease-out group-hover/card:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent flex items-end p-2.5 sm:p-3.5">
+                    <span className="text-[11px] sm:text-xs md:text-sm font-semibold text-white tracking-tight drop-shadow-sm">
+                      Endow Cuisine
+                    </span>
+                  </div>
+                </div>
+
+                {/* Quadrant 3: Endow Cloud */}
+                <div className="relative overflow-hidden bg-neutral-900">
+                  <Image
+                    src="/images/projects/Endow cloud.jpg"
+                    alt="Endow Cloud"
+                    fill
+                    quality={75}
+                    sizes="(max-width: 767px) 46vw, (max-width: 1100px) 26vw, 390px"
+                    priority={false}
+                    draggable={false}
+                    className="object-cover object-center transition-transform duration-500 ease-out group-hover/card:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent flex items-end p-2.5 sm:p-3.5">
+                    <span className="text-[11px] sm:text-xs md:text-sm font-semibold text-white tracking-tight drop-shadow-sm">
+                      Endow Cloud
+                    </span>
+                  </div>
+                </div>
+
+                {/* Quadrant 4: See All ( ) */}
+                <div className="relative flex flex-col items-center justify-center bg-[#f3f4f6] p-3 sm:p-4 text-center transition-all duration-300 group-hover/card:bg-red-50/80">
+                  <div className="flex flex-col items-center justify-center gap-1.5 sm:gap-2.5">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full bg-white border border-neutral-200/90 flex items-center justify-center text-accent shadow-sm transition-all duration-300 group-hover/card:scale-110 group-hover/card:bg-accent group-hover/card:text-white">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover/card:translate-x-0.5"
+                      >
+                        <path
+                          d="M5 12h14M12 5l7 7-7 7"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <span className="font-semibold text-xs sm:text-sm md:text-base text-[#0f0000] tracking-tight">
+                      See All ({featuredProjects.length})
+                    </span>
+                    <span className="hidden sm:inline-block text-[10px] sm:text-[11px] text-neutral-500 font-medium">
+                      Explore Case Studies →
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="relative"
+              style={{
+                marginTop: "max(10px, calc(var(--w) * .02))",
+                opacity: "var(--txt, 1)",
+              }}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <h3
+                  className="font-medium leading-[1.12] tracking-[-0.035em] text-[#0f0000]"
+                  style={{ fontSize: "max(18px, calc(var(--w) * .042))" }}
+                >
+                  Explore All Case Studies
+                </h3>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.9}
+                  strokeLinecap="square"
+                  className="shrink-0 text-[#222] transition-transform duration-300 group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5"
+                  style={{
+                    marginTop: "calc(var(--w) * .004)",
+                    width: "max(20px, calc(var(--w) * .027))",
+                  }}
+                >
+                  <path d="M6 18 18 6M8 6h10v10" />
+                </svg>
+              </div>
+              <div
+                className="flex items-center flex-wrap font-sans leading-none"
+                style={{
+                  gap: "max(5px, calc(var(--w) * .01))",
+                  marginTop: "max(6px, calc(var(--w) * .014))",
+                }}
+              >
+                {[
+                  `${featuredProjects.length} Production Systems`,
+                  "EdTech & CRM",
+                  "FinTech & Ops",
+                  "AI & Travel",
+                ].map((tag, idx) => (
+                  <span
+                    key={idx}
+                    className="inline-flex items-center text-[11px] sm:text-xs px-2 py-0.5 rounded bg-neutral-100 text-neutral-700 font-medium border border-neutral-200/80"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Link>
 
           {/* footer */}
           <footer className="absolute inset-x-0 bottom-0 z-[200] grid grid-cols-[1fr_auto_1fr] items-end px-4 sm:px-6 lg:px-12 pb-5 sm:pb-7 lg:pb-8 pointer-events-none">

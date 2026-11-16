@@ -45,6 +45,36 @@ export const caseStudyDomainMeta: Record<
     cardSummary:
       "Centralizes the student journey from first inquiry to enrollment across campuses — replacing scattered spreadsheets with unified counselor workflows and funnel telemetry.",
   },
+  "endow-global": {
+    domainId: "edtech-crm",
+    domainLabel: "EdTech & Admissions",
+    cardSummary:
+      "Full-stack Next.js and tRPC admissions monorepo unifying course discovery, student portals, counselor hubs, and automated inquiry sync.",
+  },
+  "endow-travel": {
+    domainId: "hospitality",
+    domainLabel: "Travel & Hospitality",
+    cardSummary:
+      "Luxury South Korea travel booking engine connecting international travelers with curated boutique stays, verified local hosts, and cultural itineraries.",
+  },
+  "endow-fill": {
+    domainId: "infrastructure",
+    domainLabel: "Enterprise Automation",
+    cardSummary:
+      "High-throughput document and PDF template engine generating thousands of validated offer letters, certificates, and invoices with cryptographic QR verification.",
+  },
+  "endow-gpt": {
+    domainId: "ai-support",
+    domainLabel: "AI & Intelligence",
+    cardSummary:
+      "Enterprise AI workspace featuring split-view Canvas editing, autonomous web search grounding, and programmatic Office document synthesis.",
+  },
+  "diu-care-ai": {
+    domainId: "edtech-crm",
+    domainLabel: "EdTech & AI Concierge",
+    cardSummary:
+      "24/7 intelligent admissions concierge and RAG assistant guiding prospective university applicants through eligibility, tuition waivers, and program requirements.",
+  },
   "endow-cuisine": {
     domainId: "fintech-ops",
     domainLabel: "FinTech & Accounting",
@@ -92,17 +122,17 @@ export const caseStudyFilters: CaseStudyFilterOption[] = [
   { id: "fintech-ops", label: "FinTech & Ops" },
   { id: "infrastructure", label: "Infrastructure" },
   { id: "ai-support", label: "AI & Support" },
-  { id: "hospitality", label: "Hospitality OS" },
+  { id: "hospitality", label: "Hospitality & Travel" },
 ];
 
 export const caseStudiesHeroStats: CaseStudyHeroStat[] = [
   {
-    value: "05",
+    value: "10",
     label: "Shipped Platforms",
     desc: "Production Systems in Active Use",
   },
   {
-    value: "5,000+",
+    value: "10,000+",
     label: "Active End Users",
     desc: "Students, Staff & Operators",
   },

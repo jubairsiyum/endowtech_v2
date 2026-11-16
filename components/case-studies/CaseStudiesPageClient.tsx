@@ -31,6 +31,8 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
   Layers,
   Mail,
   MessageSquare,
@@ -181,9 +183,12 @@ function CaseStudyCard({
   );
 }
 
+const PROJECTS_PER_PAGE = 5;
+
 export default function CaseStudiesPageClient() {
   const [isSchedulerOpen, setIsSchedulerOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState<CaseStudyDomainId>("all");
+  const [currentPage, setCurrentPage] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
   const contactRef = useRef<HTMLElement>(null);
 
@@ -208,15 +213,32 @@ export default function CaseStudiesPageClient() {
     return caseStudyProjects.filter((p) => p.domainId === activeFilter);
   }, [activeFilter]);
 
+  const totalPages = Math.max(1, Math.ceil(filteredProjects.length / PROJECTS_PER_PAGE));
+  const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+
+  const currentProjects = useMemo(() => {
+    return filteredProjects.slice(startIndex, startIndex + PROJECTS_PER_PAGE);
+  }, [filteredProjects, startIndex]);
+
   const topRowProjects = useMemo(
-    () => (activeFilter === "all" ? filteredProjects.slice(0, 2) : []),
-    [activeFilter, filteredProjects],
+    () => (activeFilter === "all" ? currentProjects.slice(0, 2) : []),
+    [activeFilter, currentProjects],
   );
 
   const bottomRowProjects = useMemo(
-    () => (activeFilter === "all" ? filteredProjects.slice(2, 5) : []),
-    [activeFilter, filteredProjects],
+    () => (activeFilter === "all" ? currentProjects.slice(2, 5) : []),
+    [activeFilter, currentProjects],
   );
+
+  const handleFilterChange = (filterId: CaseStudyDomainId) => {
+    setActiveFilter(filterId);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    scrollToElement("#case-studies-grid", -20, 0.6);
+  };
 
   const handleScrollTo = (selector: string) => {
     scrollToElement(selector, -40, 0.75);
@@ -611,7 +633,7 @@ export default function CaseStudiesPageClient() {
                     <button
                       key={filter.id}
                       type="button"
-                      onClick={() => setActiveFilter(filter.id)}
+                      onClick={() => handleFilterChange(filter.id)}
                       aria-pressed={isActive}
                       className={cn(
                         "relative px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-[13px] font-semibold transition-colors duration-200 cursor-pointer whitespace-nowrap",
@@ -641,14 +663,15 @@ export default function CaseStudiesPageClient() {
                 <span>
                   Showing{" "}
                   <strong className="text-[#0f0000]">
-                    {filteredProjects.length}
+                    {Math.min(startIndex + 1, filteredProjects.length)}–
+                    {Math.min(startIndex + currentProjects.length, filteredProjects.length)}
                   </strong>{" "}
-                  of {caseStudyProjects.length} case studies
+                  of {filteredProjects.length} case studies
                 </span>
                 {activeFilter !== "all" && (
                   <button
                     type="button"
-                    onClick={() => setActiveFilter("all")}
+                    onClick={() => handleFilterChange("all")}
                     className="inline-flex items-center gap-1.5 text-accent font-semibold hover:underline cursor-pointer"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
@@ -662,11 +685,11 @@ export default function CaseStudiesPageClient() {
             <AnimatePresence mode="wait">
               {activeFilter === "all" ? (
                 <motion.div
-                  key="bento-all"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  key={`bento-all-${currentPage}`}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.25 }}
                 >
                   {/* Row 1: 2 Wide Featured Cards */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-7">
@@ -681,27 +704,29 @@ export default function CaseStudiesPageClient() {
                   </div>
 
                   {/* Row 2: 3 Cards */}
-                  <div className="mt-6 lg:mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
-                    {bottomRowProjects.map((project, idx) => (
-                      <CaseStudyCard
-                        key={project.id}
-                        project={project}
-                        variant="compact"
-                        index={idx + 2}
-                      />
-                    ))}
-                  </div>
+                  {bottomRowProjects.length > 0 && (
+                    <div className="mt-6 lg:mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
+                      {bottomRowProjects.map((project, idx) => (
+                        <CaseStudyCard
+                          key={project.id}
+                          project={project}
+                          variant="compact"
+                          index={idx + 2}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               ) : (
                 <motion.div
-                  key={`filtered-${activeFilter}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  key={`filtered-${activeFilter}-${currentPage}`}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.25 }}
                   className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-7"
                 >
-                  {filteredProjects.map((project, idx) => (
+                  {currentProjects.map((project, idx) => (
                     <CaseStudyCard
                       key={project.id}
                       project={project}
@@ -712,6 +737,74 @@ export default function CaseStudiesPageClient() {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="mt-12 sm:mt-14 pt-8 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-xs sm:text-sm font-medium text-neutral-500 tabular-nums">
+                  Page <strong className="text-[#0f0000]">{currentPage}</strong> of{" "}
+                  <strong className="text-[#0f0000]">{totalPages}</strong> (
+                  {filteredProjects.length} total platforms)
+                </p>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    aria-label="Previous page"
+                    className={cn(
+                      "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-[13px] font-semibold border transition-all duration-200",
+                      currentPage === 1
+                        ? "bg-neutral-100/70 text-neutral-400 border-neutral-200/60 cursor-not-allowed"
+                        : "bg-white text-neutral-700 border-neutral-200/90 hover:border-red-200 hover:text-accent shadow-sm cursor-pointer",
+                    )}
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>Previous</span>
+                  </button>
+
+                  <div className="flex items-center gap-1.5">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
+                      const isActive = pageNum === currentPage;
+                      return (
+                        <button
+                          key={pageNum}
+                          type="button"
+                          onClick={() => handlePageChange(pageNum)}
+                          aria-label={`Go to page ${pageNum}`}
+                          aria-current={isActive ? "page" : undefined}
+                          className={cn(
+                            "w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-xs sm:text-[13px] font-bold transition-all duration-200 flex items-center justify-center cursor-pointer",
+                            isActive
+                              ? "bg-accent text-white shadow-md shadow-red-500/25"
+                              : "bg-white text-neutral-700 border border-neutral-200/90 hover:border-red-200 hover:text-accent shadow-sm",
+                          )}
+                        >
+                          {pageNum}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    aria-label="Next page"
+                    className={cn(
+                      "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-[13px] font-semibold border transition-all duration-200",
+                      currentPage === totalPages
+                        ? "bg-neutral-100/70 text-neutral-400 border-neutral-200/60 cursor-not-allowed"
+                        : "bg-white text-neutral-700 border-neutral-200/90 hover:border-red-200 hover:text-accent shadow-sm cursor-pointer",
+                    )}
+                  >
+                    <span>Next</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
